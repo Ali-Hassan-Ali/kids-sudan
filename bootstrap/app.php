@@ -14,24 +14,24 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
 
-            Route::middleware('web')
-                ->prefix('dashboard/admin')->name('dashboard.admin.')
-                ->group(base_path('routes/dashboard/admin/web.php'));
+            // Route::middleware('web')
+            //     ->prefix('dashboard/admin')->name('dashboard.admin.')
+            //     ->group(base_path('routes/dashboard/admin/web.php'));
 
-            Route::middleware('web')
-                ->prefix('dashboard/admin/management')->name('dashboard.admin.management.')
-                ->group(base_path('routes/dashboard/admin/management.php'));
+            // Route::middleware('web')
+            //     ->prefix('dashboard/admin/management')->name('dashboard.admin.management.')
+            //     ->group(base_path('routes/dashboard/admin/management.php'));
 
-            Route::middleware('web')
-                ->prefix('dashboard/admin/setting')->name('dashboard.admin.setting.')
-                ->group(base_path('routes/dashboard/admin/setting.php'));
+            // Route::middleware('web')
+            //     ->prefix('dashboard/admin/setting')->name('dashboard.admin.setting.')
+            //     ->group(base_path('routes/dashboard/admin/setting.php'));
 
-            Route::middleware('web')
-                ->prefix('dashboard/admin')->name('dashboard.admin.')
-                ->group(base_path('routes/dashboard/admin/auth.php'));
+            // Route::middleware('web')
+            //     ->prefix('dashboard/admin')->name('dashboard.admin.')
+            //     ->group(base_path('routes/dashboard/admin/auth.php'));
 
-            Route::prefix('api')->name('api.')
-                ->group(base_path('routes/api.php'));
+            // Route::prefix('api')->name('api.')
+            //     ->group(base_path('routes/api.php'));
 
         },
     )
