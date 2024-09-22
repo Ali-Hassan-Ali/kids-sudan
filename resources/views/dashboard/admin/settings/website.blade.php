@@ -1,18 +1,14 @@
-<x-admin.layout.app>
+<x-dashboard.admin.layout.app>
+
     <x-slot name="title">
-        {{ trans('settings.settings') . ' ' . trans('settings.websit') }}
+        {{ trans('admin.models.settings') . ' - ' . trans('admin.settings.websit') }}
     </x-slot>
 
-    <div>
-        <h2>@lang('settings.websit')</h2>
-    </div>
+    <h2>@lang('settings.websit')</h2>
 
-    <ul class="breadcrumb mt-2">
-        <li class="breadcrumb-item"><a class="back-page" href="{{ route('admin.index') }}">@lang('site.home')</a></li>
-        <li class="breadcrumb-item">@lang('settings.websit')</li>
-    </ul>
+    <x-dashboard.admin.layout.includes.breadcrumb :breadcrumb='$breadcrumb'/>
 
-    <form method="post" action="{{ route('admin.settings.websit.store') }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('dashboard.admin.settings.websit.store') }}" enctype="multipart/form-data">
         @csrf
         @method('post')
 
@@ -22,7 +18,7 @@
 
                 <div class="tile shadow">
 
-                    @include('admin.dataTables.image_privew', ['name' => 'websit_logo', 'imagepath' => getImageSetting('websit_logo'), 'label' => 'site.logo'])
+                    @include('dashboard.admin.dataTables.image_privew', ['name' => 'websit_logo', 'imagepath' => getImageSetting('websit_logo'), 'label' => 'admin.global.logo'])
 
                 </div><!-- end of tile -->
 
@@ -75,4 +71,4 @@
 
     </form><!-- end of form -->
 
-</x-admin.layout.app>
+</x-dashboard.admin.layout.app>

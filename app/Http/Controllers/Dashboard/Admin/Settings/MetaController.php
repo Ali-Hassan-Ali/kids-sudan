@@ -11,11 +11,11 @@ class MetaController extends Controller
 {
     public function index(): View
     {
-        if(!permissionAdmin('read-settings')) {
-            return abort(403);
-        }
+        abort_if(!permissionAdmin('read-settings'), 403);
 
-    	return view('admin.settings.meta');
+        $breadcrumb = [['trans' => 'admin.settings.meta']];
+
+    	return view('dashboard.admin.settings.meta', compact('breadcrumb'));
 
     }//end of index
 
@@ -39,13 +39,12 @@ class MetaController extends Controller
                 Storage::disk('public')->delete(getSetting('meta_logo'));
             }
 
-
             $logo = request()->file('meta_logo')->store('settings', 'public');
 
             saveSetting('meta_logo', $logo);
         }
 
-        session()->flash('success', __('admin.global.updated_successfully'));
+        session()->flash('success', __('admin.messages.updated_successfully'));
         return redirect()->back();
 
     }//end of index

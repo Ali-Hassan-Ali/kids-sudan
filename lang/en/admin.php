@@ -88,19 +88,13 @@ return array('global' =>
                   'roles'        => 'Roles',
                   'languages'    => 'Languages',
                   'language'     => 'Language',
+                  'settings'     => 'Settings',
+                  'setting'      => 'Setting',
             ),
-            'products' => array(
-                  'cards' => array(
-                        'quantity'  => 'Quantity',
-                        'balance'   => 'Balance',
-                        'rating'    => 'Rating',
-                  ),
-                  'cupons' => array(
-                        'end_date'  => 'End Date',
-                        'start_date'=> 'Start Date',
-                        'price'     => 'Price',
-                        'code  '    => 'Code',
-                  ),
+            'settings' => array(
+                  'meta'   => 'Meta',
+                  'websit' => 'Websit',
+                  'media'  => 'Media',
             ),
             'footers' => array(
                   'pages' => array(

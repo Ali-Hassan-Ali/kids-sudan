@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Dashboard\Admin\Settings;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Settings\WebsitRequest;
+use App\Http\Requests\Dashboard\Admin\Settings\WebsitRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\View\View;
 
@@ -11,7 +11,11 @@ class WebsitController extends Controller
 {
     public function index(): View
     {
-    	return view('admin.settings.website');
+        abort_if(!permissionAdmin('read-settings'), 403);
+
+        $breadcrumb = [['trans' => 'admin.settings.website']];
+
+    	return view('dashboard.admin.settings.website', compact('breadcrumb'));
 
     }//end of index
 

@@ -30,5 +30,20 @@
 
         @endif
 
+        @if(permissionAdmin('read-settings'))
+            {{-- settings --}}
+
+            <x-dashboard.admin.layout.includes.slider.menu-group-item trans="admin.models.settings" svg="settings" show="dashboard.admin.settings.*">
+                    
+                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.settings.meta" active="dashboard.admin.settings.meta.*" route="dashboard.admin.settings.meta.index" permission="read-settings"/>
+
+                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.settings.websit" active="dashboard.admin.settings.websit.*" route="dashboard.admin.settings.websit.index" permission="read-settings"/>
+
+                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.settings.media" active="dashboard.admin.settings.media.*" route="dashboard.admin.settings.media.index" permission="read-settings"/>
+
+            </x-dashboard.admin.layout.includes.slider.menu-group-item>
+
+        @endif
+
     </ul>
 </aside>
