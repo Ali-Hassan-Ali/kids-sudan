@@ -10,11 +10,6 @@ use Spatie\Permission\PermissionRegistrar;
 
 class PermissionsDemoSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         // Reset cached roles and permissions
@@ -29,7 +24,7 @@ class PermissionsDemoSeeder extends Seeder
         Admin::factory(50)->create();
         Admin::roleNot(['super_admin'])->each(fn($admin) => $admin->assignRole('admin'));
 
-        $permissions = ['home', 'admins', 'roles','languages', 'users', 'trips', 'settings', 'cities', 'regions', 'categories', 'transport_types'];
+        $permissions = ['home', 'admins', 'roles','languages'];
 
         foreach ($permissions as $data) {
 

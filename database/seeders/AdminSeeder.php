@@ -13,8 +13,8 @@ class AdminSeeder extends Seeder
     {
         $admin = Admin::create([
             'name'      => 'name',
-            'email'     => 'admin@app.com',
-            'password'  => 'password',
+            'email'     => 'super_admin@app.com',
+            'password'  => bcrypt('password'),
             'status'    => 1,
         ]);
 

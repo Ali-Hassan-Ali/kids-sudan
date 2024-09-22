@@ -11,12 +11,7 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-        // User::factory(30)
-        //     ->has(
-        //         Trip::factory(rand(1,20)),
-        //     )->create();
-
-        User::factory(100)->create();
+        User::factory(10)->create();
 
     }//end of run
 

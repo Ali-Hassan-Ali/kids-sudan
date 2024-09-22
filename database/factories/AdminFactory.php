@@ -14,7 +14,7 @@ class AdminFactory extends Factory
             'phone'             => random_int(1000000000,9999999999),
             'email_verified_at' => now(),
             'status'            => fake()->boolean(),
-            'password'          => 'password', // password
+            'password'          => bcrypt('password'),
             'remember_token'    => str()->random(10)
         ];
 

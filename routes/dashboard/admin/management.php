@@ -30,7 +30,7 @@ Route::controller(RoleController::class)
     });
 Route::resource('roles', RoleController::class);
 
-//languages
+//roles
 Route::controller(LanguageController::class)
     ->prefix('languages')->name('languages.')
     ->group(function () {

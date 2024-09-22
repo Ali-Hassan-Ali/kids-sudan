@@ -18,22 +18,25 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->prefix('dashboard/admin')->name('dashboard.admin.')
                 ->group(base_path('routes/dashboard/admin/web.php'));
 
-            Route::middleware('web')
-                ->prefix('dashboard/admin/management')->name('dashboard.admin.management.')
+            Route::middleware('web', 'auth:admin')
+                ->prefix('dashboard/admin/managements')->name('dashboard.admin.managements.')
                 ->group(base_path('routes/dashboard/admin/management.php'));
 
             Route::middleware('web')
-                ->prefix('dashboard/admin/setting')->name('dashboard.admin.setting.')
+                ->prefix('dashboard/admin/settings')->name('dashboard.admin.settings.')
                 ->group(base_path('routes/dashboard/admin/setting.php'));
 
             Route::middleware('web')
-                ->prefix('dashboard/admin')->name('dashboard.admin.')
+                ->prefix('dashboard/admin')->name('dashboard.admin.auth.')
                 ->group(base_path('routes/dashboard/admin/auth.php'));
 
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->use([
+            \App\Http\Middleware\SetLocale::class,
+        ]);
+        
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

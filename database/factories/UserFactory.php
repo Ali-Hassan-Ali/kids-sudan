@@ -3,8 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
-use App\Models\City;
 
 class UserFactory extends Factory
 {
@@ -13,13 +11,12 @@ class UserFactory extends Factory
         return [
             'name'              => fake()->name(),
             'email'             => fake()->unique()->safeEmail(),
-            'mobile'            => random_int(1000000000,9999999999),
-            'id_number'         => random_int(1000000000,9999999999),
+            // 'mobile'            => random_int(1000000000,9999999999),
+            // 'id_number'         => random_int(1000000000,9999999999),
             'email_verified_at' => now(),
-            'type'              => random_int(1,4),
+            // 'type'              => random_int(1,4),
             'status'            => fake()->boolean(),
-            'city_id'           => City::factory(),
-            'password'          => 'password', // password
+            'password'          => bcrypt('password'),
             'remember_token'    => str()->random(10)
         ];
 

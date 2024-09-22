@@ -2,11 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Admin\Settings\WebsitController;
-use App\Http\Controllers\Admin\Settings\MetaController;
-use App\Http\Controllers\Admin\Settings\ContactController;
-use App\Http\Controllers\Admin\Settings\MediaController;
-use App\Http\Controllers\Admin\Settings\FooterController;
+use App\Http\Controllers\Dashboard\Admin\Settings\WebsitController;
+use App\Http\Controllers\Dashboard\Admin\Settings\MetaController;
+use App\Http\Controllers\Dashboard\Admin\Settings\ContactController;
+use App\Http\Controllers\Dashboard\Admin\Settings\MediaController;
+use App\Http\Controllers\Dashboard\Admin\Settings\FooterController;
 
 //settings meta
 Route::controller(MetaController::class)->group(function () {

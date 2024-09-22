@@ -32,41 +32,19 @@ class Admin extends Authenticatable
 
     }// end of scope Role
 
-    public function scopeSearch(Builder $query, $search): Builder
-    {
-        return $query->when($search, fn ($query) => $query->where('name' , 'like', "%$search%")->orWhere('email', 'like', "%$search%")->orWhere('status', 'like', "%$search%"));
-
-    }//end of fun scope
-
-    ///// Attribute
-    public function getStatusNameAttribute()
-    {
-        return $this->status ? __('cms.active') : __('cms.in_active') ;
-
-    }//end of fun
-
     protected function imagePath(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->image != 'default.png' ? asset('storage/' . $this->image) : asset('assets/images/default.png'),
+            get: fn () => $this->image != 'default.png' ? asset('storage/' . $this->image) : asset('admin_assets/images/default.png'),
         );
 
     }//end of get ImagePath Attribute
-
-    ///// other
-    public function financialMovements()
-    {
-        return  $this->hasMany(FinancialMovement::class);
-
-    }//end of fun
 
     protected static function booted(): void
     {
         static::addGlobalScope(new OrderScope);
 
-        if(!request()->is('*admins*')) {
-            static::addGlobalScope(new StatusScope);
-        }
+        if(!request()->is('*admins*')) static::addGlobalScope(new StatusScope);
 
     }//end of Global Scope
 
