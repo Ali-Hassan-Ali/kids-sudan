@@ -13,7 +13,7 @@ class WebsitController extends Controller
     {
         abort_if(!permissionAdmin('read-settings'), 403);
 
-        $breadcrumb = [['trans' => 'admin.settings.website']];
+        $breadcrumb = [['trans' => 'admin.settings.websit']];
 
     	return view('dashboard.admin.settings.website', compact('breadcrumb'));
 
@@ -34,6 +34,7 @@ class WebsitController extends Controller
 
         if(request()->file('websit_logo')) {
 
+
             if(!empty(getSetting('websit_logo'))) {
 
                 Storage::disk('public')->delete(getSetting('websit_logo'));
@@ -44,7 +45,7 @@ class WebsitController extends Controller
             saveSetting('websit_logo', $logo);
         }
 
-        session()->flash('success', __('admin.global.updated_successfully'));
+        session()->flash('success', __('admin.messages.updated_successfully'));
         return redirect()->back();
 
     }//end of index

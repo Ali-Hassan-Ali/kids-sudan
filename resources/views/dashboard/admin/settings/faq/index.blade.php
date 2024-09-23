@@ -1,18 +1,14 @@
-<x-admin.layout.app>
+<x-dashboard.admin.layout.app>
+
     <x-slot name="title">
-        {{ trans('settings.settings') . ' ' . trans('settings.faq') }}
+        {{ trans('admin.models.settings') . ' - ' . trans('admin.settings.faq') }}
     </x-slot>
 
-    <div>
-        <h2>@lang('settings.faq')</h2>
-    </div>
+    <h2>@lang('admin.settings.faq')</h2>
 
-    <ul class="breadcrumb mt-2">
-        <li class="breadcrumb-item"><a class="back-page" href="{{ route('admin.index') }}">@lang('site.home')</a></li>
-        <li class="breadcrumb-item">@lang('settings.faq')</li>
-    </ul>
+    <x-dashboard.admin.layout.includes.breadcrumb :breadcrumb='$breadcrumb'/>
 
-    <form method="post" action="{{ route('admin.settings.faq.store') }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('dashboard.admin.settings.faq.store') }}" enctype="multipart/form-data">
         @csrf
         @method('post')
 
@@ -43,7 +39,7 @@
 
                                     @foreach(old('faq_title_' . $language->code) as $item)
 
-                                        @include('admin.settings.faq.row', ['code' => $language->code, 'index' => $loop->index, 'uuid' => $loop->index, 'old' => true])
+                                        @include('dashboard.admin.settings.faq.row', ['code' => $language->code, 'index' => $loop->index, 'uuid' => $loop->index, 'old' => true])
 
                                     @endforeach
 
@@ -53,7 +49,7 @@
 
                                         @foreach(json_decode(getSetting('faq'), true)['title'] as $item)
 
-                                            @include('admin.settings.faq.row', ['code' => $language->code, 'index' => $loop->index, 'uuid' => $loop->index, 'old' => false])
+                                            @include('dashboard.admin.settings.faq.row', ['code' => $language->code, 'index' => $loop->index, 'uuid' => $loop->index, 'old' => false])
 
                                         @endforeach
 
@@ -82,7 +78,7 @@
     </form><!-- end of form -->
 
     <x-slot name="scripts">
-        @include('admin.settings.faq.script')
+        @include('dashboard.admin.settings.faq.script')
     </x-slot>
 
-</x-admin.layout.app>
+</x-dashboard.admin.layout.app>

@@ -1,18 +1,14 @@
-<x-admin.layout.app>
+<x-dashboard.admin.layout.app>
+
     <x-slot name="title">
-        {{ trans('settings.settings') . ' ' . trans('settings.media') }}
+        {{ trans('admin.models.settings') . ' ' . trans('admin.settings.media') }}
     </x-slot>
 
-    <div>
-        <h2>@lang('settings.media')</h2>
-    </div>
+    <h2>@lang('admin.settings.media')</h2>
 
-    <ul class="breadcrumb mt-2">
-        <li class="breadcrumb-item"><a class="back-page" href="{{ route('admin.index') }}">@lang('site.home')</a></li>
-        <li class="breadcrumb-item">@lang('settings.media')</li>
-    </ul>
+    <x-dashboard.admin.layout.includes.breadcrumb :breadcrumb='$breadcrumb'/>
 
-    <form method="post" action="{{ route('admin.settings.media.store') }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('dashboard.admin.settings.media.store') }}" enctype="multipart/form-data">
         @csrf
         @method('post')
 
@@ -29,7 +25,7 @@
                         @foreach($items as $item)
 
     	                	{{--phone--}}
-    	                    <x-input.text required="true" :name="'media_' . $item" :label="'site.' . $item" :value="getSetting('media_' . $item)" col="col-md-6"/>
+    	                    <x-input.text required="true" :name="'media_' . $item" :label="'admin.settings.medias.' . $item" :value="getSetting('media_' . $item)" col="col-md-6"/>
 
                         @endforeach
 
@@ -48,4 +44,4 @@
 
     </form><!-- end of form -->
 
-</x-admin.layout.app>
+</x-dashboard.admin.layout.app>

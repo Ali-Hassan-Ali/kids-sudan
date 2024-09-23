@@ -73,3 +73,32 @@
     }//en dof fun
 
  }//end of getTransSetting
+
+ if(!function_exists('getMulteSetting')) {
+    
+    function getMulteSetting($key, $name, $index, $lang)
+    {
+        $setting = \App\Models\Setting::where('key', $key)->first();
+
+        if($setting) {
+
+            if(!empty(json_decode(getSetting($key), true)[$name][$index][$lang])) {
+
+                return json_decode(getSetting($key), true)[$name][$index][$lang];
+
+            } else {
+
+                return false;
+            }
+
+        } else {
+
+            $setting = \App\Models\Setting::create(['key' => $key]);
+
+            return '';
+
+        }//end of if
+
+    }//en dof fun
+
+ }//end of getMulteSetting

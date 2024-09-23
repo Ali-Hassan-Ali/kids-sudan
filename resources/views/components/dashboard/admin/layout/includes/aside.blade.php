@@ -41,9 +41,26 @@
 
                 <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.settings.media" active="dashboard.admin.settings.media.*" route="dashboard.admin.settings.media.index" permission="read-settings"/>
 
+                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.settings.contact" active="dashboard.admin.settings.contact.*" route="dashboard.admin.settings.contact.index" permission="read-settings"/>
+
+                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.settings.faq" active="dashboard.admin.settings.faq.*" route="dashboard.admin.settings.faq.index" permission="read-settings"/>
+
             </x-dashboard.admin.layout.includes.slider.menu-group-item>
 
         @endif
+
+        @auth('admin')
+            {{-- settings --}}
+            <x-dashboard.admin.layout.includes.slider.menu-group-item trans="admin.models.profiles" svg="profiles" show="dashboard.admin.auth.accounts.*">
+                    
+                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.auth.edit_password" active="dashboard.admin.auth.accounts.profile.*" route="dashboard.admin.auth.accounts.profile.edit" permission="read-home"/>
+
+                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.auth.edit_profile" active="dashboard.admin.auth.accounts.password.*" route="dashboard.admin.auth.accounts.password.edit" permission="read-home"/>
+                
+
+            </x-dashboard.admin.layout.includes.slider.menu-group-item>
+
+        @endauth
 
     </ul>
 </aside>

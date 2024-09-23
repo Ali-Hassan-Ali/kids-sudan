@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Dashboard\Admin\Settings;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Settings\MediaRequest;
+use App\Http\Requests\Dashboard\Admin\Settings\MediaRequest;
 use Illuminate\Contracts\View\View;
 
 class MediaController extends Controller
 {
     public function index(): View
     {
-        if(!permissionAdmin('read-settings')) {
-            return abort(403);
-        }
+        abort_if(!permissionAdmin('read-settings'), 403);
 
-    	return view('admin.settings.media');
+        $breadcrumb = [['trans' => 'admin.settings.media']];
+
+    	return view('dashboard.admin.settings.media', compact('breadcrumb'));
 
     }//end of index
 
@@ -27,7 +27,7 @@ class MediaController extends Controller
         saveTransSetting('media_google_play', $request->media_google_play ?? '');
         saveTransSetting('media_apple_store', $request->media_apple_store ?? '');
 
-        session()->flash('success', __('admin.global.updated_successfully'));
+        session()->flash('success', __('admin.messages.updated_successfully'));
         return redirect()->back();
 
     }//end of index

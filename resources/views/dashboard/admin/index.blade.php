@@ -1,8 +1,10 @@
 <x-dashboard.admin.layout.app>
 
-    <x-slot name="title">{{ trans('admin.global.home') }}</x-slot>
+    <x-slot name="title">{{ trans('admin.global.dashboard') }}</x-slot>
 
-    <h2>{{ trans('admin.global.home') }}</h2>
+    <h2>{{ trans('admin.global.dashboard') }}</h2>
+
+    <x-dashboard.admin.layout.includes.breadcrumb :breadcrumb='$breadcrumb'/>
 
     <h2>Welcome 😊</h2>
 

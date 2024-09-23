@@ -20,7 +20,7 @@
 
                     @include('dashboard.admin.dataTables.image_privew', ['name' => 'image', 'label' => 'admin.global.image', 'required' => true])
 
-                </div><!-- end of tile -->
+                </div><!-- end of title -->
 
             </div><!-- end of col -->
 

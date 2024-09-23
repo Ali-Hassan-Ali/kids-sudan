@@ -9,15 +9,15 @@
 
 	<div class="col-11">
 		@if(!empty(getMulteSetting('faq', 'title', $index, $code)) && $old == false)
-			<x-input.text required="true" name="faq_title_{{ $code }}[]" label="site.faq_title" :value="getMulteSetting('faq', 'title', $index, $code)" :invalid="'faq_title_' . $code . '.' . $index"/>
+			<x-input.text required="true" name="faq_title_{{ $code }}[]" label="admin.global.title" :value="getMulteSetting('faq', 'title', $index, $code)" :invalid="'faq_title_' . $code . '.' . $index"/>
 		@else
-			<x-input.text required="true" name="faq_title_{{ $code }}[]" label="site.faq_title" :value="old('faq_title_' . $code)[$index]" :invalid="'faq_title_' . $code . '.' . $index"/>
+			<x-input.text required="true" name="faq_title_{{ $code }}[]" label="admin.global.title" :value="old('faq_title_' . $code)[$index] ?? ''" :invalid="'faq_title_' . $code . '.' . $index"/>
 		@endif
 	</div>
 	@if(!empty(getMulteSetting('faq', 'description', $index, $code)) && $old == false)
-		<x-input.textarea required="true" name="faq_description_{{ $code }}[]" label="site.faq_description" rows='6' col="col-12" :value="getMulteSetting('faq', 'description', $index, $code)" :invalid="'faq_description_' . $code . '.' . $index"/>
+		<x-input.textarea required="true" name="faq_description_{{ $code }}[]" label="admin.global.description" rows='6' col="col-12" :value="getMulteSetting('faq', 'description', $index, $code)" :invalid="'faq_description_' . $code . '.' . $index"/>
 	@else
-		<x-input.textarea required="true" name="faq_description_{{ $code }}[]" label="site.faq_description" rows='6' col="col-12" :value="old('faq_description_' . $code)[$index]" :invalid="'faq_description_' . $code . '.' . $index"/>
+		<x-input.textarea required="true" name="faq_description_{{ $code }}[]" label="admin.global.description" rows='6' col="col-12" :value="old('faq_description_' . $code)[$index] ?? ''" :invalid="'faq_description_' . $code . '.' . $index"/>
 	@endif
 
 </div>

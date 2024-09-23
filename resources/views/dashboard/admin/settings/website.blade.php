@@ -4,7 +4,7 @@
         {{ trans('admin.models.settings') . ' - ' . trans('admin.settings.websit') }}
     </x-slot>
 
-    <h2>@lang('settings.websit')</h2>
+    <h2>@lang('admin.settings.websit')</h2>
 
     <x-dashboard.admin.layout.includes.breadcrumb :breadcrumb='$breadcrumb'/>
 
@@ -47,12 +47,18 @@
 
                                 <x-input.text required="{{ $loop->first ? true : false }}" 
                                     name="websit_title[{{ $language->code }}]" 
-                                    label="site.websit" :value="old('websit_title.' . $language->code, getTransSetting('websit_title', $language->code))"
+                                    label="admin.global.title" :value="old('websit_title.' . $language->code, getTransSetting('websit_title', $language->code))"
                                     invalid="{{ 'websit_title.' . $language->code }}" />
+
+
+                                <x-input.text required="{{ $loop->first ? true : false }}" 
+                                    name="websit_keywords[{{ $language->code }}]" 
+                                    label="admin.settings.keywords" :value="old('websit_keywords.' . $language->code, getTransSetting('websit_keywords', $language->code))"
+                                    invalid="{{ 'websit_keywords.' . $language->code }}" />
 
                                 <x-input.textarea required="{{ $loop->first ? true : false }}" 
                                     name="websit_description[{{ $language->code }}]" 
-                                    label="site.websit_description" :value="old('websit_description.' . $language->code, getTransSetting('websit_description', $language->code))"
+                                    label="admin.global.description" :value="old('websit_description.' . $language->code, getTransSetting('websit_description', $language->code))"
                                     invalid="{{ 'websit_description.' . $language->code }}" />
 
                             </div>

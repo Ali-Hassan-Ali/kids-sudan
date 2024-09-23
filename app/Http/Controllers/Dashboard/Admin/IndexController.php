@@ -9,7 +9,9 @@ class IndexController extends Controller
 {
     public function index()
     {
-    	return view('dashboard.admin.index');
+        $breadcrumb = [['trans' => 'admin.global.dashboard']];
+
+    	return view('dashboard.admin.index', compact('breadcrumb'));
 
     }//end of index
 

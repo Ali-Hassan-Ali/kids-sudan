@@ -6,7 +6,7 @@ use App\Http\Controllers\Dashboard\Admin\Settings\WebsitController;
 use App\Http\Controllers\Dashboard\Admin\Settings\MetaController;
 use App\Http\Controllers\Dashboard\Admin\Settings\ContactController;
 use App\Http\Controllers\Dashboard\Admin\Settings\MediaController;
-use App\Http\Controllers\Dashboard\Admin\Settings\FooterController;
+use App\Http\Controllers\Dashboard\Admin\Settings\FaqController;
 
 //settings meta
 Route::controller(MetaController::class)->group(function () {
@@ -41,14 +41,14 @@ Route::controller(MediaController::class)->group(function () {
 });
 
 //settings footer
-Route::controller(FooterController::class)->group(function () {
+Route::controller(FaqController::class)->group(function () {
 
-    //about_page
-    Route::get('about_page', 'aboutPage')->name('about_page.index');
-    Route::post('about_page/store', 'aboutPageStore')->name('about_page.store');
+    // //about_page
+    // Route::get('about_page', 'aboutPage')->name('about_page.index');
+    // Route::post('about_page/store', 'aboutPageStore')->name('about_page.store');
 
     //faq
-    Route::get('faq', 'faqPage')->name('faq.index');
-    Route::post('faq/store', 'faqStore')->name('faq.store');
+    Route::get('faq', 'index')->name('faq.index');
+    Route::post('faq/store', 'store')->name('faq.store');
 
 });

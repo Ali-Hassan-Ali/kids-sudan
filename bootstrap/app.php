@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
 
-            Route::middleware('web')
+            Route::middleware('web', 'auth:admin')
                 ->prefix('dashboard/admin')->name('dashboard.admin.')
                 ->group(base_path('routes/dashboard/admin/web.php'));
 
@@ -33,9 +33,11 @@ return Application::configure(basePath: dirname(__DIR__))
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
+        
         $middleware->use([
-            \App\Http\Middleware\SetLocale::class,
-        ]);
+            \App\Http\Middleware\SetLocale::class
+        ])->redirectGuestsTo(fn () => route('dashboard.admin.auth.login.index'));
+        
         
     })
     ->withExceptions(function (Exceptions $exceptions) {

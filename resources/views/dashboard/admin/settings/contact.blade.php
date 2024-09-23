@@ -1,18 +1,14 @@
-<x-admin.layout.app>
+<x-dashboard.admin.layout.app>
+
     <x-slot name="title">
-        {{ trans('settings.settings') . ' ' . trans('settings.contact') }}
+        {{ trans('admin.models.settings') . ' ' . trans('admin.settings.contact') }}
     </x-slot>
 
-    <div>
-        <h2>@lang('settings.contact')</h2>
-    </div>
+    <h2>@lang('admin.settings.contact')</h2>
 
-    <ul class="breadcrumb mt-2">
-        <li class="breadcrumb-item"><a class="back-page" href="{{ route('admin.index') }}">@lang('site.home')</a></li>
-        <li class="breadcrumb-item">@lang('settings.contact')</li>
-    </ul>
+    <x-dashboard.admin.layout.includes.breadcrumb :breadcrumb='$breadcrumb'/>
 
-    <form method="post" action="{{ route('admin.settings.contact.store') }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('dashboard.admin.settings.contact.store') }}" enctype="multipart/form-data">
         @csrf
         @method('post')
 
@@ -24,12 +20,12 @@
 
                 	<div class="row">
 
-                        @php($items = ['phone', 'email', 'address', 'address_link'])
+                        @php($items = ['phone', 'whatsapp', 'email', 'address', 'address_link'])
 
                         @foreach($items as $item)
 
                             {{--$item--}}
-                            <x-input.text required="true" :name="'contact_' . $item" :label="'site.' . $item" :value="getSetting('contact_' . $item)" col="col-md-6"/>
+                            <x-input.text required="true" :name="'contact_' . $item" :label="'admin.settings.contacts.' . $item" :value="getSetting('contact_' . $item)" col="col-md-6"/>
 
                         @endforeach
 
@@ -48,4 +44,4 @@
 
     </form><!-- end of form -->
 
-</x-admin.layout.app>
+</x-dashboard.admin.layout.app>
