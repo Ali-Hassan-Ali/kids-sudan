@@ -14,8 +14,8 @@ class LoginRequest extends FormRequest
 
     public function rules(): array
     {
-        
-        $loginType = filter_var(request()->get('login'), FILTER_VALIDATE_EMAIL)? 'email' : 'string';
+
+        $loginType = filter_var(request()->get('login'), FILTER_VALIDATE_EMAIL) ? 'email' : 'string';
 
         $rules = [
             'password'   => ['required', 'string','min:2','max:255'],

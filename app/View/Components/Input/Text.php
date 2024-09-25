@@ -24,7 +24,7 @@ class Text extends Component
         $this->id = str_replace('.', '-', !empty($invalid) ? $invalid : $name);
     }
 
-    public function render(): View|Closure|string
+    public function render(): View | Closure | string
     {
         return view('components.input.text');
 

@@ -102,3 +102,19 @@
     }//en dof fun
 
  }//end of getMulteSetting
+
+
+ if(!function_exists('getItemTagesSetting')) {
+    
+    function getItemTagesSetting($key, $lang)
+    {
+        $values = collect(json_decode(getTransSetting($key, $lang), true));
+        $tages  = collect();
+
+        $values->each(fn ($item, $key) => $tages->push($item['value'], $item['value']));
+
+        return $tages;
+
+    }//en dof fun
+
+ }//end of getItemTagesSetting

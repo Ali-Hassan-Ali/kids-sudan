@@ -50,10 +50,9 @@
                                     label="admin.global.title" :value="old('websit_title.' . $language->code, getTransSetting('websit_title', $language->code))"
                                     invalid="{{ 'websit_title.' . $language->code }}" />
 
-
-                                <x-input.text required="{{ $loop->first ? true : false }}" 
-                                    name="websit_keywords[{{ $language->code }}]" 
-                                    label="admin.settings.keywords" :value="old('websit_keywords.' . $language->code, getTransSetting('websit_keywords', $language->code))"
+                                <x-input.option required="{{ $loop->first ? true : false }}" 
+                                    name="websit_keywords[{{ $language->code }}]" multiple='true'
+                                    label="admin.settings.keywords" :value="old('websit_keywords.' . $language->code, getItemTagesSetting('websit_keywords', $language->code)->toArray())"
                                     invalid="{{ 'websit_keywords.' . $language->code }}" />
 
                                 <x-input.textarea required="{{ $loop->first ? true : false }}" 
