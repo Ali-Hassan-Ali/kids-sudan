@@ -51,9 +51,10 @@
                                     invalid="{{ 'websit_title.' . $language->code }}" />
 
                                 <x-input.option required="{{ $loop->first ? true : false }}" 
-                                    name="websit_keywords[{{ $language->code }}]" multiple='true'
-                                    label="admin.settings.keywords" :value="old('websit_keywords.' . $language->code, getItemTagesSetting('websit_keywords', $language->code)->toArray())"
-                                    invalid="{{ 'websit_keywords.' . $language->code }}" />
+                                    name="websit_keywords[{{ $language->code }}][]" multiple='true'
+                                    label="admin.settings.keywords" invalid="{{ 'websit_keywords.' . $language->code }}" 
+                                    :lists="getItemTagesSetting('websit_keywords', $language->code)"
+                                    :value="getItemTagesSetting('websit_keywords', $language->code, false)"/>
 
                                 <x-input.textarea required="{{ $loop->first ? true : false }}" 
                                     name="websit_description[{{ $language->code }}]" 

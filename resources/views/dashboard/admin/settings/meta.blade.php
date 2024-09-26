@@ -51,6 +51,12 @@
                                     label="admin.global.title" :value="old('meta_title.' . $language->code, getTransSetting('meta_title', $language->code))"
                                     invalid="{{ 'meta_title.' . $language->code }}" />
 
+                                <x-input.option required="{{ $loop->first ? true : false }}" 
+                                    name="meta_keywords[{{ $language->code }}][]" multiple='true'
+                                    label="admin.settings.keywords" invalid="{{ 'meta_keywords.' . $language->code }}" 
+                                    :lists="getItemTagesSetting('meta_keywords', $language->code)"
+                                    :value="getItemTagesSetting('meta_keywords', $language->code, false)"/>
+
                                 <x-input.textarea required="{{ $loop->first ? true : false }}" 
                                     name="meta_description[{{ $language->code }}]" 
                                     label="admin.global.description" :value="old('meta_description.' . $language->code, getTransSetting('meta_description', $language->code))"

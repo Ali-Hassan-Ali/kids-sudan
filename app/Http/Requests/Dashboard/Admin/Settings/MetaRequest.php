@@ -22,6 +22,7 @@ class MetaRequest extends FormRequest
 
             $rules['meta_title.' . $language->code]       = ['required','string','min:2','max:150'];
             $rules['meta_description.' . $language->code] = ['required','string','min:2'];
+            $rules['meta_keywords.' . $language->code]    = ['required','array'];
         }
 
         return $rules;
@@ -36,8 +37,9 @@ class MetaRequest extends FormRequest
 
         foreach(getLanguages() as $language) {
 
-            $rules['meta_title.' . $language->code] = trans('admin.global.by', ['name' => trans('admin.global.title'), 'lang' => $language->name]);
+            $rules['meta_title.' . $language->code]       = trans('admin.global.by', ['name' => trans('admin.global.title'), 'lang' => $language->name]);
             $rules['meta_description.' . $language->code] = trans('admin.global.by', ['name' => trans('admin.global.description'), 'lang' => $language->name]);
+            $rules['meta_keywords.' . $language->code]    = trans('admin.global.by', ['name' => trans('admin.global.keywords'), 'lang' => $language->name]);
         }
 
         return $rules;

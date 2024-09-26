@@ -24,11 +24,13 @@ class MetaController extends Controller
         if(empty($request->get('meta_title'))) {
 
             saveTransSetting('meta_title', '');
+            saveTransSetting('meta_keywords', '');
             saveTransSetting('meta_description', '');
 
         } else {
 
             saveTransSetting('meta_title', $request->meta_title);
+            saveTransSetting('meta_keywords', $request->meta_keywords);
             saveTransSetting('meta_description', $request->meta_description);
         }
 

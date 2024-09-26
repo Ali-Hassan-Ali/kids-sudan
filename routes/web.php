@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $datas = getItemTagesSetting('websit_keywords', 'ar');
+    return $datas = getItemTagesSetting('websit_keywords', 'ar');
     dd($datas);
     // dd(getItemTagesSetting('websit_keywords', 'ar')->toArray());
 

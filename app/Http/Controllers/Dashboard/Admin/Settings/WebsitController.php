@@ -24,16 +24,17 @@ class WebsitController extends Controller
         if(empty($request->get('websit_title'))) {
 
             saveTransSetting('websit_title', '');
+            saveTransSetting('websit_keywords', '');
             saveTransSetting('websit_description', '');
 
         } else {
 
             saveTransSetting('websit_title', $request->websit_title);
             saveTransSetting('websit_description', $request->websit_description);
+            saveTransSetting('websit_keywords', request()->websit_keywords);
         }
 
         if(request()->file('websit_logo')) {
-
 
             if(!empty(getSetting('websit_logo'))) {
 

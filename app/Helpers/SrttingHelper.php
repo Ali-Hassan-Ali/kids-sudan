@@ -106,15 +106,40 @@
 
  if(!function_exists('getItemTagesSetting')) {
     
-    function getItemTagesSetting($key, $lang)
+    function getItemTagesSetting($key, $lang, $toArray = true)
     {
-        $values = collect(json_decode(getTransSetting($key, $lang), true));
-        $tages  = collect();
+        $values = collect(getTransSetting($key, $lang));
+        $tages  = collect([]);
+        $old    = old($key . '.' . $lang) ?? [];
 
-        $values->each(fn ($item, $key) => $tages->push($item['value'], $item['value']));
+        if ($toArray) {
 
-        return $tages;
+            $values?->each(fn ($item, $key) => $tages->put($item, $item));
 
-    }//en dof fun
+        } else {
+
+            $values?->each(fn ($item, $key) => $tages->push($item));
+
+        }//end of toArray
+
+        if ($old === []) {
+
+            return $tages?->toArray();
+            
+        } else {
+
+            $olds = collect([]);
+
+            foreach ($old as $key=>$value) {
+
+                $toArray ? ($olds[$value] = $value) : ($olds[] = $value);
+
+            }//end of each
+
+            return $olds?->toArray();
+
+        }//end of if old
+
+    }//end of fun
 
  }//end of getItemTagesSetting

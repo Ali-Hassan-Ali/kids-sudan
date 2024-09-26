@@ -22,7 +22,7 @@ class WebsitRequest extends FormRequest
 
             $rules['websit_title.' . $language->code]       = ['required','string','min:2','max:150'];
             $rules['websit_description.' . $language->code] = ['required','string','min:2'];
-            $rules['websit_keywords.' . $language->code]    = ['required','string'];
+            $rules['websit_keywords.' . $language->code]    = ['required','array'];
         }
 
         return $rules;

@@ -4,11 +4,15 @@
             <label for="{{ $name }}">{{ trans($label) }} @if($required)<span class="text-danger">*</span>@endif</label>
         @endif
         <select {{ $readonly ? 'readonly' : '' }} {{ $multiple ? 'multiple' : '' }} {{ $disabled ? 'disabled' : '' }} name="{{ $name }}" class="form-control select2 @error(!empty($invalid) ? $invalid : $name) is-invalid @enderror" id="{{ $name }}">
-            {{-- <option value="" disabled>@lang('admin.global.choose')</option> --}}
+            <option value="" disabled {{ $multiple ? '' : 'selected'; }}>@lang('admin.global.choose')</option>
             @foreach($lists as $key=>$list)
-                <option selected="selected">orange</option>
-  <option>white</option>
-  <option selected="selected">purple</option>
+            <option value="{{ $key }}" 
+                @if($multiple)
+                    {{ in_array($key, $value ?? []) ? 'selected' : '' }}
+                @else
+                    {{ old(!empty($invalid) ? $invalid : $name, $value) == $key ? 'selected' : '' }}
+                @endif
+                >{{ $list }}</option>
             @endforeach
         </select>
         @error(!empty($invalid) ? $invalid : $name)

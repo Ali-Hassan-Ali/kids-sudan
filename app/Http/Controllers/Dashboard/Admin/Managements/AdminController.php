@@ -153,12 +153,10 @@ class AdminController extends Controller
 
             $requestData['image'] = request()->file('image')->store('admins', 'public');
 
-        }
+        }//end of has image request
 
         $admin->update($requestData);
-
-        if(request()->has('roles')) $admin->assignRole(request()->roles);
-
+        $admin->assignRole(request()->roles ?? []);
         if(request()->has('password')) $admin->update(['password' => bcrypt(request()->password)]);
 
         session()->flash('success', __('admin.messages.updated_successfully'));
