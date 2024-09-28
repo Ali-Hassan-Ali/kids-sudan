@@ -1,31 +1,23 @@
 <?php
 
-if (!function_exists('permission_admin')) {
-    function permissionAdmin($permission = '')
-    {
+use \App\Services\DatatableServices;
+use \App\Models\Language;
 
-        if (auth('admin')->check()) {
-            return auth('admin')->user()->can($permission);
-        }
-        return false;
+if (!function_exists('permission_admin')) {
+    
+    function permissionAdmin(string $permission = ''): bool
+    {
+        return auth('admin')->check() ? auth('admin')->user()->can($permission) : false;
 
     }//en dof fun
 
  }//end of exists
 
 if (!function_exists('isInvalid')) {
-    function isInvalid($key, $index)
+
+    function isInvalid(string $key, string | int $index): string | bool
     {
-
-        if (!empty($errors)) {
-            
-            return $errors?->getMessages()[$key][$index] ?? false;
-
-        } else {
-            
-            return false;
-
-        }
+        return !empty($errors) ? ($errors?->getMessages()[$key][$index] ?? false) : false;
 
     }//en dof fun
 
@@ -34,18 +26,21 @@ if (!function_exists('isInvalid')) {
 
  if(!function_exists('getLanguages')) {
  	
- 	function getLanguages($default = false)
+ 	function getLanguages(bool $default = false): object
  	{
-        if($default) {
+        return $default ? Language::where('default', 1)->first() : Language::all();
 
-            return \App\Models\Language::where('default', 1)->first();
+ 	}//end of fun
 
-        } else {
+ }//end of exists
 
-            return \App\Models\Language::all();
 
-        }
+if (!function_exists('DatatableServices')) {
+    
+    function DatatableServices(): DatatableServices
+    {
+        return new DatatableServices();
 
- 	}//en dof fun
+    }//end of fun
 
  }//end of exists

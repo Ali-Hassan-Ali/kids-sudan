@@ -1,15 +1,17 @@
 <?php 
 
+use App\Models\Setting;
+
  if(!function_exists('getSetting')) {
     
-    function getSetting($key)
+    function getSetting(string $key)
     {
-        $setting = \App\Models\Setting::where('key', $key)->first();
+        $setting = Setting::where('key', $key)->first();
         if($setting) {
             return $setting->value;
         } else {
-            $setting = \App\Models\Setting::create(['key' => $key]);
-            return '';
+            $setting = Setting::create(['key' => $key]);
+            return;
         }
 
     }//en dof fun
@@ -18,11 +20,11 @@
 
  if(!function_exists('saveSetting')) {
     
-    function saveSetting($key, $value = '')
+    function saveSetting(string $key, $value = '')
     {
-        $setting = \App\Models\Setting::where('key', $key)->first();
+        $setting = Setting::where('key', $key)->first();
         if(!$setting) {
-            return $setting = \App\Models\Setting::create(['key' => $key]);
+            return $setting = Setting::create(['key' => $key]);
         }
         return $setting->update(['value' => $value]);
 
@@ -32,7 +34,7 @@
 
  if(!function_exists('getImageSetting')) {
     
-    function getImageSetting($key)
+    function getImageSetting(string $key)
     {
         return asset('storage/' . getSetting($key));
 
@@ -42,9 +44,9 @@
 
  if(!function_exists('getTransSetting')) {
     
-    function getTransSetting($key, $lang)
+    function getTransSetting(string $key, $lang)
     {
-        $setting = \App\Models\Setting::where('key', $key)->first();
+        $setting = Setting::where('key', $key)->first();
         if($setting) {
             if(!empty(json_decode($setting->value, true)[$lang])) {
                 return json_decode($setting->value, true)[$lang];
@@ -52,7 +54,7 @@
                 return json_decode($setting->value, true)[app()->getLocale()] ?? '';
             }
         } else {
-            $setting = \App\Models\Setting::create(['key' => $key]);
+            $setting = Setting::create(['key' => $key]);
             return '';
         }
 
@@ -62,11 +64,11 @@
 
  if(!function_exists('saveTransSetting')) {
     
-    function saveTransSetting($key, $value)
+    function saveTransSetting(string $key, $value)
     {
-        $setting = \App\Models\Setting::where('key', $key)->first();
+        $setting = Setting::where('key', $key)->first();
         if(!$setting) {
-            $setting = \App\Models\Setting::create(['key' => $key]);  
+            $setting = Setting::create(['key' => $key]);  
         } 
         $setting->update(['value' => $value]);
 
@@ -76,9 +78,9 @@
 
  if(!function_exists('getMulteSetting')) {
     
-    function getMulteSetting($key, $name, $index, $lang)
+    function getMulteSetting(string $key, string $name, string | int $index, string $lang)
     {
-        $setting = \App\Models\Setting::where('key', $key)->first();
+        $setting = Setting::where('key', $key)->first();
 
         if($setting) {
 
@@ -93,7 +95,7 @@
 
         } else {
 
-            $setting = \App\Models\Setting::create(['key' => $key]);
+            $setting = Setting::create(['key' => $key]);
 
             return '';
 
@@ -106,7 +108,7 @@
 
  if(!function_exists('getItemTagesSetting')) {
     
-    function getItemTagesSetting($key, $lang, $toArray = true)
+    function getItemTagesSetting(string $key, string $lang, bool $toArray = true)
     {
         $values = collect(getTransSetting($key, $lang));
         $tages  = collect([]);

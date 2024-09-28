@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Dashboard\Admin\Managements\Admin\AdminRequest;
 use App\Http\Requests\Dashboard\Admin\Managements\Admin\StatusRequest;
 use App\Http\Requests\Dashboard\Admin\Managements\Admin\DeleteRequest;
-use App\Services\DatatableServices;
 use App\Models\Admin;
 use App\Models\Role;
 use Illuminate\Support\Facades\Storage;
@@ -23,28 +22,18 @@ class AdminController extends Controller
     {
         abort_if(!permissionAdmin('read-admins'), 403);
 
-        $datatables = (new DatatableServices())->header(
-            [
-                'route' => route('dashboard.admin.managements.admins.data'),
-                'checkbox' => [
-                    'status' => route('dashboard.admin.managements.admins.status'),
-                ],
-                'header'  => [
-                    'admin.global.name',
-                    'admin.global.email',
-                    'admin.global.image',
-                    'menu.roles',
-                    'admin.global.status',
-                ],
-                'columns' => [
-                    'name'   => 'name',
-                    'email'  => 'email',
-                    'image'  => 'image',
-                    'roles'  => 'roles',
-                    'status' => 'status',
-                ]
-            ]
-        );
+        $datatables = DatatableServices()
+                    ->header([
+                        'admin.global.name',
+                        'admin.global.email',
+                        'admin.global.image',
+                        'menu.roles',
+                        'admin.global.status'
+                    ])
+                    ->checkbox(['status' => 'dashboard.admin.managements.admins.status'])
+                    ->route('dashboard.admin.managements.admins.data')
+                    ->columns(['name', 'email', 'image', 'roles', 'status'])
+                    ->run();
 
         $breadcrumb = [['trans' => 'admin.models.admins']];
 
@@ -55,12 +44,12 @@ class AdminController extends Controller
     public function data(): object
     {
         $permissions = [
-            'status' => 'status-admins',
-            'update' => 'update-admins',
-            'delete' => 'delete-admins',
+            'status' => permissionAdmin('status-admins'),
+            'update' => permissionAdmin('update-admins'),
+            'delete' => permissionAdmin('delete-admins'),
         ];
 
-        $admin = Admin::query();
+        $admin = Admin::roleNot(['super_admin']);
 
         return dataTables()->of($admin)
             ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
@@ -156,7 +145,7 @@ class AdminController extends Controller
         }//end of has image request
 
         $admin->update($requestData);
-        $admin->assignRole(request()->roles ?? []);
+        $admin->syncRoles(request()->roles ?? []);
         if(request()->has('password')) $admin->update(['password' => bcrypt(request()->password)]);
 
         session()->flash('success', __('admin.messages.updated_successfully'));

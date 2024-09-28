@@ -21,10 +21,10 @@ class PermissionsDemoSeeder extends Seeder
             'admin_id'   => Admin::first()->id,
         ]);
 
-        Admin::factory(50)->create();
+        Admin::factory(10)->create();
         Admin::roleNot(['super_admin'])->each(fn($admin) => $admin->assignRole('admin'));
 
-        $permissions = ['home', 'admins', 'roles','languages', 'settings'];
+        $permissions = ['home', 'admins', 'roles', 'languages', 'settings', 'banners'];
 
         foreach ($permissions as $data) {
 
@@ -32,10 +32,15 @@ class PermissionsDemoSeeder extends Seeder
                 
                 $cruds = ['read'];
 
+            } elseif (in_array($data, ['banners'])) {
+
+                $cruds = ['read', 'update'];
+
             } else {
 
-                $cruds = ['create','read','update','delete','status'];
-            }
+                $cruds = ['create', 'read', 'update', 'delete', 'status'];
+
+            }//end pf if
 
             foreach ($cruds as $crud) {
 

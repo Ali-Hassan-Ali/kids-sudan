@@ -9,46 +9,46 @@ use App\Http\Controllers\Dashboard\Admin\Settings\MediaController;
 use App\Http\Controllers\Dashboard\Admin\Settings\FaqController;
 
 //settings meta
-Route::controller(MetaController::class)->group(function () {
+Route::controller(MetaController::class)
+    ->prefix('meta')->name('meta.')->group(function () {
 
-    Route::get('meta', 'index')->name('meta.index');
-    Route::post('meta/store', 'store')->name('meta.store');
+    Route::get('/', 'index')->name('index');
+    Route::post('store', 'store')->name('store');
 
 });
 
 //settings websit
-Route::controller(WebsitController::class)->group(function () {
+Route::controller(WebsitController::class)
+    ->prefix('websit')->name('websit.')->group(function () {
 
-    Route::get('websit', 'index')->name('websit.index');
-    Route::post('websit/store', 'store')->name('websit.store');
+    Route::get('/', 'index')->name('index');
+    Route::post('store', 'store')->name('store');
 
 });
 
 //settings contact
-Route::controller(ContactController::class)->group(function () {
+Route::controller(ContactController::class)
+    ->prefix('contact')->name('contact.')->group(function () {
 
-    Route::get('contact', 'index')->name('contact.index');
-    Route::post('contact/store', 'store')->name('contact.store');
+    Route::get('/', 'index')->name('index');
+    Route::post('store', 'store')->name('store');
 
 });
 
 //settings media
-Route::controller(MediaController::class)->group(function () {
+Route::controller(MediaController::class)
+    ->prefix('media')->name('media.')->group(function () {
 
-    Route::get('media', 'index')->name('media.index');
-    Route::post('media/store', 'store')->name('media.store');
+    Route::get('/', 'index')->name('index');
+    Route::post('store', 'store')->name('store');
 
 });
 
-//settings footer
-Route::controller(FaqController::class)->group(function () {
+//settings faq
+Route::controller(FaqController::class)
+    ->prefix('faq')->name('faq.')->group(function () {
 
-    // //about_page
-    // Route::get('about_page', 'aboutPage')->name('about_page.index');
-    // Route::post('about_page/store', 'aboutPageStore')->name('about_page.store');
-
-    //faq
-    Route::get('faq', 'index')->name('faq.index');
-    Route::post('faq/store', 'store')->name('faq.store');
+    Route::get('/', 'index')->name('index');
+    Route::post('store', 'store')->name('store');
 
 });

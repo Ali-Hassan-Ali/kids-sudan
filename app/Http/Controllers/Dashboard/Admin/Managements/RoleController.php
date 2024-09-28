@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Dashboard\Admin\Managements\Role\RoleRequest;
 use App\Http\Requests\Dashboard\Admin\Managements\Role\DeleteRequest;
-use App\Services\DatatableServices;
 use App\Models\Admin;
 use App\Models\Role;
 use App\Models\Permission;
@@ -22,21 +21,17 @@ class RoleController extends Controller
     {
         abort_if(!permissionAdmin('read-roles'), 403);
 
-        $datatables = (new DatatableServices())->header(
-            [
-                'route' => route('dashboard.admin.managements.roles.data'),
-                'header'  => [
-                    'admin.global.name',
-                    'admin.models.admin',
-                    'admin.models.admins',
-                ],
-                'columns' => [
-                    'name'    => 'name',
-                    'admin'   => 'admin',
-                    'admins'  => 'admins',
-                ]
-            ]
-        );
+        $datatables = DatatableServices()
+                        ->header([
+                            'admin.global.name',
+                            'admin.models.admin',
+                            'admin.models.admins',
+                            'admin.models.permissions',
+                        ])
+                        ->checkbox(['status' => 'dashboard.admin.managements.roles.status'])
+                        ->route('dashboard.admin.managements.roles.data')
+                        ->columns(['name', 'admin', 'admins', 'permissions'])
+                        ->run();
 
         $breadcrumb = [['trans' => 'admin.models.roles']];
 
@@ -47,18 +42,19 @@ class RoleController extends Controller
     public function data(): object
     {
         $permissions = [
-            'status' => 'status-roles',
-            'update' => 'update-roles',
-            'delete' => 'delete-roles',
+            'status' => permissionAdmin('status-roles'),
+            'update' => permissionAdmin('update-roles'),
+            'delete' => permissionAdmin('delete-roles'),
         ];
 
-        $role = Role::roleNot();
+        $role = Role::where('name', 'test');
 
         return dataTables()->of($role)
             ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
             ->addColumn('created_at', fn (Role $role) => $role?->created_at?->format('Y-m-d'))
             ->addColumn('admin', fn (Role $role) => $role?->admin?->name)
             ->addColumn('admins', fn (Role $role) => Admin::role($role->name)->count())
+            ->addColumn('permissions', fn (Role $role) => $role->permissions?->count())
             ->addColumn('admins_count', fn (Role $role) => $role?->admins?->count())
             ->addColumn('actions', function(Role $role) use($permissions) {
                 $routeEdit   = route('dashboard.admin.managements.roles.edit', $role->id);

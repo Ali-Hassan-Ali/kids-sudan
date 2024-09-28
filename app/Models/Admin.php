@@ -28,7 +28,7 @@ class Admin extends Authenticatable
 
     public function scopeRoleNot(Builder $query, $rolesName = []): Builder
     {
-        return $query->when($rolesName, fn ($query) => $query->whereHas('roles', fn ($query) => $query->whereNotIn('name', $rolesName)));
+        return $query->when($rolesName, fn ($query) => $query->whereDoesntHave('roles')->orWhereHas('roles', fn($query) => $query->whereNotIn('name', $rolesName)));
 
     }// end of scope Role
 

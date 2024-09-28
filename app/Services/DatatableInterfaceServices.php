@@ -4,7 +4,12 @@ namespace App\Services;
 
 Interface DatatableInterfaceServices
 {
-    public function header(array $data = []);
+    public function header(array $headers): self;
+    
+    public function route(string $route): self;
+    
+    public function columns(array $columns): self;
 
-    public function runClass();
-}
+    public function run();
+    
+}//end of clas

@@ -8,7 +8,6 @@ use App\Http\Requests\Dashboard\Admin\Managements\Language\LanguageRequest;
 use App\Http\Requests\Dashboard\Admin\Managements\Language\StatusRequest;
 use App\Http\Requests\Dashboard\Admin\Managements\Language\DeleteRequest;
 use App\Enums\Admin\LanguageType;
-use App\Services\DatatableServices;
 use App\Models\Language;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -19,36 +18,24 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 
 class LanguageController extends Controller
 {
-    public function index(): View
+    public function index()
     {
         abort_if(!permissionAdmin('read-languages'), 403);
 
-        $datatables = (new DatatableServices())->header(
-            [
-                'route' => route('dashboard.admin.managements.languages.data'),
-                'checkbox' => [
-                    'status' => route('dashboard.admin.managements.languages.status'),
-                ],
-                'header'  => [
-                    'admin.global.name',
-                    'admin.managements.languages.dir',
-                    'admin.managements.languages.flag',
-                    'admin.managements.languages.code',
-                    'admin.global.default',
-                    'admin.global.admin',
-                    'admin.global.status',
-                ],
-                'columns' => [
-                    'name'   => 'name',
-                    'dir'    => 'dir',
-                    'flag'   => 'flag',
-                    'code'   => 'code',
-                    'default'=> 'default',
-                    'admin'  => 'admin',
-                    'status' => 'status',
-                ]
-            ]
-        );
+        $datatables = DatatableServices()
+                    ->header([
+                        'admin.global.name',
+                        'admin.managements.languages.dir',
+                        'admin.managements.languages.flag',
+                        'admin.managements.languages.code',
+                        'admin.global.default',
+                        'admin.global.admin',
+                        'admin.global.status',
+                    ])
+                    ->checkbox(['status' => 'dashboard.admin.managements.languages.status'])
+                    ->route('dashboard.admin.managements.languages.data')
+                    ->columns(['name','dir','flag','code','default','admin','status'])
+                    ->run();
 
         $breadcrumb = [['trans' => 'admin.models.languages']];
 

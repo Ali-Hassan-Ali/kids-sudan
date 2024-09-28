@@ -3,14 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\Admin\Websit\BannerController;
 
-//banner
+//banner banner
 Route::controller(BannerController::class)
-    ->prefix('admins')->name('admins.')
-    ->group(function () {
+    ->prefix('banner')->name('banner.')->group(function () {
 
-        Route::get('data', 'data')->name('data');
-        Route::post('status', 'status')->name('status');
-        Route::delete('bulk_delete', 'bulkDelete')->name('bulk_delete');
+    Route::get('/', 'index')->name('index');
+    Route::post('store', 'store')->name('store');
 
-    });
-Route::resource('admins', BannerController::class);
+});

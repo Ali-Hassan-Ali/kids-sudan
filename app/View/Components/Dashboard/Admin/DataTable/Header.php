@@ -10,7 +10,7 @@ use JetBrains\PhpStorm\NoReturn;
 class Header extends Component
 {
     public function __construct(
-        public $columns = [],
+        public array $columns = [],
     ){}
 
     public function render(): View | Closure | string
