@@ -18,7 +18,7 @@ class BannerController extends Controller
             ['trans' => 'admin.websits.banner']
         ];
 
-    	return view('dashboard.admin.websits.banner', compact('breadcrumb'));
+    	return view('dashboard.admin.websits.banner.index', compact('breadcrumb'));
 
     }//end of index
 
@@ -39,6 +39,38 @@ class BannerController extends Controller
             $picture = request()->file('banner_picture')->store('website', 'public');
 
             saveSetting('banner_picture', $picture);
+
+        }//end of if
+
+        if (!empty($request->get('banner_rxperiences_title_' . getLanguages('default')->code))) {
+
+            $itemTitle  = [];
+            $itemNumber = [];
+
+            foreach($request->get('banner_rxperiences_title_' . getLanguages('default')->code) as $indexName=>$name) {
+
+                $itemsLangTitle  = [];
+                $itemsLangNumber = [];
+
+                foreach(getLanguages() as $index=>$language) {
+
+                    $itemsLangTitle[$language->code]  = $request->get('banner_rxperiences_title_' . $language->code)[$indexName] ?? $request->get('banner_rxperiences_title_' . getLanguages('default')->code)[$indexName];
+                    $itemsLangNumber[$language->code] = $request->get('banner_rxperiences_number_' . $language->code)[$indexName] ?? $request->get('banner_rxperiences_number_' . getLanguages('default')->code)[$indexName];;
+                }
+
+                $itemTitle[]  = $itemsLangTitle;
+                $itemNumber[] = $itemsLangNumber;
+
+            }
+
+            $data = ['title' => $itemTitle, 'number' => $itemNumber];
+
+            saveSetting('banner_rxperiences', json_encode($data));
+
+        } else {
+
+            saveSetting('banner_rxperiences', json_encode([]));
+
         }
 
         session()->flash('success', __('admin.messages.updated_successfully'));

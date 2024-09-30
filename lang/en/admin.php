@@ -18,6 +18,7 @@ return array('global' =>
                 'phone'       => 'Phone', 
                 'description' => 'Description', 
                 'title'       => 'Title',
+                'number'      => 'Number',
                 'image'       => 'Image',
                 'logo'        => 'Logo',
                 'picture'     => 'Picture',

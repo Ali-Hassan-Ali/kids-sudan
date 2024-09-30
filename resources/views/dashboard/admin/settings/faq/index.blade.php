@@ -16,7 +16,7 @@
 
             <div class="col-12 col-md-12">
 
-                <div class="tile shadow">
+                <div class="title shadow">
 
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
 
@@ -69,7 +69,7 @@
                         <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i>@lang('site.create')</button>
                     </div>
 
-                </div><!-- end of tile -->
+                </div><!-- end of title -->
 
             </div><!-- end of col -->
 

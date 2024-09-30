@@ -16,7 +16,7 @@ class BannerRequest extends FormRequest
     {
         $rules = [];
 
-        $rules['banner_picture'] = ['required','image'];
+        $rules['banner_picture'] = ['nullable','image'];
 
         foreach(getLanguages() as $language) {
 
@@ -25,8 +25,8 @@ class BannerRequest extends FormRequest
             $rules['banner_name.' . $language->code]        = ['required','string','min:2'];
             $rules['banner_Skills.' . $language->code]      = ['required','array'];
 
-            $rules['banner_rxperiences_title_' . $language->code . '.*']      = ['required','string','min:2','max:150'];
-            $rules['banner_rxperiences_description_' . $language->code . '.*']= ['required','string','min:2'];
+            $rules['banner_rxperiences_title_' . $language->code . '.*']   = ['required','string','min:2','max:150'];
+            $rules['banner_rxperiences_number_' . $language->code . '.*']  = ['required','numeric','digits_between:1,100'];
         }
 
         return $rules;
@@ -46,8 +46,8 @@ class BannerRequest extends FormRequest
             $rules['banner_name.' . $language->code]    = trans('admin.global.by', ['name' => trans('admin.websits.banners.name'), 'lang' => $language->name]);
             $rules['banner_Skills.' . $language->code]  = trans('admin.global.by', ['name' => trans('admin.websits.banners.Skills'), 'lang' => $language->name]);
 
-            $rules['banner_rxperiences_title_' . $language->code . '.*']       = trans('admin.global.by', ['name' => trans('admin.global.title'), 'lang' => $language->name]);
-            $rules['banner_rxperiences_description_' . $language->code . '.*'] = trans('admin.global.by', ['name' => trans('admin.global.description'), 'lang' => $language->name]);
+            $rules['banner_rxperiences_title_' . $language->code . '.*']  = trans('admin.global.by', ['name' => trans('admin.global.title'), 'lang' => $language->name]);
+            $rules['banner_rxperiences_number_' . $language->code . '.*'] = trans('admin.global.by', ['name' => trans('admin.global.number'), 'lang' => $language->name]);
         }
 
         return $rules;
