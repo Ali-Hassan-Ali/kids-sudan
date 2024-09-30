@@ -30,6 +30,17 @@
 
         @endif
 
+        @if(permissionAdmin('read-banner') || permissionAdmin('read-banners') || permissionAdmin('read-banners'))
+            {{-- managements --}}
+
+            <x-dashboard.admin.layout.includes.slider.menu-group-item trans="admin.models.websits" svg="websits" show="dashboard.admin.websits.*">
+                    
+                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.websits.banner" active="dashboard.admin.websits.banner.*" route="dashboard.admin.websits.banner.index" permission="read-banner"/>
+
+            </x-dashboard.admin.layout.includes.slider.menu-group-item>
+
+        @endif
+
         @if(permissionAdmin('read-settings'))
             {{-- settings --}}
 

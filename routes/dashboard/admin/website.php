@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Dashboard\Admin\Websit\BannerController;
+use App\Http\Controllers\Dashboard\Admin\Websites\BannerController;
 
 //banner banner
 Route::controller(BannerController::class)

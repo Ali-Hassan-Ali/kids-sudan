@@ -20,6 +20,7 @@ return array('global' =>
                 'title'       => 'Title',
                 'image'       => 'Image',
                 'logo'        => 'Logo',
+                'picture'     => 'Picture',
                 'flag'        => 'Flag',
                 'code'        => 'Code',
                 'order'       => 'Order',
@@ -96,6 +97,17 @@ return array('global' =>
                   'settings'     => 'Settings',
                   'setting'      => 'Setting',
                   'profiles'     => 'Profiles',
+                  'websits'      => 'websits',
+                  'websit'       => 'websit',
+            ),
+            'websits' => array(
+                  'banner'  => 'banner',
+                  'banners'  => array(
+                        'welcome' => 'Welcome',
+                        'hello'   => 'Hello',
+                        'name'    => 'Name',
+                        'Skills'  => 'Skills',
+                  ),
             ),
             'settings' => array(
                   'meta'     => 'Meta',
