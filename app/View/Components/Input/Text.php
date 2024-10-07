@@ -21,7 +21,7 @@ class Text extends Component
         public $readonly = false,
         public $invalid  = '',
     ){
-        $this->id = str_replace('.', '-', !empty($invalid) ? $invalid : $name);
+        $this->id = $this->id ?? (!empty($invalid) ? str_replace('.', '-', !empty($invalid) ? $invalid : $name) : $this->id);
     }
 
     public function render(): View | Closure | string

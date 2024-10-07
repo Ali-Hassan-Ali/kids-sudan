@@ -30,12 +30,16 @@
 
         @endif
 
-        @if(permissionAdmin('read-banner') || permissionAdmin('read-banners') || permissionAdmin('read-banners'))
+        @if(permissionAdmin('read-banner') || permissionAdmin('read-skills') || permissionAdmin('read-tools'))
             {{-- managements --}}
 
             <x-dashboard.admin.layout.includes.slider.menu-group-item trans="admin.models.websits" svg="websits" show="dashboard.admin.websits.*">
                     
                 <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.websits.banner" active="dashboard.admin.websits.banner.*" route="dashboard.admin.websits.banner.index" permission="read-banner"/>
+
+                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.websits.banners.skills" active="dashboard.admin.websits.skills.*" route="dashboard.admin.websits.skills.index" permission="read-skills"/>
+
+                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.websits.tools" active="dashboard.admin.websits.tools.*" route="dashboard.admin.websits.tools.index" permission="read-tools"/>
 
             </x-dashboard.admin.layout.includes.slider.menu-group-item>
 

@@ -4,11 +4,11 @@ use App\Models\Setting;
 
  if(!function_exists('getSetting')) {
     
-    function getSetting(string $key)
+    function getSetting(string $key, bool $json = false)
     {
         $setting = Setting::where('key', $key)->first();
         if($setting) {
-            return $setting->value;
+            return $json ? json_decode($setting->value, true) : $setting->value;
         } else {
             $setting = Setting::create(['key' => $key]);
             return;

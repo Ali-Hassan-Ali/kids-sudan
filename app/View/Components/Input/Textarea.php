@@ -8,8 +8,8 @@ use Illuminate\View\Component;
 
 class Textarea extends Component
 {
-
     public function __construct(
+        public $id       = '',
         public $col      = '',
         public $name     = '',
         public $value    = '',
@@ -21,7 +21,9 @@ class Textarea extends Component
         public $readonly = false,
         public $invalid  = '',
         public $rows     = '3',
-    ){}
+    ) {
+        $this->id = $this->id ?? (!empty($invalid) ? str_replace('.', '-', !empty($invalid) ? $invalid : $name) : $this->id);
+    }
 
     public function render(): View | Closure | string
     {

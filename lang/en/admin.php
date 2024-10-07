@@ -21,6 +21,7 @@ return array('global' =>
                 'number'      => 'Number',
                 'image'       => 'Image',
                 'logo'        => 'Logo',
+                'type'        => 'type',
                 'picture'     => 'Picture',
                 'flag'        => 'Flag',
                 'code'        => 'Code',
@@ -84,6 +85,11 @@ return array('global' =>
                         'code'  => 'Code',
                   ),
             ),
+            'files' => array(
+                  'image'  => 'image',
+                  'font'   => 'font',
+                  'svg'    => 'svg',
+            ),
             'models' => array(
                   'managements'  => 'Managements',
                   'management'   => 'Management',
@@ -102,12 +108,13 @@ return array('global' =>
                   'websit'       => 'websit',
             ),
             'websits' => array(
-                  'banner'  => 'banner',
+                  'tools'   => 'Tools',
+                  'banner'  => 'Banner',
                   'banners'  => array(
                         'welcome' => 'Welcome',
                         'hello'   => 'Hello',
                         'name'    => 'Name',
-                        'Skills'  => 'Skills',
+                        'skills'  => 'Skills',
                   ),
             ),
             'settings' => array(

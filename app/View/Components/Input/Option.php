@@ -9,6 +9,7 @@ use Illuminate\View\Component;
 class Option extends Component
 {
     public function __construct(
+        public $id       = '',
         public $col      = '',
         public $name     = '',
         public $type     = 'text',
@@ -19,9 +20,12 @@ class Option extends Component
         public $hidden   = false,
         public $multiple = false,
         public $readonly = false,
+        public $choose   = true,
         public $invalid  = '',
         public $lists    = [],
-    ){}
+    ) {
+        $this->id = $this->id ?? (!empty($invalid) ? str_replace('.', '-', !empty($invalid) ? $invalid : $name) : $this->id);
+    }
 
     public function render(): View | Closure | string
     {
