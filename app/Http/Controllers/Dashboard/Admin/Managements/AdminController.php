@@ -22,7 +22,7 @@ class AdminController extends Controller
     {
         abort_if(!permissionAdmin('read-admins'), 403);
 
-        $datatables = DatatableServices()
+        $datatables = datatableServices()
                     ->header([
                         'admin.global.name',
                         'admin.global.email',
@@ -54,7 +54,7 @@ class AdminController extends Controller
         return dataTables()->of($admin)
             ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
             ->addColumn('created_at', fn (Admin $admin) => $admin?->created_at?->format('Y-m-d'))
-            ->editColumn('image', fn(Admin $admin) => view('dashboard.admin.dataTables.image', ['models' => $admin]))
+            ->editColumn('image', 'dashboard.admin.dataTables.image')
             ->addColumn('roles', fn(Admin $admin) => view('dashboard.admin.managements.admins.data_tables.roles', compact('admin')))
             ->addColumn('actions', function(Admin $admin) use($permissions) {
                 $routeEdit   = route('dashboard.admin.managements.admins.edit', $admin->id);
@@ -62,7 +62,7 @@ class AdminController extends Controller
                 return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
             })
             ->addColumn('status', fn (Admin $admin) => !$admin->default ? view('dashboard.admin.dataTables.checkbox', ['models' => $admin, 'permissions' => $permissions, 'type' => 'status']) : '')
-            ->rawColumns(['record_select', 'actions', 'status', 'roles'])
+            ->rawColumns(['record_select', 'actions', 'status', 'roles', 'image'])
             ->addIndexColumn()
             ->toJson();
 
@@ -92,15 +92,15 @@ class AdminController extends Controller
     //RedirectResponse
     public function store(AdminRequest $request): RedirectResponse
     {
-        $requestData = request()->except(['image', 'roles', 'password_confirmation']);
+        $validated = $request()->safe()->except(['image', 'roles', 'password_confirmation']);
 
         if(request()->file('image')) {
 
-            $requestData['image'] = request()->file('image')->store('admins', 'public');
+            $validated['image'] = request()->file('image')->store('admins', 'public');
 
         }
 
-        $admin = Admin::create($requestData);
+        $admin = Admin::create($validated);
 
         if(request()->has('password')) $admin->update(['password' => bcrypt(request()->password)]);
 
@@ -134,17 +134,17 @@ class AdminController extends Controller
 
     public function update(AdminRequest $request, Admin $admin): RedirectResponse
     {
-        $requestData = request()->except(['image', 'roles', 'password', 'password_confirmation']);
+        $validated = $request()->safe()->except(['image', 'roles', 'password', 'password_confirmation']);
 
         if(request()->has('image')) {
 
-            $admin->image ? Storage::disk('public')->delete($admin->image) : '';
+            $admin->image != 'default.png' ? Storage::disk('public')->delete($admin->image) : '';
 
-            $requestData['image'] = request()->file('image')->store('admins', 'public');
+            $validated['image'] = request()->file('image')->store('admins', 'public');
 
         }//end of has image request
 
-        $admin->update($requestData);
+        $admin->update($validated);
         $admin->syncRoles(request()->roles ?? []);
         if(request()->has('password')) $admin->update(['password' => bcrypt(request()->password)]);
 
@@ -155,7 +155,7 @@ class AdminController extends Controller
 
     public function destroy(Admin $admin): Application | Response | ResponseFactory
     {
-        $admin->image ? Storage::disk('public')->delete($admin->image) : '';
+        $admin->image != 'default.png' ? Storage::disk('public')->delete($admin->image) : '';
         $admin->delete();
 
         session()->flash('success', __('admin.messages.deleted_successfully'));
@@ -165,7 +165,7 @@ class AdminController extends Controller
 
     public function bulkDelete(DeleteRequest $request): Application | Response | ResponseFactory
     {
-        $images = Admin::find(request()->ids ?? [])->whereNotNull('image')->pluck('image')->toArray();
+        $images = Admin::find(request()->ids ?? [])->pluck('image')->toArray();
         count($images) > 0 ? Storage::disk('public')->delete($images) : '';
         Admin::destroy(request()->ids ?? []);
 

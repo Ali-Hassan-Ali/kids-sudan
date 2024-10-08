@@ -21,7 +21,7 @@ class RoleController extends Controller
     {
         abort_if(!permissionAdmin('read-roles'), 403);
 
-        $datatables = DatatableServices()
+        $datatables = datatableServices()
                         ->header([
                             'admin.global.name',
                             'admin.models.admin',
@@ -91,7 +91,7 @@ class RoleController extends Controller
     //RedirectResponse
     public function store(RoleRequest $request): RedirectResponse
     {
-        $validated = request()->except(['permissions']);
+        $validated = $request()->safe()->except(['permissions']);
 
         $role = \Spatie\Permission\Models\Role::create($validated);
         $role->syncPermissions($request->permissions ?? []);
@@ -125,7 +125,7 @@ class RoleController extends Controller
 
     public function update(RoleRequest $request, \Spatie\Permission\Models\Role $role): RedirectResponse
     {
-        $validated = request()->except(['permissions']);
+        $validated = $request()->safe()->except(['permissions']);
 
         $role->update($validated);
         $role->syncPermissions($request->permissions ?? []);

@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Dashboard\Admin\Managements\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
-use CodeZero\UniqueTranslation\UniqueTranslationRule;
 use Illuminate\Validation\Rule;
 
 class AdminRequest extends FormRequest
@@ -17,7 +16,7 @@ class AdminRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'status'     => ['nullable','in:1,0'],
+            'status'     => ['boolean'],
             'phone'      => ['numeric','digits_between:6,30'],
             'roles.*'    => ['nullable','string','exists:roles,name'],
             'admin_id'   => ['nullable','string','exists:admins,id'],
@@ -61,7 +60,7 @@ class AdminRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        return request()->merge([
+        return $this->merge([
             'admin_id' => auth('admin')->id(),
             'status'   => request()->has('status'),
         ]);

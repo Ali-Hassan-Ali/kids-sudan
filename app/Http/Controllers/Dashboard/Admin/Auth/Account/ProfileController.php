@@ -24,19 +24,19 @@ class ProfileController extends Controller
 
     public function update(ProfileRequest $request, Admin $admin): RedirectResponse
     {
-        $requestData = request()->except(['image']);
+        $validated = $request->safe()->except(['image']);
 
         if(request()->has('image')) {
 
-            $admin->image ? Storage::disk('public')->delete($admin->image) : '';
+            $admin->image != 'default.png' ? Storage::disk('public')->delete($admin->image) : '';
 
-            $requestData['image'] = request()->file('image')->store('admins', 'public');
+            $validated['image'] = request()->file('image')->store('admins', 'public');
 
         }
 
         session()->flash('success', __('admin.messages.updated_successfully'));
 
-        $admin->update($requestData);
+        $admin->update($validated);
 
         return redirect()->back();
         

@@ -18,6 +18,7 @@ class Admin extends Authenticatable
 
     protected $fillable = ['name', 'email', 'phone', 'password', 'status', 'image'];
     protected $hidden   = ['password', 'remember_token'];
+    protected $appends  = ['image_path'];
 
     ///// scope
     public function scopeSort($query , $request)
@@ -26,7 +27,7 @@ class Admin extends Authenticatable
 
     }//end of fun
 
-    public function scopeRoleNot(Builder $query, $rolesName = []): Builder
+    public function scopeRoleNot(Builder $query, $rolesName = ['super_admin']): Builder
     {
         return $query->when($rolesName, fn ($query) => $query->whereDoesntHave('roles')->orWhereHas('roles', fn($query) => $query->whereNotIn('name', $rolesName)));
 

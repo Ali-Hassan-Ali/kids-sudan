@@ -8,7 +8,7 @@ use App\Models\Setting;
     {
         $setting = Setting::where('key', $key)->first();
         if($setting) {
-            return $json ? json_decode($setting->value, true) : $setting->value;
+            return $json ? (json_decode($setting->value, true) ?? []) : $setting->value;
         } else {
             $setting = Setting::create(['key' => $key]);
             return;

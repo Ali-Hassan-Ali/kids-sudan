@@ -14,20 +14,19 @@ class Language extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+    protected $appends = ['image_path'];
 
     protected function imagePath(): Attribute
     {
         if ($this->code == 'ar') {
-            $flagPath = asset('assets/media/flags/saudi-arabia.svg');
+            $flagPath = asset('admin_assets/images/flags/saudi-arabia.svg');
         } elseif($this->code == 'en') {
-            $flagPath = asset('assets/media/flags/united-states.svg');
+            $flagPath = asset('admin_assets/images/flags/united-states.svg');
         } else {
             $flagPath = asset('storage/' . $this->flag);
         }
 
-        return Attribute::make(
-            get: fn () => $flagPath,
-        );
+        return Attribute::make(get: fn () => $flagPath);
 
     }//end of get ImagePath Attribute
 

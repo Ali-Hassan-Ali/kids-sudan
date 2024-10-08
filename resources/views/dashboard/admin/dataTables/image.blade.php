@@ -1,1 +1,1 @@
-<img src="{{ $models->image_path }}" width="70">
+<img src="{{ $image_path }}" width="70">

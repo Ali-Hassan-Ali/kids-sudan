@@ -41,6 +41,8 @@
 
                 <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.websits.tools" active="dashboard.admin.websits.tools.*" route="dashboard.admin.websits.tools.index" permission="read-tools"/>
 
+                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.models.creatives" active="dashboard.admin.websits.creatives.*" route="dashboard.admin.websits.creatives.index" permission="read-creatives"/>
+
             </x-dashboard.admin.layout.includes.slider.menu-group-item>
 
         @endif

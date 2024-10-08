@@ -35,9 +35,9 @@ if (!function_exists('isInvalid')) {
  }//end of exists
 
 
-if (!function_exists('DatatableServices')) {
+if (!function_exists('datatableServices')) {
     
-    function DatatableServices(): DatatableServices
+    function datatableServices(): DatatableServices
     {
         return new DatatableServices();
 

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             
             $table->string('name');
-            $table->string('flag')->nullable();
+            $table->string('flag')->default('flag.png');
             $table->string('code')->unique();
 
             $table->enum('dir', ['RTL', 'LTR']);

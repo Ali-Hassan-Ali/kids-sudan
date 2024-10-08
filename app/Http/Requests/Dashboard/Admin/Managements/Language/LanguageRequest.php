@@ -26,7 +26,7 @@ class LanguageRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'status'  => ['nullable', 'in:1,0'],
+            'status'  => ['boolean'],
             'admin_id'=> ['nullable','string','exists:admins,id'],
             'dir'     => ['required', 'in:RTL,LTR'],
         ];
@@ -65,7 +65,7 @@ class LanguageRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        return request()->merge([
+        return $this->merge([
             'admin_id' => auth('admin')->id(),
             'status'   => request()->has('status'),
         ]);

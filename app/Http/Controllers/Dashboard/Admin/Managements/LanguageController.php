@@ -22,7 +22,7 @@ class LanguageController extends Controller
     {
         abort_if(!permissionAdmin('read-languages'), 403);
 
-        $datatables = DatatableServices()
+        $datatables = datatableServices()
                     ->header([
                         'admin.global.name',
                         'admin.managements.languages.dir',
@@ -46,9 +46,9 @@ class LanguageController extends Controller
     public function data(): object
     {
         $permissions = [
-            'status' => 'status-languages',
-            'update' => 'update-languages',
-            'delete' => 'delete-languages',
+            'status' => permissionAdmin('status-languages'),
+            'update' => permissionAdmin('update-languages'),
+            'delete' => permissionAdmin('delete-languages'),
         ];
 
         $language = Language::all();
@@ -57,7 +57,7 @@ class LanguageController extends Controller
             ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
             ->addColumn('created_at', fn (Language $language) => $language?->created_at?->format('Y-m-d'))
             ->addColumn('admin', fn (Language $language) => $language?->admin?->name)
-            ->editColumn('flag', fn(Language $language) => view('dashboard.admin.dataTables.image', ['models' => $language]))
+            ->editColumn('flag', 'dashboard.admin.dataTables.image')
             ->addColumn('actions', function(Language $language) use($permissions) {
                 $routeEdit   = route('dashboard.admin.managements.languages.edit', $language->id);
                 $routeDelete = '';
@@ -68,7 +68,7 @@ class LanguageController extends Controller
             })
             ->addColumn('status', fn(Language $language) => !$language->default ? view('dashboard.admin.dataTables.checkbox', ['models' => $language, 'permissions' => $permissions, 'type' => 'status']) : '')
             ->addColumn('default', fn(Language $language) => view('dashboard.admin.managements.languages.data_tables.check_default', compact('language')))
-            ->rawColumns(['record_select', 'actions', 'status'])
+            ->rawColumns(['record_select', 'actions', 'status', 'flag'])
             ->addIndexColumn()
             ->toJson();
 
@@ -98,15 +98,15 @@ class LanguageController extends Controller
     //RedirectResponse
     public function store(LanguageRequest $request): RedirectResponse
     {
-        $requestData = request()->except(['flag']);
+        $validated = $request()->safe()->except(['flag']);
 
         if(request()->file('flag')) {
 
-            $requestData['flag'] = request()->file('flag')->store('languages', 'public');
+            $validated['flag'] = request()->file('flag')->store('languages', 'public');
 
         }
 
-        Language::create($requestData);
+        Language::create($validated);
 
         session()->flash('success', __('admin.messages.added_successfully'));
         return redirect()->route('dashboard.admin.managements.languages.index');
@@ -136,17 +136,17 @@ class LanguageController extends Controller
 
     public function update(LanguageRequest $request, Language $language): RedirectResponse
     {
-        $requestData = request()->except(['flag']);
+        $validated = $request()->safe()->except(['flag']);
 
         if(request()->has('flag')) {
 
-            $language->flag ? Storage::disk('public')->delete($language->flag) : '';
+            $language->flag != 'flag.png' ? Storage::disk('public')->delete($language->flag) : '';
 
-            $requestData['flag'] = request()->file('flag')->store('languages', 'public');
+            $validated['flag'] = request()->file('flag')->store('languages', 'public');
 
         }
 
-        $language->update($requestData);
+        $language->update($validated);
 
         session()->flash('success', __('admin.messages.updated_successfully'));
         return redirect()->route('admin.managements.languages.index');
@@ -157,7 +157,7 @@ class LanguageController extends Controller
     {
         if(!$language->default) {
 
-            $language->flag ? Storage::disk('public')->delete($language->flag) : '';
+            $language->flag != 'flag.png' ? Storage::disk('public')->delete($language->flag) : '';
             $language->delete();
         }
 
@@ -166,7 +166,7 @@ class LanguageController extends Controller
 
     }//end of delete
 
-    public function bulkDelete(DeleteRequest $request)
+    public function bulkDelete(DeleteRequest $request): Application | Response | ResponseFactory
     {
         $images = Language::where('default', 0)->find(request()->ids ?? [])->whereNotNull('flag')->pluck('flag')->toArray();
         count($images) > 0 ? Storage::disk('public')->delete($images) : '';
