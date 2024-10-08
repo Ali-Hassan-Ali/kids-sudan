@@ -20,20 +20,20 @@ class FaqController extends Controller
 
     public function store(FaqRequest $request)
     {
-        if (!empty($request->get('faq_title_' . getLanguages('default')->code))) {
+        if (!empty($request->get('faq_title.' . getLanguages('default')->code))) {
 
             $itemTitle = [];
             $itemDisc  = [];
 
-            foreach($request->get('faq_title_' . getLanguages('default')->code) as $indexName=>$name) {
+            foreach($request->get('faq_title.' . getLanguages('default')->code) as $indexName=>$name) {
 
                 $itemsLangTitle = [];
                 $itemsLangDisc = [];
 
                 foreach(getLanguages() as $index=>$language) {
 
-                    $itemsLangTitle[$language->code] = $request->get('faq_title_' . $language->code)[$indexName] ?? $request->get('faq_title_' . getLanguages('default')->code)[$indexName];
-                    $itemsLangDisc[$language->code] = $request->get('faq_description_' . $language->code)[$indexName] ?? $request->get('faq_description_' . getLanguages('default')->code)[$indexName];;
+                    $itemsLangTitle[$language->code] = $request->get('faq_title.' . $language->code)[$indexName] ?? $request->get('faq_title.' . getLanguages('default')->code)[$indexName];
+                    $itemsLangDisc[$language->code] = $request->get('faq_description.' . $language->code)[$indexName] ?? $request->get('faq_description.' . getLanguages('default')->code)[$indexName];;
                 }
 
                 $itemTitle[] = $itemsLangTitle;
