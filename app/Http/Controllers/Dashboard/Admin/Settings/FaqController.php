@@ -20,28 +20,33 @@ class FaqController extends Controller
 
     public function store(FaqRequest $request)
     {
-        if (!empty($request->get('faq_title.' . getLanguages('default')->code))) {
+        if (!empty($request->get('faq_title')[getLanguages('default')->code])) {
 
-            $itemTitle = [];
-            $itemDisc  = [];
+            $itemTitle       = [];
+            $itemDescription = [];
+            $itemStatus      = [];
 
-            foreach($request->get('faq_title.' . getLanguages('default')->code) as $indexName=>$name) {
+            foreach($request->get('faq_title')[getLanguages('default')->code] as $indexName=>$name) {
 
-                $itemsLangTitle = [];
-                $itemsLangDisc = [];
+                $itemsLangTitle        = [];
+                $itemsLangDescription  = [];
+                $itemsLangStatus       = [];
 
                 foreach(getLanguages() as $index=>$language) {
 
-                    $itemsLangTitle[$language->code] = $request->get('faq_title.' . $language->code)[$indexName] ?? $request->get('faq_title.' . getLanguages('default')->code)[$indexName];
-                    $itemsLangDisc[$language->code] = $request->get('faq_description.' . $language->code)[$indexName] ?? $request->get('faq_description.' . getLanguages('default')->code)[$indexName];;
-                }
+                    $itemsLangTitle[$language->code]                = $request->get('faq_title')[$language->code][$indexName] ?? $request->get('faq_title')[getLanguages('default')->code][$indexName];
+                    $itemsLangDescription[$language->code]          = $request->get('faq_description')[$language->code][$indexName] ?? $request->get('faq_description')[getLanguages('default')->code][$indexName];;
+                    $itemsLangStatus[getLanguages('default')->code] = $request->get('faq_status')[getLanguages('default')->code][$indexName] ?? $request->get('faq_status')[getLanguages('default')->code][$indexName];;
+                    
+                }//end pf each
 
-                $itemTitle[] = $itemsLangTitle;
-                $itemDisc[]  = $itemsLangDisc;
+                $itemTitle[]       = $itemsLangTitle;
+                $itemDescription[] = $itemsLangDescription;
+                $itemStatus[]      = $itemsLangStatus;
 
-            }
+            }//end pf each
 
-            $data = ['title' => $itemTitle, 'description' => $itemDisc];
+            $data = ['title' => $itemTitle, 'description' => $itemDescription, 'status' => $itemStatus];
 
             saveSetting('faq', json_encode($data));
 
@@ -49,7 +54,7 @@ class FaqController extends Controller
 
             saveSetting('faq', json_encode([]));
 
-        }
+        }//end of check
 
         session()->flash('success', __('admin.global.updated_successfully'));
         return redirect()->back();

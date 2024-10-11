@@ -31,25 +31,26 @@
                     </ul>
 
                     <div class="tab-content" id="myTabContent">
+                        
                         @foreach(getLanguages() as $language)
+
                             <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="{{ $language->code }}" role="tabpanel" aria-labelledby="{{ $language->code }}-tab">
 
-                                
                                 @if(!empty(old('faq_title.' . $language->code)))
 
-                                    @foreach(old('faq_title.' . $language->code) as $item)
+                                    @foreach(old('faq_title.' . $language->code) as $index=>$item)
 
-                                        @include('dashboard.admin.settings.faq.row', ['code' => $language->code, 'index' => $loop->index, 'uuid' => $loop->index, 'old' => true, 'default' => $language->default])
+                                        @include('dashboard.admin.settings.faq.row', ['code' => $language->code, 'index' => $index, 'uuid' => $loop->index, 'old' => true, 'default' => $language->default])
 
                                     @endforeach
 
                                 @else
 
-                                    @if(!empty(json_decode(getSetting('faq'), true)['title']))
+                                    @if(!empty(getSetting('faq', true)))
 
-                                        @foreach(json_decode(getSetting('faq'), true)['title'] as $item)
+                                        @foreach(getSetting('faq', true)['title'] as $index=>$item)
 
-                                            @include('dashboard.admin.settings.faq.row', ['code' => $language->code, 'index' => $loop->index, 'uuid' => $loop->index, 'old' => false, 'default' => $language->default])
+                                            @include('dashboard.admin.settings.faq.row', ['code' => $language->code, 'index' => $index, 'uuid' => $loop->index, 'old' => false, 'default' => $language->default])
 
                                         @endforeach
 
@@ -58,7 +59,9 @@
                                 @endif
 
                             </div>
+
                         @endforeach
+                        
                     </div>
 
                     <div class="form-group mt-3">
