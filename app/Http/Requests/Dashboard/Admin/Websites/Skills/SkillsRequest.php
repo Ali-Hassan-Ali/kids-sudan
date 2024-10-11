@@ -37,7 +37,6 @@ class SkillsRequest extends FormRequest
 
         } else {
 
-
             foreach(getLanguages() as $index=>$language) {
 
                 $rules['title.' . $language->code]        = ['required','string','min:2','max:150'];
@@ -46,23 +45,22 @@ class SkillsRequest extends FormRequest
 
         } //end of if
 
-
         return $rules;
 
     }//end of rules
 
     public function attributes(): array
     {
-        $rules = [];
+        $rules = [
+            'icon_type' => trans('admin.global.type'),
+            'icon'      => trans('admin.files.' . request('icon_type'))
+        ];
 
         foreach(getLanguages() as $language) {
 
-            $rules['title.' . $language->code . '.*'] 	    = trans('admin.global.by', ['name' => trans('admin.global.title'), 'lang' => $language->name]);
-            $rules['description.' . $language->code . '.*'] = trans('admin.global.by', ['name' => trans('admin.global.description'), 'lang' => $language->name]);
+            $rules['title.' . $language->code] 	     = trans('admin.global.by', ['name' => trans('admin.global.title'), 'lang' => $language->name]);
+            $rules['description.' . $language->code] = trans('admin.global.by', ['name' => trans('admin.global.description'), 'lang' => $language->name]);
         }
-
-        $rules['icon_type'] = trans('admin.global.type');
-        $rules['icon'] 	    = trans('admin.files.' . request('icon_type'));
 
         return $rules;
 
