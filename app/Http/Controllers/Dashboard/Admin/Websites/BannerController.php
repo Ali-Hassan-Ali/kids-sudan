@@ -42,20 +42,20 @@ class BannerController extends Controller
 
         }//end of if
 
-        if (!empty($request->get('banner_rxperiences_title_' . getLanguages('default')->code))) {
+        if (!empty($request->get('banner_rxperiences_title')[getLanguages('default')->code])) {
 
             $itemTitle  = [];
             $itemNumber = [];
 
-            foreach($request->get('banner_rxperiences_title_' . getLanguages('default')->code) as $indexName=>$name) {
+            foreach($request->get('banner_rxperiences_title')[getLanguages('default')->code] as $indexName=>$name) {
 
                 $itemsLangTitle  = [];
                 $itemsLangNumber = [];
 
                 foreach(getLanguages() as $index=>$language) {
 
-                    $itemsLangTitle[$language->code]  = $request->get('banner_rxperiences_title_' . $language->code)[$indexName] ?? $request->get('banner_rxperiences_title_' . getLanguages('default')->code)[$indexName];
-                    $itemsLangNumber[$language->code] = $request->get('banner_rxperiences_number_' . $language->code)[$indexName] ?? $request->get('banner_rxperiences_number_' . getLanguages('default')->code)[$indexName];;
+                    $itemsLangTitle[$language->code]  = $request->get('banner_rxperiences_title')[$language->code][$indexName] ?? $request->get('banner_rxperiences_title')[getLanguages('default')->code][$indexName];
+                    $itemsLangNumber[$language->code] = $request->get('banner_rxperiences_number')[$language->code][$indexName] ?? $request->get('banner_rxperiences_number')[getLanguages('default')->code][$indexName];;
                 }
 
                 $itemTitle[]  = $itemsLangTitle;

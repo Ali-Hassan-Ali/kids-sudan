@@ -37,9 +37,9 @@ class WebsitRequest extends FormRequest
 
         foreach(getLanguages() as $language) {
 
-            $rules['websit_title.' . $language->code] = trans('admin.global.by', ['name' => trans('admin.global.name'), 'lang' => $language->name]);
+            $rules['websit_title.' . $language->code]       = trans('admin.global.by', ['name' => trans('admin.global.name'), 'lang' => $language->name]);
             $rules['websit_description.' . $language->code] = trans('admin.global.by', ['name' => trans('admin.global.description'), 'lang' => $language->name]);
-            $rules['websit_keywords.' . $language->code] = trans('admin.global.by', ['name' => trans('admin.settings.keywords'), 'lang' => $language->name]);
+            $rules['websit_keywords.' . $language->code]    = trans('admin.global.by', ['name' => trans('admin.settings.keywords'), 'lang' => $language->name]);
         }
 
         return $rules;

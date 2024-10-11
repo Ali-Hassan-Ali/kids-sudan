@@ -11,15 +11,7 @@ class LanguageRequest extends FormRequest
 
 	public function authorize(): bool
     {
-        if (in_array(request()->method(), ['PUT', 'PATCH'])) {
-            
-            return permissionAdmin('update-languages');
-
-        } else {
-
-            return permissionAdmin('create-languages');
-
-        }//end of if
+        return in_array(request()->method(), ['PUT', 'PATCH']) ? permissionAdmin('update-languages') : permissionAdmin('create-languages');
 
     }//end of authorize
 

@@ -10,15 +10,7 @@ class RoleRequest extends FormRequest
 {
 	public function authorize(): bool
     {
-        if (in_array(request()->method(), ['PUT', 'PATCH'])) {
-            
-            return permissionAdmin('update-roles');
-
-        } else {
-
-            return permissionAdmin('create-roles');
-
-        }//end of if
+        return in_array(request()->method(), ['PUT', 'PATCH']) ? permissionAdmin('update-roles') : permissionAdmin('create-roles');
 
     }//end of authorize
 
