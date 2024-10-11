@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             LanguageSeeder::class,
             SettingSeeder::class,
             CreativeSeeder::class,
+            SkillsSeeder::class,
         ]);
 
     }//end of run

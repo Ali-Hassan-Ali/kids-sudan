@@ -42,6 +42,7 @@ return array('global' =>
                 'choose'      => 'Choose',
                 'change'      => 'Change',
                 'default'     => 'Default',
+                'sortable'    => 'Sortable',
                 'created_at'  => 'Created at',
                 'all'         => 'All',
                 'close'       => 'Close',
@@ -113,6 +114,7 @@ return array('global' =>
                   'websit'       => 'websit',
                   'creative'     => 'Creative',
                   'creatives'    => 'Creatives',
+                  'skills'       => 'Skills',
             ),
             'websits' => array(
                   'tools'   => 'Tools',

@@ -15,14 +15,25 @@ Route::controller(BannerController::class)
 
 });
 
+
 //website skills
 Route::controller(SkillsController::class)
-    ->prefix('skills')->name('skills.')->group(function () {
+    ->prefix('skills')->name('skills.')
+    ->group(function () {
 
-    Route::get('/', 'index')->name('index');
-    Route::post('store', 'store')->name('store');
+        Route::get('data', 'data')->name('data');
+        Route::post('status', 'status')->name('status');
+        Route::delete('bulk_delete', 'bulkDelete')->name('bulk_delete');
 
-});
+        Route::prefix('sortable')->name('sortable.')->group(function () {
+
+            Route::get('/', 'sortablePage')->name('index');
+            Route::post('/store', 'storeSortable')->name('store');
+
+        });
+    });
+Route::resource('skills', SkillsController::class);
+
 
 //website tools
 Route::controller(ToolsController::class)
