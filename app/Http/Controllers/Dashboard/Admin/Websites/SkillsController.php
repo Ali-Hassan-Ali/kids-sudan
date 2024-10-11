@@ -211,13 +211,14 @@ class SkillsController extends Controller
 
     }//end of sortablePage
 
-    public function storeSortable()
+    public function storeSortable(): bool
     {        
         foreach (request('order') as $index=>$id) {
             Skills::where('id', $id)->update(['index' => $index]);
         }
 
         return true;
-    }
+        
+    }//end of storeSortable
 
 }//end of controller
