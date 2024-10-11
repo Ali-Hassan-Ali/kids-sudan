@@ -32,7 +32,7 @@ class PermissionsDemoSeeder extends Seeder
                 
                 $cruds = ['read'];
 
-            } elseif (in_array($data, ['banner', 'skills', 'tools'])) {
+            } elseif (in_array($data, ['banner', 'tools'])) {
 
                 $cruds = ['read', 'update'];
 
