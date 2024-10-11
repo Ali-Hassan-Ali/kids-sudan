@@ -6,6 +6,8 @@ Interface DatatableInterfaceServices
 {
     public function header(array $headers): self;
     
+    public function sortable(string $route): self;
+
     public function route(string $route): self;
     
     public function columns(array $columns): self;

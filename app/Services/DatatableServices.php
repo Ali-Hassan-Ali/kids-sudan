@@ -2,85 +2,89 @@
 
 namespace App\Services;
 
-class DatatableServices implements DatatableInterfaceServices
+use ArrayAccess;
+use JsonSerializable;
+
+class DatatableServices implements DatatableInterfaceServices, ArrayAccess, JsonSerializable
 {
-    protected $headers = [];
+    protected $header   = [];
+    protected $route    = '';
+    protected $sortable = '';
+    protected $columns  = [];
+    protected $checkbox = [];
 
-    protected $route   = '';
-
-    protected $columns = [];
-
-    protected $this    = [];
-
-    public function header(array $headers) : self
+    public function header(array $headers): self
     {
-        $this->headers = $headers;
-
+        $this->header = $headers;
         return $this;
+    }
 
-    }//end of headers
+    public function sortable(string | bool $sortable = false): self
+    {
+        $this->sortable = $sortable ? route($sortable) : '';
+        return $this;
+    }
 
     public function route(string $route): self
     {
         $this->route = route($route);
         return $this;
-
-    }//end of headers
+    }
 
     public function checkbox(array $checkbox): self
     {
         $items = collect([]);
-
         collect($checkbox)->each(fn ($item, $key) => $items->put($key, route($item)));
-
         $this->checkbox = $items;
         return $this;
-
-    }//end of checkbox
+    }
 
     public function columns(array $columns): self
     {
         $items = collect([]);
-
-        collect($columns)->each(fn ($item) => $items->put($item, $item));
-
+        collect($columns)->each(fn ($item, $key) => $items->put($item, $item));
         $this->columns = $items;
         return $this;
-
-    }//end of columns
+    }
 
     public function run()
     {
-        return [
-            'header'   => $this->headers,
-            'route'    => $this->route,
-            'checkbox' => $this->checkbox,
-            'columns'  => $this->columns,
-        ];
+        return $this;
+    }
 
-    }//end of run
+    public function jsonSerialize()
+    {
+        return [
+            'headers'       => $this->headers,
+            'route'         => $this->route,
+            'sortableRoute' => $this->sortableRoute,
+            'columns'       => $this->columns,
+            'checkbox'      => $this->checkbox,
+        ];
+    }
 
     public function __get($name)
     {
-        if ($name === 'headers') {
-            
-            return $this->headers;
+        return property_exists($this, $name) ? $this->$name : null;
+    }
 
-        } elseif ($name === 'route') {
+    public function offsetExists($offset): bool
+    {
+        return isset($this->$offset);
+    }
 
-            return $this->route;
+    public function offsetGet($offset): mixed
+    {
+        return $this->$offset ?? null;
+    }
 
-        } elseif ($name === 'columns') {
+    public function offsetSet($offset, $value): void
+    {
+        $this->$offset = $value;
+    }
 
-            return $this->columns;
-
-        } elseif ($name === 'checkbox') {
-
-            return $this->checkbox;
-        }
-        
-        return null;
-
-    }//end of __get
-
-}//end of class
+    public function offsetUnset($offset): void
+    {
+        unset($this->$offset);
+    }
+} // end of class
