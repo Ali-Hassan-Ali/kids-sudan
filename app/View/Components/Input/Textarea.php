@@ -10,6 +10,7 @@ class Textarea extends Component
 {
     public function __construct(
         public $id       = '',
+        public $index    = '',
         public $col      = '',
         public $name     = '',
         public $value    = '',
@@ -21,8 +22,11 @@ class Textarea extends Component
         public $readonly = false,
         public $invalid  = '',
         public $rows     = '3',
+        public $old      = '',
     ) {
-        $this->id = $this->id ?? (!empty($invalid) ? str_replace('.', '-', !empty($invalid) ? $invalid : $name) : $this->id);
+        $this->id      = $this->id ? $id : $this->convertToDotNotation($name, $index);
+        $this->invalid = $this->invalidCheck($name, $index);
+        $this->old     = $this->invalidCheck($name, $index);
     }
 
     public function render(): View | Closure | string
@@ -30,5 +34,33 @@ class Textarea extends Component
         return view('components.input.textarea');
 
     }//end of render
+
+    public function containsBrackets(string $string) 
+    {
+        return strpos($string, '[') !== false && strpos($string, ']') !== false;
+
+    }//end of render
+
+    public function invalidCheck(string $name, string | int | bool $index = false)
+    {
+        if ($this->containsBrackets($name)) {
+
+            $name = str_replace(['[', ']'], ['.',''], $name) . $index;
+            $name = rtrim($name, '.');
+        } 
+
+        return $name;
+
+    }//end of fun
+
+    public function convertToDotNotation(string $name, $index = false)
+    {
+        $name = str_replace(['[', ']'], ['-',''], $name) . $index;
+        $name = str_replace('_', '-', $name) . $index;
+        $name = rtrim($name, '-');
+
+        return $name;
+
+    }//end of fun
 
 }//end of class

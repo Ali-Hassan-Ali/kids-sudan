@@ -1,23 +1,18 @@
 <div class="{{ $col }}" id="{{ $id }}-hidden" {{ $hidden ? 'hidden' : '' }}>
     <div class="form-group">
-        @if(!empty($label))
+        @if($label)
             <label for="{{ $id }}">{{ trans($label) }} @if($required)<span class="text-danger">*</span>@endif</label>
         @endif
-        <select {{ $readonly ? 'readonly' : '' }} {{ $multiple ? 'multiple' : '' }} {{ $disabled ? 'disabled' : '' }} name="{{ $name }}" class="form-control select2 @error(!empty($invalid) ? $invalid : $name) is-invalid @enderror" id="{{ $id }}">
-            @if ($choose)
-                <option value="" disabled {{ $multiple ? '' : 'selected'; }}>@lang('admin.global.choose')</option>
-            @endif
+        <select {{ $readonly ? 'readonly' : '' }} {{ $multiple ? 'multiple' : '' }} {{ $disabled ? 'disabled' : '' }} name="{{ $name }}" class="form-control select2 @error($invalid) is-invalid @enderror" id="{{ $id }}">
+            @if($choose)
+                <option value="" disabled>@lang('admin.global.choose')</option>
+            @endif        
+
             @foreach($lists as $key=>$list)
-            <option value="{{ $key }}" 
-                @if($multiple)
-                    {{ in_array($key, $value ?? []) ? 'selected' : '' }}
-                @else
-                    {{ old(!empty($invalid) ? $invalid : $name, $value) == $key ? 'selected' : '' }}
-                @endif
-                >{{ $list }}</option>
+                <option value="{{ $key }}" {{ $multiple ? (in_array($key, $value ?? []) ? 'selected' : '') : (old($old, $value) == $key ? 'selected' : '') }}>{{ $list }}</option>
             @endforeach
         </select>
-        @error(!empty($invalid) ? $invalid : $name)
+        @error($invalid)
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
