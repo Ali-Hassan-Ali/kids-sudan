@@ -11,9 +11,10 @@ class CreativeFactory extends Factory
     {
         return [
             'name'     => ['ar' => fake()->name(), 'en' => fake()->name()],
-            'date'     => now(),
+            'date'     => now()->toDateTimeString(),
             'status'   => fake()->boolean(),
             'links'    => json_encode(['https://kids-sudan.test', 'https://kids-sudan.test']),
+            'index'    => fake()->randomDigitNotNull(),
             'admin_id' => Admin::first()?->id,
         ];
 

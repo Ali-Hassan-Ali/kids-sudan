@@ -23,7 +23,7 @@ class Creative extends Model
 
     protected function imagePath(): Attribute
     {
-        return Attribute::make(get: fn () => $this->image == 'default.png' ? asset('admin_assets/images/creative-default.png') : asset('storage/' . $this->image));
+        return Attribute::make(get: fn () => $this->icon != 'default.png' ? asset('admin_assets/images/skills-default.png') : asset('storage/' . $this->icon));
 
     }//end of get ImagePath Attribute
 
@@ -37,7 +37,7 @@ class Creative extends Model
     {
         static::addGlobalScope(new OrderScope);
 
-        if(!request()->is('*creatives*')) static::addGlobalScope(new StatusScope);
+        if(!request()->is('*skills*')) static::addGlobalScope(new StatusScope);
 
     }//end of Global Scope
 
