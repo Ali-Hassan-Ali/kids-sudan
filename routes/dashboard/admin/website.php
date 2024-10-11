@@ -54,5 +54,12 @@ Route::controller(CreativesController::class)
         Route::post('status', 'status')->name('status');
         Route::delete('bulk_delete', 'bulkDelete')->name('bulk_delete');
 
+        Route::prefix('sortable')->name('sortable.')->group(function () {
+
+            Route::get('/', 'sortablePage')->name('index');
+            Route::post('/store', 'storeSortable')->name('store');
+
+        });
+
     });
 Route::resource('creatives', CreativesController::class);

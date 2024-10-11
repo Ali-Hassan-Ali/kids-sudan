@@ -33,9 +33,14 @@ class CreativesController extends Controller
                     ->checkbox(['status' => 'dashboard.admin.websits.creatives.status'])
                     ->route('dashboard.admin.websits.creatives.data')
                     ->columns(['name','image','date','status','links'])
+                    ->sortable('dashboard.admin.websits.creatives.sortable.store')
                     ->run();
 
-        $breadcrumb = [['trans' => 'admin.models.creatives']];
+        $breadcrumb = [
+            ['trans' => 'admin.models.websits'],
+            ['trans' => 'admin.models.creatives'],
+            ['trans' => 'admin.global.sortable', 'route' => 'dashboard.admin.websits.creatives.sortable.index']
+        ];
 
         return view('dashboard.admin.websits.creatives.index', compact('datatables', 'breadcrumb'));
 
@@ -180,5 +185,29 @@ class CreativesController extends Controller
         return response(__('admin.messages.updated_successfully'));
         
     }//end of status
+
+    public function sortablePage(): View
+    {
+        $breadcrumb = [
+            ['trans' => 'admin.models.websits'],
+            ['trans' => 'admin.models.creatives', 'route' => 'dashboard.admin.websits.creatives.index'],
+            ['trans' => 'admin.global.sortable']
+        ];
+
+        $creatives = Creative::pluck('name', 'id')->toArray();
+
+        return view('dashboard.admin.websits.creatives.sortable', compact('breadcrumb', 'creatives'));
+
+    }//end of sortablePage
+
+    public function storeSortable(): bool
+    {        
+        foreach (request('order') as $index=>$id) {
+            Creative::where('id', $id)->update(['index' => $index]);
+        }
+
+        return true;
+
+    }//end of storeSortable
 
 }//end of controller

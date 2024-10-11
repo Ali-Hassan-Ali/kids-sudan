@@ -16,11 +16,11 @@
 
             <div class="col-12 col-md-4">
 
-                <div class="title shadow">
+                <div class="tile shadow">
 
                     @include('dashboard.admin.dataTables.image_privew', ['name' => 'image', 'label' => 'admin.global.image', 'required' => true])
 
-                </div><!-- end of title -->
+                </div><!-- end of tile -->
 
             </div><!-- end of col -->
 
@@ -39,9 +39,7 @@
                         @foreach ([0,1] as $index=>$link)
 
 	                        {{-- date --}}
-	                        <x-input.text required="true" name="links[]" label="admin.global.links" col="col-md-6" 
-	                        :value="old('links.' . $index)"
-	                        invalid="{{ 'links.' . $index }}"/>
+	                        <x-input.text required="true" name="links[]" :index='$index' label="admin.global.links" col="col-md-6"/>
                         	
                         @endforeach
 
@@ -50,12 +48,11 @@
 
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mt-5">
                         <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i>@lang('admin.global.create')</button>
                     </div>
 
                 </div><!-- end of tile -->
-
 
             </div><!-- end of col -->
 

@@ -19,7 +19,7 @@ class CreativeRequest extends FormRequest
     {
         $rules = [
             'status'   => ['boolean'],
-            'links.*'  => ['nullable','url'],
+            'links.*'  => ['required','url'],
             'admin_id' => ['nullable','exists:admins,id'],
         ];
 

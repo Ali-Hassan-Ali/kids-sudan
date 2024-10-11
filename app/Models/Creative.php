@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Scopes\StatusScope;
-use App\Models\Scopes\OrderScope;
+use App\Models\Scopes\OrderIndexScope;
 
 class Creative extends Model
 {
@@ -23,7 +23,7 @@ class Creative extends Model
 
     protected function imagePath(): Attribute
     {
-        return Attribute::make(get: fn () => $this->icon != 'default.png' ? asset('admin_assets/images/skills-default.png') : asset('storage/' . $this->icon));
+        return Attribute::make(get: fn () => $this->icon != 'default.png' ? asset('admin_assets/images/creatives-default.png') : asset('storage/' . $this->icon));
 
     }//end of get ImagePath Attribute
 
@@ -35,9 +35,9 @@ class Creative extends Model
 
     protected static function booted(): void
     {
-        static::addGlobalScope(new OrderScope);
+        static::addGlobalScope(new OrderIndexScope);
 
-        if(!request()->is('*skills*')) static::addGlobalScope(new StatusScope);
+        if(!request()->is('*creatives*')) static::addGlobalScope(new StatusScope);
 
     }//end of Global Scope
 

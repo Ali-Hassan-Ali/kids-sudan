@@ -59,16 +59,14 @@
 
                 </div><!-- end of row -->
 
-            </div><!-- end of title -->
+            </div><!-- end of tile -->
 
         </div><!-- end of col -->
 
     </div><!-- end of row -->
 
     <x-slot name="scripts">
-
         <x-dashboard.admin.data-table.script :datatables='$datatables'/>
-
     </x-slot>
 
 </x-dashboard.admin.layout.app>
