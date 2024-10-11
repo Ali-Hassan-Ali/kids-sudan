@@ -21,11 +21,11 @@
 								</div>
 								
 								<div class="col-4">
-									<x-input.text required="true" name="banner_rxperiences_number_${code}[]" label="admin.global.number" type="number"/>
+									<x-input.text required="true" name="banner_rxperiences_number[${code}][]" label="admin.global.number" type="number"/>
 								</div>
 
 								<div class="col-6">
-									<x-input.text required="true" name="banner_rxperiences_title_${code}[]" label="admin.global.title"/>
+									<x-input.text required="true" name="banner_rxperiences_title[${code}][]" label="admin.global.title"/>
 								</div>
 
 							</div>`;
