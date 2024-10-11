@@ -14,14 +14,16 @@ return new class extends Migration
         Schema::create('creatives', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name');
+            $table->text('name');
             $table->string('image')->default('default.png');
 
             $table->date('date')->nullable();
             $table->text('links')->nullable();
 
             $table->boolean('status')->default(0);
-
+            $table->integer('index')->default(0);
+            $table->index('index');
+            
             $table->foreignId('admin_id')->constrained();
 
             $table->softDeletes();
