@@ -63,12 +63,6 @@
 <link rel="stylesheet" href="{{ asset('admin_assets/css/custom.css')}}">
 
 <style>
-    @if (request()->segment(2) == 'reports')
-        .dataTables_filter, .dataTables_info {
-        display: none;
-    }
-
-    @endif
     .has-error .select2-selection {
         border-color: rgb(185, 74, 72) !important;
     }
@@ -138,6 +132,11 @@
             transform: rotate(360deg);
         }
     }
+    
+    .form-switch .form-check-input,
+    .form-check-input {
+        width: 40px;    
+        height: 25px;
+        cursor: pointer;
+    }
 </style>
-
-{{ $style ?? '' }}

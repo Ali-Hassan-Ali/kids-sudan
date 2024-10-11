@@ -43,23 +43,17 @@
                     <div class="tab-content" id="myTabContent">
                         @foreach(getLanguages() as $language)
                             <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="{{ $language->code }}" role="tabpanel" aria-labelledby="{{ $language->code }}-tab">
+                                
                                 {{--name--}}
+                                <x-input.text required="{{ $loop->first ? true : false }}" name="websit_title[{{ $language->code }}]" label="admin.global.title" :value="getTransSetting('websit_title', $language->code)"/>
 
-                                <x-input.text required="{{ $loop->first ? true : false }}" 
-                                    name="websit_title[{{ $language->code }}]" 
-                                    label="admin.global.title" :value="old('websit_title.' . $language->code, getTransSetting('websit_title', $language->code))"
-                                    invalid="{{ 'websit_title.' . $language->code }}" />
-
+                                {{-- keywords --}}
                                 <x-input.option required="{{ $loop->first ? true : false }}" 
-                                    name="websit_keywords[{{ $language->code }}][]" multiple='true'
-                                    label="admin.settings.keywords" invalid="{{ 'websit_keywords.' . $language->code }}" 
+                                    name="websit_keywords[{{ $language->code }}][]" multiple='true' label="admin.settings.keywords"
                                     :lists="getItemTagesSetting('websit_keywords', $language->code)"
                                     :value="getItemTagesSetting('websit_keywords', $language->code, false)"/>
-
-                                <x-input.textarea required="{{ $loop->first ? true : false }}" 
-                                    name="websit_description[{{ $language->code }}]" 
-                                    label="admin.global.description" :value="old('websit_description.' . $language->code, getTransSetting('websit_description', $language->code))"
-                                    invalid="{{ 'websit_description.' . $language->code }}" />
+                                {{-- description --}}
+                                <x-input.textarea required="{{ $loop->first ? true : false }}" name="websit_description[{{ $language->code }}]" label="admin.global.description" :value="getTransSetting('websit_description', $language->code)"/>
 
                             </div>
                         @endforeach

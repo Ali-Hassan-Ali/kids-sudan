@@ -46,21 +46,14 @@
                             <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="{{ $language->code }}" role="tabpanel" aria-labelledby="{{ $language->code }}-tab">
                                 {{--name--}}
 
-                                <x-input.text required="{{ $loop->first ? true : false }}" 
-                                    name="meta_title[{{ $language->code }}]" 
-                                    label="admin.global.title" :value="old('meta_title.' . $language->code, getTransSetting('meta_title', $language->code))"
-                                    invalid="{{ 'meta_title.' . $language->code }}" />
+                                <x-input.text required="{{ $loop->first ? true : false }}" name="meta_title[{{ $language->code }}]" label="admin.global.title" :value="getTransSetting('meta_title', $language->code)"/>
 
-                                <x-input.option required="{{ $loop->first ? true : false }}" 
-                                    name="meta_keywords[{{ $language->code }}][]" multiple='true'
-                                    label="admin.settings.keywords" invalid="{{ 'meta_keywords.' . $language->code }}" 
-                                    :lists="getItemTagesSetting('meta_keywords', $language->code)"
-                                    :value="getItemTagesSetting('meta_keywords', $language->code, false)"/>
+                                <x-input.option required="{{ $loop->first ? true : false }}" name="meta_keywords[{{ $language->code }}][]" multiple='true'
+                                    label="admin.settings.keywords" choose="false"
+                                    :lists="getItemTagesSetting('meta_keywords', $language->code) ?? []"
+                                    :value="getItemTagesSetting('meta_keywords', $language->code, false) ?? []"/>
 
-                                <x-input.textarea required="{{ $loop->first ? true : false }}" 
-                                    name="meta_description[{{ $language->code }}]" 
-                                    label="admin.global.description" :value="old('meta_description.' . $language->code, getTransSetting('meta_description', $language->code))"
-                                    invalid="{{ 'meta_description.' . $language->code }}" />
+                                <x-input.textarea required="{{ $loop->first ? true : false }}" name="meta_description[{{ $language->code }}]" label="admin.global.description" :value="getTransSetting('meta_description', $language->code)"/>
 
                             </div>
                         @endforeach

@@ -45,26 +45,28 @@
                     </ul>
 
                     <div class="tab-content" id="myTabContent">
+
                         @foreach(getLanguages() as $language)
+
                             <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="{{ $language->code }}" role="tabpanel" aria-labelledby="{{ $language->code }}-tab">
 
                                 {{--title--}}
                                 <x-input.text required="{{ $loop->first ? true : false }}" 
                                     name="about_page_title[{{ $language->code }}]" 
                                     label="site.about_page_title"
-                                    :value="old('about_page_title.' . $language->code, getTransSetting('about_page_title', $language->code) ?? '')"
-                                    invalid="{{ 'about_page_title.' . $language->code }}" />
+                                    :value="getTransSetting('about_page_title', $language->code)" />
 
                                 {{--description--}}
                                 <x-input.textarea required="{{ $loop->first ? true : false }}" 
                                     name="about_page_description[{{ $language->code }}]" 
                                     label="site.about_page_description" rows='6' :ckeditor="true"
-                                    :value="old('about_page_description.' . $language->code, getTransSetting('about_page_description', $language->code) ?? '')"
-                                    invalid="{{ 'about_page_description.' . $language->code }}" />
+                                    :value="getTransSetting('about_page_description', $language->code)"/>
 
 
                             </div>
+
                         @endforeach
+                        
                     </div>
 
                     <div class="form-group">

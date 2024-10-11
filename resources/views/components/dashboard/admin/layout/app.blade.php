@@ -8,6 +8,8 @@
 
     <x-dashboard.admin.layout.includes.styles/>
 
+    {{ $styles ?? '' }}
+
 </head>
 
 <body class="app sidebar-mini">
