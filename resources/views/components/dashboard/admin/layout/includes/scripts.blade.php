@@ -7,9 +7,10 @@
         integrity="sha512-6PM0qYu5KExuNcKt5bURAoT6KCThUmHRewN3zUFNaoI6Di7XJPTMoT6K0nsagZKk2OB4L7E3q1uQKHNHd4stIQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-{{--select 2--}}
-<script type="text/javascript" src="{{ asset('admin_assets/plugins/select2/select2.min.js') }}"></script>
+{{--select2.min.js--}}
+<script src="{{ asset('admin_assets/plugins/select2/select2.min.js') }}"></script>
 
+{{--main.js 2--}}
 <script src="{{ asset('admin_assets/js/main.js') }}"></script>
 
 {{--ckeditor--}}
@@ -19,13 +20,13 @@
 <script src="{{ asset('admin_assets/plugins/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
 
 {{--apex chart--}}
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> --}}
 
 {{--custom--}}
 <script src="{{ asset('admin_assets/js/custom/index.js?updated=20') }}" type="text/javascript"></script>
 <script src="{{ asset('admin_assets/js/custom/roles.js?updated=20') }}" type="text/javascript"></script>
 {{--jquery number--}}
-<script src="{{ asset('admin_assets/js/query.number.min.js') }}"></script>
+{{-- <script src="{{ asset('admin_assets/js/query.number.min.js') }}"></script> --}}
 {{-- <script src="{{ asset('admin_assets/js/custom/ajax.js?updated=20') }}" type="text/javascript"></script> --}}
 
 <script>
@@ -40,10 +41,6 @@
 
         $(document).on('change', '.record__select', function () {
             $(this).closest('tr').toggleClass('bg-hover');
-        });
-
-        $(document).on('change', '.record__select-all', function () {
-            $(this).closest('body').toggleClass('bg-hover');
         });
 
     });//end of ready
