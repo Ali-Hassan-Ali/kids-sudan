@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('title')->nullable();
             $table->text('icon_type')->nullable();
             $table->text('icon')->nullable();
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
 
             $table->boolean('status')->default(0);
             $table->integer('index')->default(0);

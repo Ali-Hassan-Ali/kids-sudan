@@ -32,7 +32,7 @@ class SkillsRequest extends FormRequest
             foreach(getLanguages() as $index=>$language) {
 
                 $rules['title.' . $language->code]        = ['required','string','min:2','max:150', UniqueTranslationRule::for('skills', 'title')->ignore($skill?->id)];
-                $rules['description.' . $language->code]  = ['required','string', UniqueTranslationRule::for('skills', 'title')->ignore($skill?->id)];                
+                $rules['description.' . $language->code]  = ['required','string', UniqueTranslationRule::for('skills', 'description')->ignore($skill?->id)];
             }
 
         } else {

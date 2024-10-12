@@ -32,7 +32,7 @@ class ToolsRequest extends FormRequest
             foreach(getLanguages() as $index=>$language) {
 
                 $rules['title.' . $language->code]        = ['required','string','min:2','max:150', UniqueTranslationRule::for('tools', 'title')->ignore($tool?->id)];
-                $rules['description.' . $language->code]  = ['required','string', UniqueTranslationRule::for('tools', 'title')->ignore($tool?->id)];                
+                $rules['description.' . $language->code]  = ['required','string', UniqueTranslationRule::for('tools', 'description')->ignore($tool?->id)];                
             }
 
         } else {

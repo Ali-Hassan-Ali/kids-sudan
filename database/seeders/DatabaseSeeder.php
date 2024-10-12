@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             CreativeSeeder::class,
             SkillsSeeder::class,
             ToolsSeeder::class,
+            ClientSeeder::class,
         ]);
 
     }//end of run

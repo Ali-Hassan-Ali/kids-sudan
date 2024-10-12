@@ -116,6 +116,10 @@ return array('global' =>
                   'creatives'    => 'Creatives',
                   'skills'       => 'Skills',
                   'tools'        => 'tools',
+                  'job'          => 'Job',
+                  'jobs'         => 'Jobs',
+                  'clients'      => 'Clients',
+                  'client'       => 'Client',
             ),
             'websites' => array(
                   'tools'   => 'Tools',

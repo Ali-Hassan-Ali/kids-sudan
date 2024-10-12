@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tools', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            
-            $table->text('title')->nullable();
-            $table->text('icon_type')->nullable();
-            $table->text('icon')->nullable();
+
+            $table->text('name')->nullable();
+            $table->text('job')->nullable();
+            $table->string('picture')->default('default.png');
+
             $table->longText('description')->nullable();
 
             $table->boolean('status')->default(0);
@@ -24,6 +25,8 @@ return new class extends Migration
             $table->index('index');
             
             $table->foreignId('admin_id')->constrained();
+
+            $table->longText('links')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
@@ -35,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tools');
+        Schema::dropIfExists('clients');
     }
 };

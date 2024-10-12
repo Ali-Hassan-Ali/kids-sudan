@@ -43,6 +43,8 @@
 
                 <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.models.creatives" active="dashboard.admin.websites.creatives.*" route="dashboard.admin.websites.creatives.index" permission="read-creatives"/>
 
+                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.models.clients" active="dashboard.admin.websites.clients.*" route="dashboard.admin.websites.clients.index" permission="read-clients"/>
+
             </x-dashboard.admin.layout.includes.slider.menu-group-item>
 
         @endif

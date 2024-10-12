@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('title');
             $table->string('image')->default('default.png');
             $table->text('link');
-            $table->text('description');
+            $table->longText('description');
 
             $table->boolean('status')->default(0);
             $table->integer('index')->default(0);

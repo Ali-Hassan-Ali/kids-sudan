@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\Admin\Websites\BannerController;
 use App\Http\Controllers\Dashboard\Admin\Websites\SkillsController;
 use App\Http\Controllers\Dashboard\Admin\Websites\ToolsController;
 use App\Http\Controllers\Dashboard\Admin\Websites\CreativesController;
+use App\Http\Controllers\Dashboard\Admin\Websites\ClientController;
 
 //website banner
 Route::controller(BannerController::class)
@@ -72,3 +73,22 @@ Route::controller(CreativesController::class)
 
     });
 Route::resource('creatives', CreativesController::class);
+
+//website clients
+Route::controller(ClientController::class)
+    ->prefix('clients')->name('clients.')
+    ->group(function () {
+
+        Route::get('data', 'data')->name('data');
+        Route::post('status', 'status')->name('status');
+        Route::delete('bulk_delete', 'bulkDelete')->name('bulk_delete');
+
+        Route::prefix('sortable')->name('sortable.')->group(function () {
+
+            Route::get('/', 'sortablePage')->name('index');
+            Route::post('/store', 'storeSortable')->name('store');
+
+        });
+
+    });
+Route::resource('clients', ClientController::class);
