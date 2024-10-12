@@ -28,21 +28,21 @@ class ToolsController extends Controller
                             'admin.global.description',
                             'admin.global.status'
                         ])
-                        ->checkbox(['status' => 'dashboard.admin.websits.tools.status'])
-                        ->route('dashboard.admin.websits.tools.data')
+                        ->checkbox(['status' => 'dashboard.admin.websites.tools.status'])
+                        ->route('dashboard.admin.websites.tools.data')
                         ->columns(['title', 'image', 'description', 'status'])
-                        ->sortable('dashboard.admin.websits.tools.sortable.store')
+                        ->sortable('dashboard.admin.websites.tools.sortable.store')
                         ->run();
 
         $imageTypes = WebsitsToolsImageType::array();
 
         $breadcrumb = [
-            ['trans' => 'admin.models.websits'],
-            ['trans' => 'admin.websits.tools'],
-            ['trans' => 'admin.global.sortable', 'route' => 'dashboard.admin.websits.tools.sortable.index']
+            ['trans' => 'admin.models.websites'],
+            ['trans' => 'admin.websites.tools'],
+            ['trans' => 'admin.global.sortable', 'route' => 'dashboard.admin.websites.tools.sortable.index']
         ];
 
-        return view('dashboard.admin.websits.tools.index', compact('breadcrumb', 'imageTypes', 'datatables'));
+        return view('dashboard.admin.websites.tools.index', compact('breadcrumb', 'imageTypes', 'datatables'));
 
     }//end of index
 
@@ -63,8 +63,8 @@ class ToolsController extends Controller
                 ->editColumn('description', fn (Tools $tools) => str()->limit($tools->description, 35))
                 ->addColumn('image', fn (Tools $tools) => $tools?->icon_type)
                 ->addColumn('actions', function(Tools $tools) use($permissions) {
-                    $routeEdit   = route('dashboard.admin.websits.tools.edit', $tools->id);
-                    $routeDelete = route('dashboard.admin.websits.tools.destroy', $tools->id);
+                    $routeEdit   = route('dashboard.admin.websites.tools.edit', $tools->id);
+                    $routeDelete = route('dashboard.admin.websites.tools.destroy', $tools->id);
                     return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
                 })
                 ->addColumn('status', fn (Tools $tools) => view('dashboard.admin.dataTables.checkbox', ['models' => $tools, 'permissions' => $permissions, 'type' => 'status']))
@@ -80,7 +80,7 @@ class ToolsController extends Controller
 
         $breadcrumb = [
             [
-                'route' => 'dashboard.admin.websits.tools.index',
+                'route' => 'dashboard.admin.websites.tools.index',
                 'trans' => 'admin.models.tools',
             ],
             [
@@ -91,7 +91,7 @@ class ToolsController extends Controller
 
         $imageTypes = WebsitsToolsImageType::array();
 
-        return view('dashboard.admin.websits.tools.create', compact('breadcrumb', 'imageTypes'));
+        return view('dashboard.admin.websites.tools.create', compact('breadcrumb', 'imageTypes'));
 
     }//end of create
 
@@ -111,7 +111,7 @@ class ToolsController extends Controller
         Tools::create($validated);
 
         session()->flash('success', __('admin.messages.added_successfully'));
-        return to_route('dashboard.admin.websits.tools.index');
+        return to_route('dashboard.admin.websites.tools.index');
         
     }//end of update
 
@@ -121,7 +121,7 @@ class ToolsController extends Controller
 
         $breadcrumb = [
             [
-                'route' => 'dashboard.admin.websits.tools.index',
+                'route' => 'dashboard.admin.websites.tools.index',
                 'trans' => 'admin.models.tools',
             ],
             [
@@ -132,7 +132,7 @@ class ToolsController extends Controller
 
         $imageTypes = WebsitsToolsImageType::array();
 
-        return view('dashboard.admin.websits.tools.edit', compact('tool', 'breadcrumb', 'imageTypes'));
+        return view('dashboard.admin.websites.tools.edit', compact('tool', 'breadcrumb', 'imageTypes'));
 
     }//end of edit
 
@@ -160,7 +160,7 @@ class ToolsController extends Controller
         }
 
         session()->flash('success', __('admin.messages.updated_successfully'));
-        return to_route('dashboard.admin.websits.tools.index');
+        return to_route('dashboard.admin.websites.tools.index');
         
     }//end of update
 
@@ -200,14 +200,14 @@ class ToolsController extends Controller
     public function sortablePage(): View
     {
         $breadcrumb = [
-            ['trans' => 'admin.models.websits'],
-            ['trans' => 'admin.websits.tools', 'route' => 'dashboard.admin.websits.tools.index'],
+            ['trans' => 'admin.models.websites'],
+            ['trans' => 'admin.websites.tools', 'route' => 'dashboard.admin.websites.tools.index'],
             ['trans' => 'admin.global.sortable']
         ];
 
         $tools = Tools::pluck('title', 'id')->toArray();
 
-        return view('dashboard.admin.websits.tools.sortable', compact('breadcrumb', 'tools'));
+        return view('dashboard.admin.websites.tools.sortable', compact('breadcrumb', 'tools'));
 
     }//end of sortablePage
 

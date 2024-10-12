@@ -14,11 +14,11 @@ class BannerController extends Controller
         abort_if(!permissionAdmin('read-banner'), 403);
 
         $breadcrumb = [
-            ['trans' => 'admin.models.websits'],
-            ['trans' => 'admin.websits.banner']
+            ['trans' => 'admin.models.websites'],
+            ['trans' => 'admin.websites.banner']
         ];
 
-    	return view('dashboard.admin.websits.banner.index', compact('breadcrumb'));
+    	return view('dashboard.admin.websites.banner.index', compact('breadcrumb'));
 
     }//end of index
 

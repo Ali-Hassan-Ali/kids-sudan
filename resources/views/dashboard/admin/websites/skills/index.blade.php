@@ -1,10 +1,10 @@
 <x-dashboard.admin.layout.app>
 
     <x-slot name="title">
-        {{ trans('admin.models.websits') . ' - ' . trans('admin.websits.tools') }}
+        {{ trans('admin.models.websites') . ' - ' . trans('admin.websites.banners.skills') }}
     </x-slot>
 
-    <h2>@lang('admin.websits.tools')</h2>
+    <h2>@lang('admin.websites.banners.skills')</h2>
 
     <x-dashboard.admin.layout.includes.breadcrumb :breadcrumb='$breadcrumb'/>
 
@@ -18,12 +18,12 @@
 
                     <div class="col-md-12">
 
-                        @if(permissionAdmin('create-tools'))
-                            <a href="{{ route('dashboard.admin.websits.tools.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('admin.global.create')</a>
+                        @if(permissionAdmin('create-skills'))
+                            <a href="{{ route('dashboard.admin.websites.skills.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('admin.global.create')</a>
                         @endif
 
-                        @if(permissionAdmin('create-tools'))
-                            <form method="post" action="{{ route('dashboard.admin.websits.tools.bulk_delete') }}" style="display: inline-block;">
+                        @if(permissionAdmin('create-skills'))
+                            <form method="post" action="{{ route('dashboard.admin.websites.skills.bulk_delete') }}" style="display: inline-block;">
                                 @csrf
                                 @method('delete')
                                 <input type="hidden" name="record_ids" id="record-ids">

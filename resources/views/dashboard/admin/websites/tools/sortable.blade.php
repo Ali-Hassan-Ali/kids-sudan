@@ -1,10 +1,10 @@
 <x-dashboard.admin.layout.app>
 
     <x-slot name="title">
-        {{ trans('admin.models.websits') . ' - ' . trans('admin.websits.banners.skills') }}
+        {{ trans('admin.models.websites') . ' - ' . trans('admin.websites.tools') }}
     </x-slot>
 
-    <h2>@lang('admin.websits.banners.skills')</h2>
+    <h2>@lang('admin.websites.tools')</h2>
 
     <x-dashboard.admin.layout.includes.breadcrumb :breadcrumb='$breadcrumb'/>
 
@@ -21,7 +21,7 @@
                         <ul id="sortable">
                             <div class="bs-component">
                                 <ul class="list-group">
-                    	           @foreach ($creatives as $id=>$title)
+                    	           @foreach ($tools as $id=>$title)
                                         <li class="list-group-item mb-3 text-white bg-primary d-flex justify-content-between align-items-start"  data-id="{{ $id }}">
                                             {{ $title }}
                                             <span class="badge bg-primary rounded-pill">{{ $loop->index }}</span>
@@ -46,7 +46,7 @@
         <script type="text/javascript">
         	$(function() {
         		
-        		let route = "{{ route('dashboard.admin.websits.creatives.sortable.store') }}";
+        		let route = "{{ route('dashboard.admin.websites.tools.sortable.store') }}";
 		    	
 		    	$('#sortable').sortable({
 		            items: 'li',

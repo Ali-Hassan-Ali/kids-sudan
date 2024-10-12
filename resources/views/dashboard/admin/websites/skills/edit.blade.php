@@ -1,17 +1,17 @@
 <x-dashboard.admin.layout.app>
     
     <x-slot name="title">
-        {{ trans('admin.global.create') . ' - ' . trans('admin.models.tools') }}
+        {{ trans('admin.global.edit') . ' - ' . trans('admin.models.skills') }}
     </x-slot>
 
-    <h2>@lang('admin.models.tools')</h2>
+    <h2>@lang('admin.models.skills')</h2>
 
     <x-dashboard.admin.layout.includes.breadcrumb :breadcrumb='$breadcrumb'/>
 
-    <form method="post" action="{{ route('dashboard.admin.websits.tools.store') }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('dashboard.admin.websites.skills.update', $skill->id) }}" enctype="multipart/form-data">
         
         @csrf
-        @method('post')
+        @method('put')
 
         <div class="col-12 col-md">
 
@@ -36,9 +36,9 @@
                             <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="{{ $language->code }}" role="tabpanel" aria-labelledby="{{ $language->code }}-tab">
                                 {{--name--}}
 
-                                <x-input.text required="{{ $loop->first ? true : false }}" name="title[{{ $language->code }}]" label="admin.global.title"/>
+                                <x-input.text required="{{ $loop->first ? true : false }}" name="title[{{ $language->code }}]" label="admin.global.title" :value="$skill->getTranslations('title')[$language->code] ?? ''"/>
 
-                                <x-input.textarea required="{{ $loop->first ? true : false }}" name="description[{{ $language->code }}]" label="admin.global.description"/>
+                                <x-input.textarea required="{{ $loop->first ? true : false }}" name="description[{{ $language->code }}]" label="admin.global.description" :value="$skill->getTranslations('description')[$language->code] ?? ''"/>
 
                             </div>
                         @endforeach
@@ -50,18 +50,15 @@
 
                     <div class="row">
 
-                        <x-input.checkbox :required="true" name="status" label="admin.global.status"/>
+                        <x-input.checkbox :required="true" name="status" label="admin.global.status" :value="$skill->status"/>
 
-                        <x-input.option required="true" name="icon_type" label="admin.global.type" :lists="$imageTypes" :choose="false"/>
+                        <x-input.option required="true" name="icon_type" label="admin.global.type" :value='$skill->icon_type' :lists="$imageTypes" :choose="false"/>
 
-                        @php($typeIcon = in_array(old("icon_type"), $imageTypes) ? old("icon_type") : 'image')
+                        <input name="icon" id="icon-hiddenImage" name="old('icon_type', $skill->icon_type) == 'image' ? 'icon' : ''" hidden>
 
-                        <input name="icon" id="icon-hiddenImage" name="$typeIcon == 'image' ? 'icon' : ''" hidden>
-                        
-
-                        <x-input.text required="true" :name='$typeIcon == "image" ? "icon" : ""' label="admin.files.image" :hidden='$typeIcon == "image" ? false : true' id="icon-image" type="file"/>
-                        <x-input.text required="true" :name='old("icon_type") == "font" ? "icon" : ""' label="admin.files.font" :hidden='old("icon_type") == "font" ? false : true' id="icon-font"/>
-                        <x-input.text required="true" :name='old("icon_type") == "svg" ? "icon" : ""' label="admin.files.svg" :hidden='old("icon_type") == "svg" ? false : true' id="icon-svg"/>
+                        <x-input.text required="true" :name='old("icon_type", $skill->icon_type) == "image" ? "icon" : ""' label="admin.files.image" :value='$skill->icon' :hidden='old("icon_type", $skill->icon_type) == "image" ? false : true' id="icon-image" type="file"/>
+                        <x-input.text required="true" :name='old("icon_type", $skill->icon_type) == "font" ? "icon" : ""' label="admin.files.font" :value='$skill->icon' :hidden='old("icon_type", $skill->icon_type) == "font" ? false : true' id="icon-font"/>
+                        <x-input.text required="true" :name='old("icon_type", $skill->icon_type) == "svg" ? "icon" : ""' label="admin.files.svg" :value='$skill->icon' :hidden='old("icon_type", $skill->icon_type) == "svg" ? false : true' id="icon-svg"/>
                         
                     </div>{{-- row --}}
 
@@ -78,7 +75,7 @@
     </form><!-- end of form -->
 
     <x-slot name="scripts">
-        @include('dashboard.admin.websits.tools.script', ['imageTypes' => $imageTypes])
+        @include('dashboard.admin.websites.skills.script', ['imageTypes' => $imageTypes])
     </x-slot>
 
 </x-dashboard.admin.layout.app>

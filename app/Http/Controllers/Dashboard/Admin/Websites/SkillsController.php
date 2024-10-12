@@ -28,21 +28,21 @@ class SkillsController extends Controller
                             'admin.global.description',
                             'admin.global.status'
                         ])
-                        ->checkbox(['status' => 'dashboard.admin.websits.skills.status'])
-                        ->route('dashboard.admin.websits.skills.data')
+                        ->checkbox(['status' => 'dashboard.admin.websites.skills.status'])
+                        ->route('dashboard.admin.websites.skills.data')
                         ->columns(['title', 'image', 'description', 'status'])
-                        ->sortable('dashboard.admin.websits.skills.sortable.store')
+                        ->sortable('dashboard.admin.websites.skills.sortable.store')
                         ->run();
 
         $imageTypes = WebsitsSkillsImageType::array();
 
         $breadcrumb = [
-            ['trans' => 'admin.models.websits'],
-            ['trans' => 'admin.websits.banners.skills'],
-            ['trans' => 'admin.global.sortable', 'route' => 'dashboard.admin.websits.skills.sortable.index']
+            ['trans' => 'admin.models.websites'],
+            ['trans' => 'admin.websites.banners.skills'],
+            ['trans' => 'admin.global.sortable', 'route' => 'dashboard.admin.websites.skills.sortable.index']
         ];
 
-    	return view('dashboard.admin.websits.skills.index', compact('breadcrumb', 'imageTypes', 'datatables'));
+    	return view('dashboard.admin.websites.skills.index', compact('breadcrumb', 'imageTypes', 'datatables'));
 
     }//end of index
 
@@ -63,8 +63,8 @@ class SkillsController extends Controller
                 ->editColumn('description', fn (Skills $skills) => str()->limit($skills->description, 35))
                 ->addColumn('image', fn (Skills $skills) => $skills?->icon_type)
                 ->addColumn('actions', function(Skills $skills) use($permissions) {
-                    $routeEdit   = route('dashboard.admin.websits.skills.edit', $skills->id);
-                    $routeDelete = route('dashboard.admin.websits.skills.destroy', $skills->id);
+                    $routeEdit   = route('dashboard.admin.websites.skills.edit', $skills->id);
+                    $routeDelete = route('dashboard.admin.websites.skills.destroy', $skills->id);
                     return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
                 })
                 ->addColumn('status', fn (Skills $skills) => view('dashboard.admin.dataTables.checkbox', ['models' => $skills, 'permissions' => $permissions, 'type' => 'status']))
@@ -80,7 +80,7 @@ class SkillsController extends Controller
 
         $breadcrumb = [
             [
-                'route' => 'dashboard.admin.websits.skills.index',
+                'route' => 'dashboard.admin.websites.skills.index',
                 'trans' => 'admin.models.skills',
             ],
             [
@@ -91,7 +91,7 @@ class SkillsController extends Controller
 
         $imageTypes = WebsitsSkillsImageType::array();
 
-        return view('dashboard.admin.websits.skills.create', compact('breadcrumb', 'imageTypes'));
+        return view('dashboard.admin.websites.skills.create', compact('breadcrumb', 'imageTypes'));
 
     }//end of create
 
@@ -111,7 +111,7 @@ class SkillsController extends Controller
         Skills::create($validated);
 
         session()->flash('success', __('admin.messages.added_successfully'));
-        return redirect()->route('dashboard.admin.websits.skills.index');
+        return redirect()->route('dashboard.admin.websites.skills.index');
         
     }//end of update
 
@@ -121,7 +121,7 @@ class SkillsController extends Controller
 
         $breadcrumb = [
             [
-                'route' => 'dashboard.admin.websits.skills.index',
+                'route' => 'dashboard.admin.websites.skills.index',
                 'trans' => 'admin.models.skills',
             ],
             [
@@ -132,7 +132,7 @@ class SkillsController extends Controller
 
         $imageTypes = WebsitsSkillsImageType::array();
 
-        return view('dashboard.admin.websits.skills.edit', compact('skill', 'breadcrumb', 'imageTypes'));
+        return view('dashboard.admin.websites.skills.edit', compact('skill', 'breadcrumb', 'imageTypes'));
 
     }//end of edit
 
@@ -160,7 +160,7 @@ class SkillsController extends Controller
         }
 
         session()->flash('success', __('admin.messages.updated_successfully'));
-        return redirect()->route('dashboard.admin.websits.skills.index');
+        return redirect()->route('dashboard.admin.websites.skills.index');
         
     }//end of update
 
@@ -200,14 +200,14 @@ class SkillsController extends Controller
     public function sortablePage(): View
     {
         $breadcrumb = [
-            ['trans' => 'admin.models.websits'],
-            ['trans' => 'admin.websits.banners.skills', 'route' => 'dashboard.admin.websits.skills.index'],
+            ['trans' => 'admin.models.websites'],
+            ['trans' => 'admin.websites.banners.skills', 'route' => 'dashboard.admin.websites.skills.index'],
             ['trans' => 'admin.global.sortable']
         ];
 
         $skills = Skills::pluck('title', 'id')->toArray();
 
-        return view('dashboard.admin.websits.skills.sortable', compact('breadcrumb', 'skills'));
+        return view('dashboard.admin.websites.skills.sortable', compact('breadcrumb', 'skills'));
 
     }//end of sortablePage
 

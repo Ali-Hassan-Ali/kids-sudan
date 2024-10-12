@@ -8,7 +8,7 @@
 
     <x-dashboard.admin.layout.includes.breadcrumb :breadcrumb='$breadcrumb'/>
 
-    <form method="post" action="{{ route('dashboard.admin.websits.creatives.update', $creative->id) }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('dashboard.admin.websites.creatives.update', $creative->id) }}" enctype="multipart/form-data">
         @csrf
         @method('put')
 

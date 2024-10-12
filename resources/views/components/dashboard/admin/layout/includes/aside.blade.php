@@ -33,15 +33,15 @@
         @if(permissionAdmin('read-banner') || permissionAdmin('read-skills') || permissionAdmin('read-tools'))
             {{-- managements --}}
 
-            <x-dashboard.admin.layout.includes.slider.menu-group-item trans="admin.models.websits" svg="websits" show="dashboard.admin.websits.*">
+            <x-dashboard.admin.layout.includes.slider.menu-group-item trans="admin.models.websites" svg="websites" show="dashboard.admin.websites.*">
                     
-                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.websits.banner" active="dashboard.admin.websits.banner.*" route="dashboard.admin.websits.banner.index" permission="read-banner"/>
+                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.websites.banner" active="dashboard.admin.websites.banner.*" route="dashboard.admin.websites.banner.index" permission="read-banner"/>
 
-                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.websits.banners.skills" active="dashboard.admin.websits.skills.*" route="dashboard.admin.websits.skills.index" permission="read-skills"/>
+                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.websites.banners.skills" active="dashboard.admin.websites.skills.*" route="dashboard.admin.websites.skills.index" permission="read-skills"/>
 
-                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.websits.tools" active="dashboard.admin.websits.tools.*" route="dashboard.admin.websits.tools.index" permission="read-tools"/>
+                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.websites.tools" active="dashboard.admin.websites.tools.*" route="dashboard.admin.websites.tools.index" permission="read-tools"/>
 
-                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.models.creatives" active="dashboard.admin.websits.creatives.*" route="dashboard.admin.websits.creatives.index" permission="read-creatives"/>
+                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.models.creatives" active="dashboard.admin.websites.creatives.*" route="dashboard.admin.websites.creatives.index" permission="read-creatives"/>
 
             </x-dashboard.admin.layout.includes.slider.menu-group-item>
 

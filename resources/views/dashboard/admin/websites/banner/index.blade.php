@@ -1,14 +1,14 @@
 <x-dashboard.admin.layout.app>
 
     <x-slot name="title">
-        {{ trans('admin.models.websits') . ' - ' . trans('admin.websits.banner') }}
+        {{ trans('admin.models.websites') . ' - ' . trans('admin.websites.banner') }}
     </x-slot>
 
-    <h2>@lang('admin.websits.banner')</h2>
+    <h2>@lang('admin.websites.banner')</h2>
 
     <x-dashboard.admin.layout.includes.breadcrumb :breadcrumb='$breadcrumb'/>
 
-    <form method="post" action="{{ route('dashboard.admin.websits.banner.store') }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('dashboard.admin.websites.banner.store') }}" enctype="multipart/form-data">
         @csrf
         @method('post')
 
@@ -47,19 +47,19 @@
 
                                 <x-input.text :required='true' 
                                     name="banner_welcome[{{ $language->code }}]" 
-                                    label="admin.websits.banners.welcome" :value="old('banner_welcome.' . $language->code, getTransSetting('banner_welcome', $language->code))" />
+                                    label="admin.websites.banners.welcome" :value="old('banner_welcome.' . $language->code, getTransSetting('banner_welcome', $language->code))" />
 
                                 <x-input.text required="{{ $loop->first ? true : false }}" 
                                     name="banner_hello[{{ $language->code }}]" 
-                                    label="admin.websits.banners.hello" :value="old('banner_hello.' . $language->code, getTransSetting('banner_hello', $language->code))"/>
+                                    label="admin.websites.banners.hello" :value="old('banner_hello.' . $language->code, getTransSetting('banner_hello', $language->code))"/>
 
                                 <x-input.text required="{{ $loop->first ? true : false }}" 
                                     name="banner_name[{{ $language->code }}]" 
-                                    label="admin.websits.banners.name" :value="old('banner_name.' . $language->code, getTransSetting('banner_name', $language->code))"/>
+                                    label="admin.websites.banners.name" :value="old('banner_name.' . $language->code, getTransSetting('banner_name', $language->code))"/>
 
                                 <x-input.option required="{{ $loop->first ? true : false }}" 
                                     name="banner_Skills[{{ $language->code }}][]" multiple='true'
-                                    label="admin.websits.banners.Skills" invalid="{{ 'banner_Skills.' . $language->code }}" 
+                                    label="admin.websites.banners.skills" invalid="{{ 'banner_Skills.' . $language->code }}" 
                                     :lists="getItemTagesSetting('banner_Skills', $language->code)"
                                     :value="getItemTagesSetting('banner_Skills', $language->code, false)"/>
 
@@ -97,7 +97,7 @@
 
                                     @foreach(old('banner_rxperiences_title.' . $language->code) as $index=>$item)
 
-                                        @include('dashboard.admin.websits.banner.row', ['code' => $language->code, 'index' => $index, 'uuid' => str()->uuid(), 'old' => true])
+                                        @include('dashboard.admin.websites.banner.row', ['code' => $language->code, 'index' => $index, 'uuid' => str()->uuid(), 'old' => true])
 
                                     @endforeach
 
@@ -107,7 +107,7 @@
 
                                         @foreach(json_decode(getSetting('banner_rxperiences'), true)['title'] as $index=>$item)
 
-                                            @include('dashboard.admin.websits.banner.row', ['code' => $language->code, 'index' => $index, 'uuid' => str()->uuid(), 'old' => false])
+                                            @include('dashboard.admin.websites.banner.row', ['code' => $language->code, 'index' => $index, 'uuid' => str()->uuid(), 'old' => false])
 
                                         @endforeach
 
@@ -146,7 +146,7 @@
     </form><!-- end of form -->
 
     <x-slot name="scripts">
-        @include('dashboard.admin.websits.banner.script')
+        @include('dashboard.admin.websites.banner.script')
     </x-slot>
 
 </x-dashboard.admin.layout.app>

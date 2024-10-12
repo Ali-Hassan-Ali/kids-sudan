@@ -30,19 +30,19 @@ class CreativesController extends Controller
                             'admin.global.status',
                             'admin.global.links',
                         ])
-                        ->checkbox(['status' => 'dashboard.admin.websits.creatives.status'])
-                        ->route('dashboard.admin.websits.creatives.data')
+                        ->checkbox(['status' => 'dashboard.admin.websites.creatives.status'])
+                        ->route('dashboard.admin.websites.creatives.data')
                         ->columns(['name','image','date','status','links'])
-                        ->sortable('dashboard.admin.websits.creatives.sortable.store')
+                        ->sortable('dashboard.admin.websites.creatives.sortable.store')
                         ->run();
 
         $breadcrumb = [
-            ['trans' => 'admin.models.websits'],
+            ['trans' => 'admin.models.websites'],
             ['trans' => 'admin.models.creatives'],
-            ['trans' => 'admin.global.sortable', 'route' => 'dashboard.admin.websits.creatives.sortable.index']
+            ['trans' => 'admin.global.sortable', 'route' => 'dashboard.admin.websites.creatives.sortable.index']
         ];
 
-        return view('dashboard.admin.websits.creatives.index', compact('datatables', 'breadcrumb'));
+        return view('dashboard.admin.websites.creatives.index', compact('datatables', 'breadcrumb'));
 
     }//end of index
 
@@ -63,8 +63,8 @@ class CreativesController extends Controller
                 ->editColumn('name', fn (Creative $creative) => $creative?->name)
                 ->addColumn('admin', fn (Creative $creative) => $creative?->admin?->name)
                 ->addColumn('actions', function(Creative $creative) use($permissions) {
-                    $routeEdit   = route('dashboard.admin.websits.creatives.edit', $creative->id);
-                    $routeDelete = route('dashboard.admin.websits.creatives.destroy', $creative->id);
+                    $routeEdit   = route('dashboard.admin.websites.creatives.edit', $creative->id);
+                    $routeDelete = route('dashboard.admin.websites.creatives.destroy', $creative->id);
                     return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
                 })
                 ->addColumn('status', fn(Creative $creative) => !$creative->default ? view('dashboard.admin.dataTables.checkbox', ['models' => $creative, 'permissions' => $permissions, 'type' => 'status']) : '')
@@ -80,7 +80,7 @@ class CreativesController extends Controller
 
         $breadcrumb = [
             [
-                'route' => 'dashboard.admin.websits.creatives.index',
+                'route' => 'dashboard.admin.websites.creatives.index',
                 'trans' => 'admin.models.creatives',
             ],
             [
@@ -89,7 +89,7 @@ class CreativesController extends Controller
             ]
         ];
 
-        return view('dashboard.admin.websits.creatives.create', compact('breadcrumb'));
+        return view('dashboard.admin.websites.creatives.create', compact('breadcrumb'));
         
     }//end of create
 
@@ -109,7 +109,7 @@ class CreativesController extends Controller
         Creative::create($validated);
 
         session()->flash('success', __('admin.messages.added_successfully'));
-        return redirect()->route('dashboard.admin.websits.creatives.index');
+        return redirect()->route('dashboard.admin.websites.creatives.index');
 
     }//end of store
 
@@ -119,7 +119,7 @@ class CreativesController extends Controller
 
         $breadcrumb = [
             [
-                'route' => 'dashboard.admin.websits.creatives.index',
+                'route' => 'dashboard.admin.websites.creatives.index',
                 'trans' => 'admin.models.creatives',
             ],
             [
@@ -128,7 +128,7 @@ class CreativesController extends Controller
             ]
         ];
 
-        return view('dashboard.admin.websits.creatives.edit', compact('creative', 'breadcrumb'));
+        return view('dashboard.admin.websites.creatives.edit', compact('creative', 'breadcrumb'));
 
     }//end of edit
 
@@ -149,7 +149,7 @@ class CreativesController extends Controller
         $creative->update($validated);
 
         session()->flash('success', __('admin.messages.updated_successfully'));
-        return redirect()->route('dashboard.admin.websits.creatives.index');
+        return redirect()->route('dashboard.admin.websites.creatives.index');
         
     }//end of update
 
@@ -189,14 +189,14 @@ class CreativesController extends Controller
     public function sortablePage(): View
     {
         $breadcrumb = [
-            ['trans' => 'admin.models.websits'],
-            ['trans' => 'admin.models.creatives', 'route' => 'dashboard.admin.websits.creatives.index'],
+            ['trans' => 'admin.models.websites'],
+            ['trans' => 'admin.models.creatives', 'route' => 'dashboard.admin.websites.creatives.index'],
             ['trans' => 'admin.global.sortable']
         ];
 
         $creatives = Creative::pluck('name', 'id')->toArray();
 
-        return view('dashboard.admin.websits.creatives.sortable', compact('breadcrumb', 'creatives'));
+        return view('dashboard.admin.websites.creatives.sortable', compact('breadcrumb', 'creatives'));
 
     }//end of sortablePage
 

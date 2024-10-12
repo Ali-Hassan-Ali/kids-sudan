@@ -1,6 +1,6 @@
 <x-dashboard.admin.layout.app>
 
-    <x-slot name="title">{{ trans('admin.models.websits') . ' - ' . trans('admin.models.creatives') }}</x-slot>
+    <x-slot name="title">{{ trans('admin.models.websites') . ' - ' . trans('admin.models.creatives') }}</x-slot>
 
     <h2>{{ trans('admin.models.creatives') }}</h2>
 
@@ -17,11 +17,11 @@
                     <div class="col-md-12">
 
                         @if(permissionAdmin('create-creatives'))
-                            <a href="{{ route('dashboard.admin.websits.creatives.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('admin.global.create')</a>
+                            <a href="{{ route('dashboard.admin.websites.creatives.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('admin.global.create')</a>
                         @endif
 
                         @if(permissionAdmin('create-creatives'))
-                            <form method="post" action="{{ route('dashboard.admin.websits.creatives.bulk_delete') }}" style="display: inline-block;">
+                            <form method="post" action="{{ route('dashboard.admin.websites.creatives.bulk_delete') }}" style="display: inline-block;">
                                 @csrf
                                 @method('delete')
                                 <input type="hidden" name="record_ids" id="record-ids">

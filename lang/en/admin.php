@@ -110,14 +110,14 @@ return array('global' =>
                   'settings'     => 'Settings',
                   'setting'      => 'Setting',
                   'profiles'     => 'Profiles',
-                  'websits'      => 'websits',
+                  'websites'     => 'Websites',
                   'websit'       => 'websit',
                   'creative'     => 'Creative',
                   'creatives'    => 'Creatives',
                   'skills'       => 'Skills',
                   'tools'        => 'tools',
             ),
-            'websits' => array(
+            'websites' => array(
                   'tools'   => 'Tools',
                   'banner'  => 'Banner',
                   'banners'  => array(

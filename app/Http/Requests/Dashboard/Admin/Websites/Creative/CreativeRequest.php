@@ -58,7 +58,7 @@ class CreativeRequest extends FormRequest
     {
         return $this->merge([
             'admin_id' => auth('admin')->id(),
-            'status'   => request()->has('status'),
+            // 'status'   => request()->has('status'),
         ]);
 
     }//end of prepare For Validation
