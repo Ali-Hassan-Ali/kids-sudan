@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\Admin\Websites\SkillsController;
 use App\Http\Controllers\Dashboard\Admin\Websites\ToolsController;
 use App\Http\Controllers\Dashboard\Admin\Websites\CreativesController;
 use App\Http\Controllers\Dashboard\Admin\Websites\ClientController;
+use App\Http\Controllers\Dashboard\Admin\Websites\VolunteeringController;
 
 //website banner
 Route::controller(BannerController::class)
@@ -33,7 +34,7 @@ Route::controller(SkillsController::class)
 
         });
     });
-Route::resource('skills', SkillsController::class);
+Route::resource('skills', SkillsController::class)->except('show');
 
 
 //website tools
@@ -52,7 +53,7 @@ Route::controller(ToolsController::class)
 
         });
     });
-Route::resource('tools', ToolsController::class);
+Route::resource('tools', ToolsController::class)->except('show');
 
 
 //website creatives
@@ -72,7 +73,7 @@ Route::controller(CreativesController::class)
         });
 
     });
-Route::resource('creatives', CreativesController::class);
+Route::resource('creatives', CreativesController::class)->except('show');
 
 //website clients
 Route::controller(ClientController::class)
@@ -91,4 +92,23 @@ Route::controller(ClientController::class)
         });
 
     });
-Route::resource('clients', ClientController::class);
+Route::resource('clients', ClientController::class)->except('show');
+
+//website volunteerings
+Route::controller(VolunteeringController::class)
+    ->prefix('volunteerings')->name('volunteerings.')
+    ->group(function () {
+
+        Route::get('data', 'data')->name('data');
+        Route::post('status', 'status')->name('status');
+        Route::delete('bulk_delete', 'bulkDelete')->name('bulk_delete');
+
+        Route::prefix('sortable')->name('sortable.')->group(function () {
+
+            Route::get('/', 'sortablePage')->name('index');
+            Route::post('/store', 'storeSortable')->name('store');
+
+        });
+
+    });
+Route::resource('volunteerings', VolunteeringController::class)->except('show');

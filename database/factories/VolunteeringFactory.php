@@ -5,14 +5,14 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Admin;
 
-class ClientFactory extends Factory
+class VolunteeringFactory extends Factory
 {
     public function definition(): array
     {
         return [
-            'name'        => ['ar' => fake()->name(), 'en' => fake()->name()],
+            'title'       => ['ar' => fake()->name(), 'en' => fake()->name()],
             'job'         => ['ar' => fake()->name(), 'en' => fake()->name()],
-            'description' => ['ar' => fake()->text(), 'en' => fake()->text()],
+            'date'        => now(),
             'index'       => fake()->randomDigitNotNull(),
             'status'      => fake()->boolean(),
             'admin_id'    => Admin::first()?->id,

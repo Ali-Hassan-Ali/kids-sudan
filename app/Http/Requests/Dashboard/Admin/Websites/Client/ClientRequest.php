@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Dashboard\Admin\Websites\client;
+namespace App\Http\Requests\Dashboard\Admin\Websites\Client;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use App\Enums\Admin\WebsitsSkillsImageType;
 use CodeZero\UniqueTranslation\UniqueTranslationRule;
 
-class clientRequest extends FormRequest
+class ClientRequest extends FormRequest
 {
     public function authorize(): bool
     {

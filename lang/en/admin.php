@@ -120,6 +120,8 @@ return array('global' =>
                   'jobs'         => 'Jobs',
                   'clients'      => 'Clients',
                   'client'       => 'Client',
+                  'volunteering' => 'Volunteering',
+                  'volunteerings'=> 'Volunteerings',
             ),
             'websites' => array(
                   'tools'   => 'Tools',
