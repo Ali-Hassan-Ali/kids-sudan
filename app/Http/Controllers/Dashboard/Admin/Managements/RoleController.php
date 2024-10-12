@@ -33,7 +33,7 @@ class RoleController extends Controller
                         ->columns(['name', 'admin', 'admins', 'permissions'])
                         ->run();
 
-        $breadcrumb = [['trans' => 'admin.models.roles']];
+        $breadcrumb = [['trans' => 'admin.models.managements'],['trans' => 'admin.models.roles']];
 
         return view('dashboard.admin.managements.roles.index', compact('datatables', 'breadcrumb'));
 
@@ -74,6 +74,7 @@ class RoleController extends Controller
         $permissions = collect(Permission::select('name', 'group_name')->get())->groupBy('group_name');
 
         $breadcrumb = [
+            ['trans' => 'admin.models.managements'],
             [
                 'route' => 'dashboard.admin.managements.roles.index',
                 'trans' => 'admin.models.roles',
@@ -108,6 +109,7 @@ class RoleController extends Controller
         $permissions = collect(Permission::select('name', 'group_name')->get())->groupBy('group_name');
 
         $breadcrumb = [
+            ['trans' => 'admin.models.managements'],
             [
                 'route' => 'dashboard.admin.managements.roles.index',
                 'trans' => 'admin.models.roles',

@@ -45,7 +45,7 @@ class Admin extends Authenticatable
     {
         static::addGlobalScope(new OrderScope);
 
-        if(!request()->is('*admins*')) static::addGlobalScope(new StatusScope);
+        // if(!request()->is('*admins*')) static::addGlobalScope(new StatusScope);
 
     }//end of Global Scope
 

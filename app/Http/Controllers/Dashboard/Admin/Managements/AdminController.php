@@ -35,7 +35,7 @@ class AdminController extends Controller
                     ->columns(['name', 'email', 'image', 'roles', 'status'])
                     ->run();
 
-        $breadcrumb = [['trans' => 'admin.models.admins']];
+        $breadcrumb = [['trans' => 'admin.models.managements'],['trans' => 'admin.models.admins']];
 
         return view('dashboard.admin.managements.admins.index', compact('datatables', 'breadcrumb'));
 
@@ -75,6 +75,7 @@ class AdminController extends Controller
         $roles = Role::whereNotIn('name', ['super_admin'])->pluck('name', 'name');
 
         $breadcrumb = [
+            ['trans' => 'admin.models.managements'],
             [
                 'route' => 'dashboard.admin.managements.admins.index',
                 'trans' => 'admin.models.admins',
@@ -116,6 +117,7 @@ class AdminController extends Controller
         abort_if(!permissionAdmin('update-admins'), 403);
 
         $breadcrumb = [
+            ['trans' => 'admin.models.managements'],
             [
                 'route' => 'dashboard.admin.managements.admins.index',
                 'trans' => 'admin.models.admins',

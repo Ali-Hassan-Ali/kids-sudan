@@ -86,6 +86,7 @@ class LanguageController extends Controller
         $types = LanguageType::array();
 
         $breadcrumb = [
+            ['trans' => 'admin.models.managements'],
             [
                 'route' => 'dashboard.admin.managements.languages.index',
                 'trans' => 'admin.models.languages',
@@ -125,6 +126,7 @@ class LanguageController extends Controller
         $types = LanguageType::array();
 
         $breadcrumb = [
+            ['trans' => 'admin.models.managements'],
             [
                 'route' => 'dashboard.admin.managements.languages.index',
                 'trans' => 'admin.models.languages',

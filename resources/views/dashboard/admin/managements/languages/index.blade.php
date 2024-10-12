@@ -1,6 +1,6 @@
 <x-dashboard.admin.layout.app>
 
-    <x-slot name="title">{{ trans('admin.models.languages') }}</x-slot>
+    <x-slot name="title">{{ trans('admin.models.languages') . ' - ' . trans('admin.models.managements') }}</x-slot>
 
     <h2>{{ trans('admin.models.languages') }}</h2>
 

@@ -1,6 +1,6 @@
 <x-dashboard.admin.layout.app>
 
-    <x-slot name="title">{{ trans('admin.models.roles') }}</x-slot>
+    <x-slot name="title">{{ trans('admin.models.roles') . ' - ' . trans('admin.models.managements') }}</x-slot>
 
     <h2>{{ trans('admin.models.roles') }}</h2>
 

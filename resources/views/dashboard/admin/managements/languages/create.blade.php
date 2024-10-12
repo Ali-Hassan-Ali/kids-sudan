@@ -1,7 +1,7 @@
 <x-dashboard.admin.layout.app>
 
     <x-slot name="title">
-        {{ trans('admin.global.create') . ' - ' . trans('admin.models.languages') }}
+        {{ trans('admin.global.create') . ' - ' . trans('admin.models.managements') . ' - ' . trans('admin.models.languages') }}
     </x-slot>
 
     <h2>@lang('admin.models.languages')</h2>
