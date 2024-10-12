@@ -182,11 +182,11 @@ class ClientController extends Controller
     {
         $breadcrumb = [
             ['trans' => 'admin.models.websites'],
-            ['trans' => 'admin.websites.clients', 'route' => 'dashboard.admin.websites.clients.index'],
+            ['trans' => 'admin.models.clients', 'route' => 'dashboard.admin.websites.clients.index'],
             ['trans' => 'admin.global.sortable']
         ];
 
-        $client = Client::pluck('title', 'id')->toArray();
+        $clients = Client::pluck('name', 'id')->toArray();
 
         return view('dashboard.admin.websites.clients.sortable', compact('breadcrumb', 'clients'));
 
