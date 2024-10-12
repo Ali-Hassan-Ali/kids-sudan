@@ -98,7 +98,7 @@ class LanguageController extends Controller
     //RedirectResponse
     public function store(LanguageRequest $request): RedirectResponse
     {
-        $validated = $request()->safe()->except(['flag']);
+        $validated = $request->safe()->except(['flag']);
 
         if(request()->file('flag')) {
 
@@ -109,7 +109,7 @@ class LanguageController extends Controller
         Language::create($validated);
 
         session()->flash('success', __('admin.messages.added_successfully'));
-        return redirect()->route('dashboard.admin.managements.languages.index');
+        return to_route('dashboard.admin.managements.languages.index');
 
     }//end of store
 
@@ -136,7 +136,7 @@ class LanguageController extends Controller
 
     public function update(LanguageRequest $request, Language $language): RedirectResponse
     {
-        $validated = $request()->safe()->except(['flag']);
+        $validated = $request->safe()->except(['flag']);
 
         if(request()->has('flag')) {
 
@@ -149,7 +149,7 @@ class LanguageController extends Controller
         $language->update($validated);
 
         session()->flash('success', __('admin.messages.updated_successfully'));
-        return redirect()->route('admin.managements.languages.index');
+        return to_route('dashboard.admin.managements.languages.index');
         
     }//end of update
 

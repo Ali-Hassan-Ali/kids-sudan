@@ -92,7 +92,7 @@ class AdminController extends Controller
     //RedirectResponse
     public function store(AdminRequest $request): RedirectResponse
     {
-        $validated = $request()->safe()->except(['image', 'roles', 'password_confirmation']);
+        $validated = $request->safe()->except(['image', 'roles', 'password_confirmation']);
 
         if(request()->file('image')) {
 
@@ -107,7 +107,7 @@ class AdminController extends Controller
         if(request()->has('roles')) $admin->assignRole(request()->roles);
 
         session()->flash('success', __('admin.messages.added_successfully'));
-        return redirect()->route('dashboard.admin.managements.admins.index');
+        return to_route('dashboard.admin.managements.admins.index');
 
     }//end of store
 
@@ -134,7 +134,7 @@ class AdminController extends Controller
 
     public function update(AdminRequest $request, Admin $admin): RedirectResponse
     {
-        $validated = $request()->safe()->except(['image', 'roles', 'password', 'password_confirmation']);
+        $validated = $request->safe()->except(['image', 'roles', 'password', 'password_confirmation']);
 
         if(request()->has('image')) {
 
@@ -149,7 +149,7 @@ class AdminController extends Controller
         if(request()->has('password')) $admin->update(['password' => bcrypt(request()->password)]);
 
         session()->flash('success', __('admin.messages.updated_successfully'));
-        return redirect()->route('dashboard.admin.managements.admins.index');
+        return to_route('dashboard.admin.managements.admins.index');
         
     }//end of update
 

@@ -1,4 +1,4 @@
-<x-admin.layout.app>
+<x-dashboard.admin.layout.app>
 
     <x-slot name="title">
         {{ trans('admin.global.edit') . ' - ' . trans('menu.languages') }}
@@ -8,7 +8,7 @@
 
     <x-dashboard.admin.layout.includes.breadcrumb :breadcrumb='$breadcrumb'/>
 
-    <form method="post" action="{{ route('admin.managements.languages.update', $language->id) }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('dashboard.admin.managements.languages.update', $language->id) }}" enctype="multipart/form-data">
         @csrf
         @method('put')
 
@@ -18,7 +18,7 @@
 
                 <div class="tile shadow">
 
-                    @include('admin.dataTables.image_privew', ['name' => 'flag', 'imagepath' => $language->image_path, 'label' => 'admin.managements.languages.flag'])
+                    @include('dashboard.admin.dataTables.image_privew', ['name' => 'flag', 'imagepath' => $language->image_path, 'label' => 'admin.managements.languages.flag'])
 
                 </div><!-- end of tile -->
 
@@ -52,4 +52,4 @@
 
     </form><!-- end of form -->
 
-</x-admin.layout.app>
+</x-dashboard.admin.layout.app>

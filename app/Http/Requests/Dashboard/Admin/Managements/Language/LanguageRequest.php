@@ -19,7 +19,7 @@ class LanguageRequest extends FormRequest
     {
         $rules = [
             'status'  => ['boolean'],
-            'admin_id'=> ['nullable','string','exists:admins,id'],
+            'admin_id'=> ['nullable','exists:admins,id'],
             'dir'     => ['required', 'in:RTL,LTR'],
         ];
 

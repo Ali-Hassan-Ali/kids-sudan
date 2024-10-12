@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Models\Scopes\StatusScope;
+use App\Models\Scopes\OrderScope;
 
 class Language extends Model
 {
@@ -32,9 +33,9 @@ class Language extends Model
 
     protected static function booted(): void
     {
-        if(!request()->is('*languages*')) {
-           static::addGlobalScope(new StatusScope);
-        }
+        static::addGlobalScope(new OrderScope);
+
+        if(!request()->is('*languages*')) static::addGlobalScope(new StatusScope);
 
     }//end of Global Scope
 

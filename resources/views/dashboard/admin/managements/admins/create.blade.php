@@ -16,11 +16,11 @@
 
             <div class="col-12 col-md-4">
 
-                <div class="title shadow">
+                <div class="tile shadow">
 
                     @include('dashboard.admin.dataTables.image_privew', ['name' => 'image', 'label' => 'admin.global.image', 'required' => true])
 
-                </div><!-- end of title -->
+                </div><!-- end of tile -->
 
             </div><!-- end of col -->
 
@@ -43,14 +43,14 @@
                         <x-input.text required="true" name="password_confirmation" label="admin.auth.password_confirmation" col="col-md-6" type="password"/>
 
                         {{--roles--}}
-                        <x-input.option required="true" name="roles[]" invalid="" label="menu.roles" :lists="$roles" :multiple="true" col="col-md-6" :value="old('roles')"/>
+                        <x-input.option required="true" name="roles[]" invalid="" label="admin.models.roles" :lists="$roles" :multiple="true" col="col-md-6" :value="old('roles')"/>
 
                         {{--status--}}
                         <x-input.checkbox :required="true" name="status" label="admin.global.status" col="col-md-6"/>
 
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mt-5">
                         <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i>@lang('admin.global.create')</button>
                     </div>
 

@@ -47,7 +47,7 @@ class RoleController extends Controller
             'delete' => permissionAdmin('delete-roles'),
         ];
 
-        $role = Role::where('name', 'test');
+        $role = Role::query()->whereNotIn('name', ['super_admin']);
 
         return dataTables()->of($role)
             ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
@@ -91,13 +91,13 @@ class RoleController extends Controller
     //RedirectResponse
     public function store(RoleRequest $request): RedirectResponse
     {
-        $validated = $request()->safe()->except(['permissions']);
+        $validated = $request->safe()->except(['permissions']);
 
         $role = \Spatie\Permission\Models\Role::create($validated);
         $role->syncPermissions($request->permissions ?? []);
 
         session()->flash('success', __('admin.messages.added_successfully'));
-        return redirect()->route('dashboard.admin.managements.roles.index');
+        return to_route('dashboard.admin.managements.roles.index');
 
     }//end of store
 
@@ -125,13 +125,13 @@ class RoleController extends Controller
 
     public function update(RoleRequest $request, \Spatie\Permission\Models\Role $role): RedirectResponse
     {
-        $validated = $request()->safe()->except(['permissions']);
+        $validated = $request->safe()->except(['permissions']);
 
         $role->update($validated);
         $role->syncPermissions($request->permissions ?? []);
 
         session()->flash('success', __('admin.messages.updated_successfully'));
-        return redirect()->route('dashboard.admin.managements.roles.index');
+        return to_route('dashboard.admin.managements.roles.index');
         
     }//end of update
 

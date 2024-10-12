@@ -17,9 +17,9 @@ class AdminRequest extends FormRequest
     {
         $rules = [
             'status'     => ['boolean'],
-            'phone'      => ['numeric','digits_between:6,30'],
+            // 'phone'      => ['nullable','numeric','digits_between:6,30'],
             'roles.*'    => ['nullable','string','exists:roles,name'],
-            'admin_id'   => ['nullable','string','exists:admins,id'],
+            'admin_id'   => ['nullable','exists:admins,id'],
         ];
 
         if (in_array(request()->method(), ['PUT', 'PATCH'])) {
@@ -53,7 +53,7 @@ class AdminRequest extends FormRequest
             'image'                 => trans('admin.global.image'),
             'phone'                 => trans('admin.global.phone'),
             'password'              => trans('admin.global.password'),
-            'roles.*'               => trans('menu.roles')
+            'roles.*'               => trans('admin.models.roles')
         ];
 
     }//end of attributes

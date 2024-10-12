@@ -16,9 +16,10 @@ class RoleRequest extends FormRequest
 
     public function rules(): array
     {
+        // dd(request()->all());
         $rules = [
             'permissions.*' => ['required','exists:permissions,name'],
-            'admin_id'      => ['nullable','string','exists:admins,id'],
+            'admin_id'      => ['nullable','exists:admins,id'],
             'all.*'         => ['nullable'],
             'guard_name'    => ['nullable'],
         ];
@@ -51,7 +52,7 @@ class RoleRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        return request()->merge([
+        return $this->merge([
             'admin_id'   => auth('admin')->id(),
             'guard_name' => 'admin',
         ]);
