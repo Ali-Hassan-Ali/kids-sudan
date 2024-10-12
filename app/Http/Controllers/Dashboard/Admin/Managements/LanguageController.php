@@ -35,9 +35,14 @@ class LanguageController extends Controller
                     ->checkbox(['status' => 'dashboard.admin.managements.languages.status'])
                     ->route('dashboard.admin.managements.languages.data')
                     ->columns(['name','dir','flag','code','default','admin','status'])
+                    ->sortable('dashboard.admin.managements.languages.sortable.store')
                     ->run();
 
-        $breadcrumb = [['trans' => 'admin.models.languages']];
+        $breadcrumb = [
+            ['trans' => 'admin.models.managements'],
+            ['trans' => 'admin.models.languages'],
+            ['trans' => 'admin.global.sortable', 'route' => 'dashboard.admin.managements.languages.sortable.index']
+        ];
 
         return view('dashboard.admin.managements.languages.index', compact('datatables', 'breadcrumb'));
 
@@ -196,5 +201,29 @@ class LanguageController extends Controller
         return response(__('admin.messages.updated_successfully'));
         
     }//end of status
+
+    public function sortablePage(): View
+    {
+        $breadcrumb = [
+            ['trans' => 'admin.global.home'],
+            ['trans' => 'admin.models.languages', 'route' => 'dashboard.admin.managements.languages.index'],
+            ['trans' => 'admin.global.sortable']
+        ];
+
+        $languages = Language::pluck('name', 'id')->toArray();
+
+        return view('dashboard.admin.managements.languages.sortable', compact('breadcrumb', 'languages'));
+
+    }//end of sortablePage
+
+    public function storeSortable(): bool
+    {        
+        foreach (request('order') as $index=>$id) {
+            Creative::where('id', $id)->update(['index' => $index]);
+        }
+
+        return true;
+
+    }//end of storeSortable
 
 }//end of controller

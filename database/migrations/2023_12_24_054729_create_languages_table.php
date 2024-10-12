@@ -24,6 +24,8 @@ return new class extends Migration
 
             $table->boolean('default')->default(0);
             $table->boolean('status')->default(0);
+            $table->integer('index')->default(0);
+            $table->index('index');
 
             $table->foreignId('admin_id')->constrained();
 
