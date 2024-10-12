@@ -15,7 +15,10 @@ class PermissionsDemoSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        Role::create([
+        Role::updateOrCreate([
+            'name'       => 'admin',
+            'guard_name' => 'admin',
+        ],[
             'name'       => 'admin',
             'guard_name' => 'admin',
             'admin_id'   => Admin::first()->id,
@@ -32,7 +35,7 @@ class PermissionsDemoSeeder extends Seeder
                 
                 $cruds = ['read'];
 
-            } elseif (in_array($data, ['banner', 'tools'])) {
+            } elseif (in_array($data, ['banner'])) {
 
                 $cruds = ['read', 'update'];
 

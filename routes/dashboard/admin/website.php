@@ -37,12 +37,21 @@ Route::resource('skills', SkillsController::class);
 
 //website tools
 Route::controller(ToolsController::class)
-    ->prefix('tools')->name('tools.')->group(function () {
+    ->prefix('tools')->name('tools.')
+    ->group(function () {
 
-    Route::get('/', 'index')->name('index');
-    Route::post('store', 'store')->name('store');
+        Route::get('data', 'data')->name('data');
+        Route::post('status', 'status')->name('status');
+        Route::delete('bulk_delete', 'bulkDelete')->name('bulk_delete');
 
-});
+        Route::prefix('sortable')->name('sortable.')->group(function () {
+
+            Route::get('/', 'sortablePage')->name('index');
+            Route::post('/store', 'storeSortable')->name('store');
+
+        });
+    });
+Route::resource('tools', ToolsController::class);
 
 
 //website creatives

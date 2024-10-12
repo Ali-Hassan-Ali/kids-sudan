@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Dashboard\Admin\Websites;
+namespace App\Http\Requests\Dashboard\Admin\Websites\Tools;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;

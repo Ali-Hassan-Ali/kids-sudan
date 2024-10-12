@@ -23,18 +23,18 @@ class CreativesController extends Controller
         abort_if(!permissionAdmin('read-creatives'), 403);
 
         $datatables = datatableServices()
-                    ->header([
-                        'admin.global.name',
-                        'admin.global.image',
-                        'admin.global.date',
-                        'admin.global.status',
-                        'admin.global.links',
-                    ])
-                    ->checkbox(['status' => 'dashboard.admin.websits.creatives.status'])
-                    ->route('dashboard.admin.websits.creatives.data')
-                    ->columns(['name','image','date','status','links'])
-                    ->sortable('dashboard.admin.websits.creatives.sortable.store')
-                    ->run();
+                        ->header([
+                            'admin.global.name',
+                            'admin.global.image',
+                            'admin.global.date',
+                            'admin.global.status',
+                            'admin.global.links',
+                        ])
+                        ->checkbox(['status' => 'dashboard.admin.websits.creatives.status'])
+                        ->route('dashboard.admin.websits.creatives.data')
+                        ->columns(['name','image','date','status','links'])
+                        ->sortable('dashboard.admin.websits.creatives.sortable.store')
+                        ->run();
 
         $breadcrumb = [
             ['trans' => 'admin.models.websits'],
@@ -57,20 +57,20 @@ class CreativesController extends Controller
         $creative = Creative::query();
 
         return dataTables()->of($creative)
-            ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
-            ->editColumn('created_at', fn (Creative $creative) => $creative?->created_at?->format('Y-m-d'))
-            ->editColumn('image', 'dashboard.admin.dataTables.image')
-            ->editColumn('name', fn (Creative $creative) => $creative?->name)
-            ->addColumn('admin', fn (Creative $creative) => $creative?->admin?->name)
-            ->addColumn('actions', function(Creative $creative) use($permissions) {
-                $routeEdit   = route('dashboard.admin.websits.creatives.edit', $creative->id);
-                $routeDelete = route('dashboard.admin.websits.creatives.destroy', $creative->id);
-                return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
-            })
-            ->addColumn('status', fn(Creative $creative) => !$creative->default ? view('dashboard.admin.dataTables.checkbox', ['models' => $creative, 'permissions' => $permissions, 'type' => 'status']) : '')
-            ->rawColumns(['record_select', 'actions', 'status', 'name', 'image'])
-            ->addIndexColumn()
-            ->toJson();
+                ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
+                ->editColumn('created_at', fn (Creative $creative) => $creative?->created_at?->format('Y-m-d'))
+                ->editColumn('image', 'dashboard.admin.dataTables.image')
+                ->editColumn('name', fn (Creative $creative) => $creative?->name)
+                ->addColumn('admin', fn (Creative $creative) => $creative?->admin?->name)
+                ->addColumn('actions', function(Creative $creative) use($permissions) {
+                    $routeEdit   = route('dashboard.admin.websits.creatives.edit', $creative->id);
+                    $routeDelete = route('dashboard.admin.websits.creatives.destroy', $creative->id);
+                    return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
+                })
+                ->addColumn('status', fn(Creative $creative) => !$creative->default ? view('dashboard.admin.dataTables.checkbox', ['models' => $creative, 'permissions' => $permissions, 'type' => 'status']) : '')
+                ->rawColumns(['record_select', 'actions', 'status', 'name', 'image'])
+                ->addIndexColumn()
+                ->toJson();
 
     }//end of data
 

@@ -50,20 +50,20 @@ class RoleController extends Controller
         $role = Role::query()->whereNotIn('name', ['super_admin']);
 
         return dataTables()->of($role)
-            ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
-            ->addColumn('created_at', fn (Role $role) => $role?->created_at?->format('Y-m-d'))
-            ->addColumn('admin', fn (Role $role) => $role?->admin?->name)
-            ->addColumn('admins', fn (Role $role) => Admin::role($role->name)->count())
-            ->addColumn('permissions', fn (Role $role) => $role->permissions?->count())
-            ->addColumn('admins_count', fn (Role $role) => $role?->admins?->count())
-            ->addColumn('actions', function(Role $role) use($permissions) {
-                $routeEdit   = route('dashboard.admin.managements.roles.edit', $role->id);
-                $routeDelete = route('dashboard.admin.managements.roles.destroy', $role->id);
-                return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
-            })
-            ->rawColumns(['record_select', 'actions'])
-            ->addIndexColumn()
-            ->toJson();
+                ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
+                ->addColumn('created_at', fn (Role $role) => $role?->created_at?->format('Y-m-d'))
+                ->addColumn('admin', fn (Role $role) => $role?->admin?->name)
+                ->addColumn('admins', fn (Role $role) => Admin::role($role->name)->count())
+                ->addColumn('permissions', fn (Role $role) => $role->permissions?->count())
+                ->addColumn('admins_count', fn (Role $role) => $role?->admins?->count())
+                ->addColumn('actions', function(Role $role) use($permissions) {
+                    $routeEdit   = route('dashboard.admin.managements.roles.edit', $role->id);
+                    $routeDelete = route('dashboard.admin.managements.roles.destroy', $role->id);
+                    return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
+                })
+                ->rawColumns(['record_select', 'actions'])
+                ->addIndexColumn()
+                ->toJson();
 
     }//end of data
 

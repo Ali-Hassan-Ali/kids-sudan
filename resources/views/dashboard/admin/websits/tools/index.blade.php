@@ -8,85 +8,67 @@
 
     <x-dashboard.admin.layout.includes.breadcrumb :breadcrumb='$breadcrumb'/>
 
-    <form method="post" action="{{ route('dashboard.admin.websits.tools.store') }}" enctype="multipart/form-data">
-        @csrf
-        @method('post')
+    <div class="row">
 
-        <div class="row">
+        <div class="col-md-12">
 
-            <div class="col-12 col-md-12">
+            <div class="tile shadow">
 
-                <div class="tile shadow">
+                <div class="row mb-2">
 
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <div class="col-md-12">
 
-                        @foreach(getLanguages() as $language)
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link {{ $loop->first ? 'active' : '' }}" id="{{ $language->code }}-tab" data-toggle="tab" data-target="#{{ $language->code }}" type="button" role="tab" aria-controls="{{ $language->code }}" aria-selected="{{ $loop->first ? true : false }}">
-                                    {{ $language?->name }}
-                                </button>
-                            </li>
-                        @endforeach
+                        @if(permissionAdmin('create-tools'))
+                            <a href="{{ route('dashboard.admin.websits.tools.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('admin.global.create')</a>
+                        @endif
 
-                    </ul>
+                        @if(permissionAdmin('create-tools'))
+                            <form method="post" action="{{ route('dashboard.admin.websits.tools.bulk_delete') }}" style="display: inline-block;">
+                                @csrf
+                                @method('delete')
+                                <input type="hidden" name="record_ids" id="record-ids">
+                                <button type="submit" class="btn btn-danger" id="bulk-delete" disabled="true"><i class="fa fa-trash"></i> @lang('admin.global.bulk_delete')</button>
+                            </form><!-- end of form -->
+                        @endif
 
-                    <div class="tab-content" id="myTabContent">
-                        @foreach(getLanguages() as $language)
-                            <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="{{ $language->code }}" role="tabpanel" aria-labelledby="{{ $language->code }}-tab">
-
-                                
-                                @if(!empty(old('tools_title.' . $language->code)) || !empty(old('tools_type_icon.' . $language->code)) || !empty(old('tools_icon.' . $language->code)))
-
-                                    @foreach(old('tools_title.' . $language->code) as $item)
-
-                                        {!! view('dashboard.admin.websits.tools.row', ['code' => $language->code, 'index' => $loop->index, 'uuid' => $loop->index, 'old' => true, 'imageTypes' => $imageTypes])->render() !!}
-
-                                    @endforeach
-
-                                @else
-
-                                    @if(!empty(getSetting('tools', true)))
-
-                                        @foreach(getSetting('tools', true)['tools_title'] as $index=>$item)
-
-                                            {!! view('dashboard.admin.websits.tools.row', ['code' => $language->code, 'index' => $index, 'uuid' => $loop->index, 'old' => false, 'imageTypes' => $imageTypes, 'item' => $item])->render() !!}
-
-                                        @endforeach
-
-                                    @endif
-
-                                @endif
-
-                            </div>
-                        @endforeach
                     </div>
 
-                    <div class="form-group mt-3">
-                        <button type="submit" id="add-items" class="btn btn-info col-12"><i class="fa fa-plus"></i>@lang('site.add')</button>
+                </div><!-- end of row -->
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" id="data-table-search" class="form-control" autofocus placeholder="@lang('admin.global.search')">
+                        </div>
                     </div>
 
-                </div><!-- end of title -->
+                </div><!-- end of row -->
 
-            </div><!-- end of col -->
+                <div class="row">
 
-            <div class="col-12 col-md-12">
-            	
-            	<div class="tile shadow">
+                    <div class="col-md-12">
 
-	                <div class="form-group">
-	                    <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i>@lang('site.create')</button>
-	                </div>
+                        <div class="table-responsive">
 
-            	</div>
+                            <table class="table datatable" id="data-table" style="width: 100%;">
+                                <x-dashboard.admin.data-table.header :columns='$datatables->header'/>
+                            </table>
 
-            </div>
+                        </div><!-- end of table responsive -->
 
-        </div><!-- end of row -->
+                    </div><!-- end of col -->
 
-    </form><!-- end of form -->
+                </div><!-- end of row -->
+
+            </div><!-- end of title -->
+
+        </div><!-- end of col -->
+
+    </div><!-- end of row -->
 
     <x-slot name="scripts">
-        @include('dashboard.admin.websits.tools.script', ['imageTypes' => $imageTypes])
+        <x-dashboard.admin.data-table.script :datatables='$datatables'/>
     </x-slot>
 
 </x-dashboard.admin.layout.app>

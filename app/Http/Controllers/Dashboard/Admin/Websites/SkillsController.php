@@ -22,17 +22,17 @@ class SkillsController extends Controller
         abort_if(!permissionAdmin('read-skills'), 403);
 
         $datatables = datatableServices()
-                    ->header([
-                        'admin.global.title',
-                        'admin.global.image',
-                        'admin.global.description',
-                        'admin.global.status'
-                    ])
-                    ->checkbox(['status' => 'dashboard.admin.websits.skills.status'])
-                    ->route('dashboard.admin.websits.skills.data')
-                    ->columns(['title', 'image', 'description', 'status'])
-                    ->sortable('dashboard.admin.websits.skills.sortable.store')
-                    ->run();
+                        ->header([
+                            'admin.global.title',
+                            'admin.global.image',
+                            'admin.global.description',
+                            'admin.global.status'
+                        ])
+                        ->checkbox(['status' => 'dashboard.admin.websits.skills.status'])
+                        ->route('dashboard.admin.websits.skills.data')
+                        ->columns(['title', 'image', 'description', 'status'])
+                        ->sortable('dashboard.admin.websits.skills.sortable.store')
+                        ->run();
 
         $imageTypes = WebsitsSkillsImageType::array();
 
@@ -57,20 +57,20 @@ class SkillsController extends Controller
         $skills = Skills::query();
 
         return dataTables()->of($skills)
-            ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
-            ->addColumn('created_at', fn (Skills $skills) => $skills?->created_at?->format('Y-m-d'))
-            ->editColumn('title', fn (Skills $skills) => $skills?->title)
-            ->editColumn('description', fn (Skills $skills) => str()->limit($skills->description, 35))
-            ->addColumn('image', fn (Skills $skills) => $skills?->icon_type)
-            ->addColumn('actions', function(Skills $skills) use($permissions) {
-                $routeEdit   = route('dashboard.admin.websits.skills.edit', $skills->id);
-                $routeDelete = route('dashboard.admin.websits.skills.destroy', $skills->id);
-                return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
-            })
-            ->addColumn('status', fn (Skills $skills) => view('dashboard.admin.dataTables.checkbox', ['models' => $skills, 'permissions' => $permissions, 'type' => 'status']))
-            ->rawColumns(['record_select', 'actions', 'status', 'title', 'description'])
-            ->addIndexColumn()
-            ->toJson();
+                ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
+                ->addColumn('created_at', fn (Skills $skills) => $skills?->created_at?->format('Y-m-d'))
+                ->editColumn('title', fn (Skills $skills) => $skills?->title)
+                ->editColumn('description', fn (Skills $skills) => str()->limit($skills->description, 35))
+                ->addColumn('image', fn (Skills $skills) => $skills?->icon_type)
+                ->addColumn('actions', function(Skills $skills) use($permissions) {
+                    $routeEdit   = route('dashboard.admin.websits.skills.edit', $skills->id);
+                    $routeDelete = route('dashboard.admin.websits.skills.destroy', $skills->id);
+                    return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
+                })
+                ->addColumn('status', fn (Skills $skills) => view('dashboard.admin.dataTables.checkbox', ['models' => $skills, 'permissions' => $permissions, 'type' => 'status']))
+                ->rawColumns(['record_select', 'actions', 'status', 'title', 'description'])
+                ->addIndexColumn()
+                ->toJson();
 
     }//end of data
 

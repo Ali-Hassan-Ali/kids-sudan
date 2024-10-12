@@ -115,6 +115,7 @@ return array('global' =>
                   'creative'     => 'Creative',
                   'creatives'    => 'Creatives',
                   'skills'       => 'Skills',
+                  'tools'        => 'tools',
             ),
             'websits' => array(
                   'tools'   => 'Tools',
