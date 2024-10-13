@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\Admin\Websites\BannerController;
+use App\Http\Controllers\Dashboard\Admin\Websites\FaqController;
 use App\Http\Controllers\Dashboard\Admin\Websites\SkillsController;
 use App\Http\Controllers\Dashboard\Admin\Websites\ToolsController;
 use App\Http\Controllers\Dashboard\Admin\Websites\CreativesController;
@@ -17,6 +18,25 @@ Route::controller(BannerController::class)
     Route::post('store', 'store')->name('store');
 
 });
+
+
+//website faqs
+Route::controller(FaqController::class)
+    ->prefix('faqs')->name('faqs.')
+    ->group(function () {
+
+        Route::get('data', 'data')->name('data');
+        Route::post('status', 'status')->name('status');
+        Route::delete('bulk_delete', 'bulkDelete')->name('bulk_delete');
+
+        Route::prefix('sortable')->name('sortable.')->group(function () {
+
+            Route::get('/', 'sortablePage')->name('index');
+            Route::post('/store', 'storeSortable')->name('store');
+
+        });
+    });
+Route::resource('faqs', FaqController::class)->except('show');
 
 
 //website skills

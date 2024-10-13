@@ -37,6 +37,8 @@
                     
                 <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.websites.banner" active="dashboard.admin.websites.banner.*" route="dashboard.admin.websites.banner.index" permission="read-banner"/>
 
+                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.models.faqs" active="dashboard.admin.websites.faqs.*" route="dashboard.admin.websites.faqs.index" permission="read-faqs"/>
+
                 <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.websites.banners.skills" active="dashboard.admin.websites.skills.*" route="dashboard.admin.websites.skills.index" permission="read-skills"/>
 
                 <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.websites.tools" active="dashboard.admin.websites.tools.*" route="dashboard.admin.websites.tools.index" permission="read-tools"/>
@@ -65,8 +67,6 @@
                 <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.settings.media" active="dashboard.admin.settings.media.*" route="dashboard.admin.settings.media.index" permission="read-settings"/>
 
                 <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.settings.contact" active="dashboard.admin.settings.contact.*" route="dashboard.admin.settings.contact.index" permission="read-settings"/>
-
-                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.settings.faq" active="dashboard.admin.settings.faq.*" route="dashboard.admin.settings.faq.index" permission="read-settings"/>
 
             </x-dashboard.admin.layout.includes.slider.menu-group-item>
 

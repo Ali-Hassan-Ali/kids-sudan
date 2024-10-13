@@ -124,6 +124,8 @@ return array('global' =>
                   'volunteerings'=> 'Volunteerings',
                   'service'      => 'Service',
                   'services'     => 'Services',
+                  'faqs'         => 'Faqs',
+                  'faq'          => 'Faq',
             ),
             'websites' => array(
                   'tools'   => 'Tools',
@@ -133,6 +135,10 @@ return array('global' =>
                         'hello'   => 'Hello',
                         'name'    => 'Name',
                         'skills'  => 'Skills',
+                  ),
+                  'faqs'  => array(
+                        'question' => 'Question',
+                        'answer'   => 'Answer',
                   ),
             ),
             'settings' => array(

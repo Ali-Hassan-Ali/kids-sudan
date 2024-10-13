@@ -27,7 +27,7 @@ class PermissionsDemoSeeder extends Seeder
         Admin::factory(10)->create();
         Admin::roleNot(['super_admin'])->each(fn($admin) => $admin->assignRole('admin'));
 
-        $permissions = ['home', 'admins', 'roles', 'languages', 'settings', 'banner', 'skills', 'tools', 'creatives', 'clients', 'volunteerings', 'services'];
+        $permissions = ['home', 'admins', 'roles', 'languages', 'settings', 'banner', 'faqs', 'skills', 'tools', 'creatives', 'clients', 'volunteerings', 'services'];
 
         foreach ($permissions as $data) {
 
