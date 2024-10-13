@@ -31,5 +31,7 @@
 
     {{ $scripts ?? '' }}
 
+    {{-- {{ debug() }} --}}
+
 </body>
 </html>
