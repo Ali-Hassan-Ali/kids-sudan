@@ -29,7 +29,9 @@ class RoleSeeder extends Seeder
             ],
         ];
         
-        Role::insert($roles);
+        Role::updateOrInsert($roles);
+
+        // \App\Models\Role::factory(30)->create();
 
     }//end of run 
 

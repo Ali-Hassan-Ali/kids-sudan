@@ -19,7 +19,6 @@ class AdminFactory extends Factory
         ];
 
     }//end of run
-
     
     public function unverified(): static
     {

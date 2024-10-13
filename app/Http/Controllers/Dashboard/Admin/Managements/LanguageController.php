@@ -56,7 +56,7 @@ class LanguageController extends Controller
             'delete' => permissionAdmin('delete-languages'),
         ];
 
-        $language = Language::all();
+        $language = Language::query();
 
         return dataTables()->of($language)
                 ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
@@ -165,7 +165,8 @@ class LanguageController extends Controller
         if(!$language->default) {
 
             $language->flag != 'flag.png' ? Storage::disk('public')->delete($language->flag) : '';
-            $language->delete();
+
+            in_array($language->code, ['ar', 'en']) ? '' : $language->delete();
         }
 
         session()->flash('success', __('admin.messages.deleted_successfully'));
@@ -175,9 +176,9 @@ class LanguageController extends Controller
 
     public function bulkDelete(DeleteRequest $request): Application | Response | ResponseFactory
     {
-        $images = Language::where('default', 0)->find(request()->ids ?? [])->whereNotNull('flag')->pluck('flag')->toArray();
+        $images = Language::whereNot('default', 0)->find(request()->ids ?? [])->whereNotNull('flag')->pluck('flag')->toArray();
         count($images) > 0 ? Storage::disk('public')->delete($images) : '';
-        Language::destroy(request()->ids ?? []);
+        Language::whereNotIn('code', ['ar', 'en'])->whereNot('default', 0)->delete(request()->ids ?? []);
 
         session()->flash('success', __('admin.messages.deleted_successfully'));
         return response(__('admin.messages.deleted_successfully'));
@@ -218,13 +219,11 @@ class LanguageController extends Controller
 
     }//end of sortablePage
 
-    public function storeSortable(): bool
+    public function storeSortable()
     {        
         foreach (request('order') as $index=>$id) {
-            Creative::where('id', $id)->update(['index' => $index]);
+            Language::where('id', $id)->update(['index' => $index]);
         }
-
-        return true;
 
     }//end of storeSortable
 

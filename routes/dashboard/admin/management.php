@@ -28,7 +28,7 @@ Route::controller(RoleController::class)
         Route::delete('bulk_delete', 'bulkDelete')->name('bulk_delete');
 
     });
-Route::resource('roles', RoleController::class);
+Route::resource('roles', RoleController::class)->except('show');
 
 //roles
 Route::controller(LanguageController::class)

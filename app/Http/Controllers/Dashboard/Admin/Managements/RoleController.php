@@ -47,13 +47,20 @@ class RoleController extends Controller
             'delete' => permissionAdmin('delete-roles'),
         ];
 
-        $role = Role::query()->whereNotIn('name', ['super_admin']);
+        $role = Role::query()->with('permissions', 'admins', 'admin', 'adminsRoleCount')->whereNotIn('name', ['super_admin']);
 
-        return dataTables()->of($role)
+        return dataTables()->of($model)
+                ->addColumn('actions', 
+                    fn (Model $model) => 
+                        actions($model)
+                            ->route([route('route.admin.edit', $model->id), route('route.admin.delete', $model->id)])
+                            ->btn(['edit', 'delete'])
+                            ->run()
+                )
                 ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
                 ->addColumn('created_at', fn (Role $role) => $role?->created_at?->format('Y-m-d'))
                 ->addColumn('admin', fn (Role $role) => $role?->admin?->name)
-                ->addColumn('admins', fn (Role $role) => Admin::role($role->name)->count())
+                ->addColumn('admins', fn (Role $role) => $role->adminsRoleCount?->count())
                 ->addColumn('permissions', fn (Role $role) => $role->permissions?->count())
                 ->addColumn('admins_count', fn (Role $role) => $role?->admins?->count())
                 ->addColumn('actions', function(Role $role) use($permissions) {
