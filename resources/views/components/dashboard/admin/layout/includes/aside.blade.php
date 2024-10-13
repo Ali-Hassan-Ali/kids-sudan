@@ -47,6 +47,8 @@
 
                 <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.models.volunteerings" active="dashboard.admin.websites.volunteerings.*" route="dashboard.admin.websites.volunteerings.index" permission="read-volunteerings"/>
 
+                <x-dashboard.admin.layout.includes.slider.menu-item trans="admin.models.services" active="dashboard.admin.websites.services.*" route="dashboard.admin.websites.services.index" permission="read-services"/>
+
             </x-dashboard.admin.layout.includes.slider.menu-group-item>
 
         @endif

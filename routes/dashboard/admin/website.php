@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\Admin\Websites\ToolsController;
 use App\Http\Controllers\Dashboard\Admin\Websites\CreativesController;
 use App\Http\Controllers\Dashboard\Admin\Websites\ClientController;
 use App\Http\Controllers\Dashboard\Admin\Websites\VolunteeringController;
+use App\Http\Controllers\Dashboard\Admin\Websites\ServicesController;
 
 //website banner
 Route::controller(BannerController::class)
@@ -112,3 +113,23 @@ Route::controller(VolunteeringController::class)
 
     });
 Route::resource('volunteerings', VolunteeringController::class)->except('show');
+
+
+//website services
+Route::controller(ServicesController::class)
+    ->prefix('services')->name('services.')
+    ->group(function () {
+
+        Route::get('data', 'data')->name('data');
+        Route::post('status', 'status')->name('status');
+        Route::delete('bulk_delete', 'bulkDelete')->name('bulk_delete');
+
+        Route::prefix('sortable')->name('sortable.')->group(function () {
+
+            Route::get('/', 'sortablePage')->name('index');
+            Route::post('/store', 'storeSortable')->name('store');
+
+        });
+
+    });
+Route::resource('services', ServicesController::class)->except('show');

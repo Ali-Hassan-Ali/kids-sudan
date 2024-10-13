@@ -122,6 +122,8 @@ return array('global' =>
                   'client'       => 'Client',
                   'volunteering' => 'Volunteering',
                   'volunteerings'=> 'Volunteerings',
+                  'service'      => 'Service',
+                  'services'     => 'Services',
             ),
             'websites' => array(
                   'tools'   => 'Tools',
