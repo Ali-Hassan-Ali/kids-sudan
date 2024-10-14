@@ -62,11 +62,7 @@ class SkillsController extends Controller
                 ->editColumn('title', fn (Skills $skills) => $skills?->title)
                 ->editColumn('description', fn (Skills $skills) => str()->limit($skills->description, 35))
                 ->addColumn('image', fn (Skills $skills) => $skills?->icon_type)
-                ->addColumn('actions', function(Skills $skills) use($permissions) {
-                    $routeEdit   = route('dashboard.admin.websites.skills.edit', $skills->id);
-                    $routeDelete = route('dashboard.admin.websites.skills.destroy', $skills->id);
-                    return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
-                })
+                ->addColumn('actions', fn(Skills $skills) => datatableAction($skills, $permissions)->buttons()->build())
                 ->addColumn('status', fn (Skills $skills) => view('dashboard.admin.dataTables.checkbox', ['models' => $skills, 'permissions' => $permissions, 'type' => 'status']))
                 ->rawColumns(['record_select', 'actions', 'status', 'title', 'description'])
                 ->addIndexColumn()

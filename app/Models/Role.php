@@ -18,9 +18,10 @@ class Role extends Model
 
     protected $fillable = ['admin_id', 'guard_name', 'name'];
 
-    public function scopeRoleNot(Builder $query, $rolesName = 'super_admin'): Builder
+    public function scopeAdminJoin(Builder $query): Builder
     {
-        return $query->when($rolesName, fn ($query) => $query->whereNot('name', $rolesName));
+        return $query->join('admins', 'roles.admin_id', '=', 'admins.id')
+                     ->select('roles.*', 'admins.name as admin_name');
 
     }// end of scope Role
 

@@ -47,27 +47,16 @@ class RoleController extends Controller
             'delete' => permissionAdmin('delete-roles'),
         ];
 
-        $role = Role::query()->with('permissions', 'admins', 'admin', 'adminsRoleCount')->whereNotIn('name', ['super_admin']);
+        $role = Role::adminJoin()->whereNotIn('roles.name', ['super_admin'])->with('permissions', 'admins', 'adminsRoleCount');
 
-        return dataTables()->of($model)
-                ->addColumn('actions', 
-                    fn (Model $model) => 
-                        actions($model)
-                            ->route([route('route.admin.edit', $model->id), route('route.admin.delete', $model->id)])
-                            ->btn(['edit', 'delete'])
-                            ->run()
-                )
+        return dataTables()->of($role)
                 ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
                 ->addColumn('created_at', fn (Role $role) => $role?->created_at?->format('Y-m-d'))
-                ->addColumn('admin', fn (Role $role) => $role?->admin?->name)
+                ->addColumn('admin', fn (Role $role) => $role?->admin_name)
                 ->addColumn('admins', fn (Role $role) => $role->adminsRoleCount?->count())
                 ->addColumn('permissions', fn (Role $role) => $role->permissions?->count())
-                ->addColumn('admins_count', fn (Role $role) => $role?->admins?->count())
-                ->addColumn('actions', function(Role $role) use($permissions) {
-                    $routeEdit   = route('dashboard.admin.managements.roles.edit', $role->id);
-                    $routeDelete = route('dashboard.admin.managements.roles.destroy', $role->id);
-                    return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
-                })
+                ->addColumn('admins_count', fn (Role $role) => $role?->admins_count)
+                ->addColumn('actions', fn(Role $role) => datatableAction($role, $permissions)->buttons()->build())
                 ->rawColumns(['record_select', 'actions'])
                 ->addIndexColumn()
                 ->toJson();

@@ -62,11 +62,7 @@ class VolunteeringController extends Controller
                 ->editColumn('job', fn (Volunteering $volunteering) => $volunteering?->job)
                 ->editColumn('description', fn (Volunteering $volunteering) => str()->limit($volunteering->description, 35))
                 ->editColumn('image', 'dashboard.admin.dataTables.image')
-                ->addColumn('actions', function(Volunteering $volunteering) use($permissions) {
-                    $routeEdit   = route('dashboard.admin.websites.volunteerings.edit', $volunteering->id);
-                    $routeDelete = route('dashboard.admin.websites.volunteerings.destroy', $volunteering->id);
-                    return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
-                })
+                ->addColumn('actions', fn(Volunteering $volunteering) => datatableAction($volunteering, $permissions)->buttons()->build())
                 ->addColumn('status', fn (Volunteering $volunteering) => view('dashboard.admin.dataTables.checkbox', ['models' => $volunteering, 'permissions' => $permissions, 'type' => 'status']))
                 ->rawColumns(['record_select', 'actions', 'status', 'title', 'job', 'image'])
                 ->addIndexColumn()

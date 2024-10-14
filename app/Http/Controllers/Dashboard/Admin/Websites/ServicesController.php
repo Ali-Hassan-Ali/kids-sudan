@@ -62,11 +62,7 @@ class ServicesController extends Controller
                 ->editColumn('title', fn (Service $services) => $services?->title)
                 ->editColumn('description', fn (Service $services) => str()->limit($services->description, 35))
                 ->addColumn('image', fn (Service $services) => $services?->icon_type)
-                ->addColumn('actions', function(Service $services) use($permissions) {
-                    $routeEdit   = route('dashboard.admin.websites.services.edit', $services->id);
-                    $routeDelete = route('dashboard.admin.websites.services.destroy', $services->id);
-                    return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
-                })
+                ->addColumn('actions', fn(Service $services) => datatableAction($services, $permissions)->buttons()->build())
                 ->addColumn('status', fn (Service $services) => view('dashboard.admin.dataTables.checkbox', ['models' => $services, 'permissions' => $permissions, 'type' => 'status']))
                 ->rawColumns(['record_select', 'actions', 'status', 'title', 'description'])
                 ->addIndexColumn()

@@ -56,11 +56,7 @@ class AdminController extends Controller
                 ->addColumn('created_at', fn (Admin $admin) => $admin?->created_at?->format('Y-m-d'))
                 ->editColumn('image', 'dashboard.admin.dataTables.image')
                 ->addColumn('roles', fn(Admin $admin) => view('dashboard.admin.managements.admins.data_tables.roles', compact('admin')))
-                ->addColumn('actions', function(Admin $admin) use($permissions) {
-                    $routeEdit   = route('dashboard.admin.managements.admins.edit', $admin->id);
-                    $routeDelete = route('dashboard.admin.managements.admins.destroy', $admin->id);
-                    return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
-                })
+                ->addColumn('actions', fn(Admin $admin) => datatableAction($admin, $permissions)->buttons()->build())
                 ->addColumn('status', fn (Admin $admin) => !$admin->default ? view('dashboard.admin.dataTables.checkbox', ['models' => $admin, 'permissions' => $permissions, 'type' => 'status']) : '')
                 ->rawColumns(['record_select', 'actions', 'status', 'roles', 'image'])
                 ->addIndexColumn()

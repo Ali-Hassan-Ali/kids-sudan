@@ -63,14 +63,7 @@ class LanguageController extends Controller
                 ->addColumn('created_at', fn (Language $language) => $language?->created_at?->format('Y-m-d'))
                 ->addColumn('admin', fn (Language $language) => $language?->admin?->name)
                 ->editColumn('flag', 'dashboard.admin.dataTables.image')
-                ->addColumn('actions', function(Language $language) use($permissions) {
-                    $routeEdit   = route('dashboard.admin.managements.languages.edit', $language->id);
-                    $routeDelete = '';
-                    if(!$language->default) {
-                        $routeDelete = route('dashboard.admin.managements.languages.destroy', $language->id);
-                    }
-                    return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
-                })
+                ->addColumn('actions', fn(Language $language) => datatableAction($language, $permissions)->buttons()->excepteButtons(['delete'=> (bool) in_array($language->code, ['ar', 'en'])])->build())
                 ->addColumn('status', fn(Language $language) => !$language->default ? view('dashboard.admin.dataTables.checkbox', ['models' => $language, 'permissions' => $permissions, 'type' => 'status']) : '')
                 ->addColumn('default', fn(Language $language) => view('dashboard.admin.managements.languages.data_tables.check_default', compact('language')))
                 ->rawColumns(['record_select', 'actions', 'status', 'flag'])

@@ -58,11 +58,7 @@ class FaqController extends Controller
                 ->addColumn('created_at', fn (Faq $faq) => $faq?->created_at?->format('Y-m-d'))
                 ->editColumn('question', fn (Faq $faq) => str()->limit($faq->question, 35))
                 ->editColumn('answer', fn (Faq $faq) => str()->limit($faq->answer, 45))
-                ->addColumn('actions', function(Faq $faq) use($permissions) {
-                    $routeEdit   = route('dashboard.admin.websites.faqs.edit', $faq->id);
-                    $routeDelete = route('dashboard.admin.websites.faqs.destroy', $faq->id);
-                    return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
-                })
+                ->addColumn('actions', fn(Faq $faq) => datatableAction($faq, $permissions)->buttons()->build())
                 ->addColumn('status', fn (Faq $faq) => view('dashboard.admin.dataTables.checkbox', ['models' => $faq, 'permissions' => $permissions, 'type' => 'status']))
                 ->rawColumns(['record_select', 'actions', 'status', 'question', 'answer'])
                 ->addIndexColumn()

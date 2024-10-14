@@ -62,11 +62,7 @@ class CreativesController extends Controller
                 ->editColumn('image', 'dashboard.admin.dataTables.image')
                 ->editColumn('name', fn (Creative $creative) => $creative?->name)
                 ->addColumn('admin', fn (Creative $creative) => $creative?->admin?->name)
-                ->addColumn('actions', function(Creative $creative) use($permissions) {
-                    $routeEdit   = route('dashboard.admin.websites.creatives.edit', $creative->id);
-                    $routeDelete = route('dashboard.admin.websites.creatives.destroy', $creative->id);
-                    return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
-                })
+                ->addColumn('actions', fn(Creative $creative) => datatableAction($creative, $permissions)->buttons()->build())
                 ->addColumn('status', fn(Creative $creative) => !$creative->default ? view('dashboard.admin.dataTables.checkbox', ['models' => $creative, 'permissions' => $permissions, 'type' => 'status']) : '')
                 ->rawColumns(['record_select', 'actions', 'status', 'name', 'image'])
                 ->addIndexColumn()

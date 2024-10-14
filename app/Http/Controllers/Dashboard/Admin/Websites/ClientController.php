@@ -62,11 +62,7 @@ class ClientController extends Controller
                 ->editColumn('job', fn (Client $client) => $client?->job)
                 ->editColumn('description', fn (Client $client) => str()->limit($client->description, 35))
                 ->editColumn('picture', 'dashboard.admin.dataTables.image')
-                ->addColumn('actions', function(Client $client) use($permissions) {
-                    $routeEdit   = route('dashboard.admin.websites.clients.edit', $client->id);
-                    $routeDelete = route('dashboard.admin.websites.clients.destroy', $client->id);
-                    return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
-                })
+                ->addColumn('actions', fn(Client $client) => datatableAction($client, $permissions)->buttons()->build())
                 ->addColumn('status', fn (Client $client) => view('dashboard.admin.dataTables.checkbox', ['models' => $client, 'permissions' => $permissions, 'type' => 'status']))
                 ->rawColumns(['record_select', 'actions', 'status', 'name', 'job', 'description', 'picture'])
                 ->addIndexColumn()

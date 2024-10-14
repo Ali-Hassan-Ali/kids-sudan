@@ -62,11 +62,7 @@ class ToolsController extends Controller
                 ->editColumn('title', fn (Tools $tools) => $tools?->title)
                 ->editColumn('description', fn (Tools $tools) => str()->limit($tools->description, 35))
                 ->addColumn('image', fn (Tools $tools) => $tools?->icon_type)
-                ->addColumn('actions', function(Tools $tools) use($permissions) {
-                    $routeEdit   = route('dashboard.admin.websites.tools.edit', $tools->id);
-                    $routeDelete = route('dashboard.admin.websites.tools.destroy', $tools->id);
-                    return view('dashboard.admin.dataTables.actions', compact('permissions', 'routeEdit', 'routeDelete'));
-                })
+                ->addColumn('actions', fn(Tools $tools) => datatableAction($tools, $permissions)->buttons()->build())
                 ->addColumn('status', fn (Tools $tools) => view('dashboard.admin.dataTables.checkbox', ['models' => $tools, 'permissions' => $permissions, 'type' => 'status']))
                 ->rawColumns(['record_select', 'actions', 'status', 'title', 'description'])
                 ->addIndexColumn()

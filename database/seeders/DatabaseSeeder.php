@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             ToolsSeeder::class,
             ClientSeeder::class,
             FaqSeeder::class,
+            VolunteeringSeeder::class,
+            ServiceSeeder::class,
         ]);
 
     }//end of run
