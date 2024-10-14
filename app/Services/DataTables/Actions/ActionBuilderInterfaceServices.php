@@ -6,7 +6,7 @@ Interface ActionBuilderInterfaceServices
 {
     public function buttons(array $buttons): self;
     
-    public function bassRoute(string $bassRoute): self;
+    public function baseRoute(string $baseRoute): self;
 
     public function excepteButtons(array $excepted): self;
 
