@@ -58,7 +58,6 @@ class ServicesController extends Controller
 
         return dataTables()->of($services)
                 ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
-                ->addColumn('created_at', fn (Service $services) => $services?->created_at?->format('Y-m-d'))
                 ->editColumn('title', fn (Service $services) => $services?->title)
                 ->editColumn('description', fn (Service $services) => str()->limit($services->description, 35))
                 ->addColumn('image', fn (Service $services) => $services?->icon_type)

@@ -55,7 +55,6 @@ class FaqController extends Controller
 
         return dataTables()->of($faq)
                 ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
-                ->addColumn('created_at', fn (Faq $faq) => $faq?->created_at?->format('Y-m-d'))
                 ->editColumn('question', fn (Faq $faq) => str()->limit($faq->question, 35))
                 ->editColumn('answer', fn (Faq $faq) => str()->limit($faq->answer, 45))
                 ->addColumn('actions', fn(Faq $faq) => datatableAction($faq, $permissions)->buttons()->build())

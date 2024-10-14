@@ -27,6 +27,12 @@ class Skills extends Model
 
     }//end of get ImagePath Attribute
 
+    public function createdAt(): Attribute
+    {
+        return Attribute::make(get: fn ($value) => now()->parse($value)->format('Y-m-d'));
+
+    }//end of get createdAt Attribute
+
     public function admin(): BelongsTo
     {
         return $this->belongsTo(Admin::class);

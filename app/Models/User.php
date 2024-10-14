@@ -23,46 +23,25 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     protected $guarded    = [];
-    protected $appends    = ['profile_image', 'status_name'];
     protected $hidden     = ['password', 'verification_code', 'image', 'remember_token'];
-    protected $attributes = ['status' => 1];
-
-    public function scopeSort(Builder $query): Builder
-    {
-        return $query->orderBy('id', 'desc');
-
-    }// end of scope sort
-
-    public function getProfileImageAttribute()
-    {
-        return $this->image ? Storage::url('users/'.$this->image) :  null;
-
-    }//end of get getProfileImage Attribute
-
-
-    public function statusName(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->status ? __('cms.active') : __('cms.in_active'),
-        );
-
-    }//end of status name
 
     protected function imagePath(): Attribute
     {
-        return Attribute::make(
-            get: fn () => $this->image ? asset('storage/' . $this->image) : asset('assets/images/default.png'),
-        );
+        return Attribute::make(get: fn () => $this->image ? asset('storage/' . $this->image) : asset('assets/images/default.png'));
 
     }//end of get ImagePath Attribute
+
+    public function createdAt(): Attribute
+    {
+        return Attribute::make(get: fn ($value) => now()->parse($value)->format('Y-m-d'));
+
+    }//end of get createdAt Attribute
 
     protected static function booted(): void
     {
         static::addGlobalScope(new OrderScope);
 
-        if(!request()->is('*users*')) {
-            static::addGlobalScope(new StatusScope);
-        }
+        if(!request()->is('*users*')) static::addGlobalScope(new StatusScope);
 
     }//end of Global Scope
 

@@ -57,7 +57,6 @@ class ClientController extends Controller
 
         return dataTables()->of($client)
                 ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
-                ->addColumn('created_at', fn (Client $client) => $client?->created_at?->format('Y-m-d'))
                 ->editColumn('name', fn (Client $client) => $client?->name)
                 ->editColumn('job', fn (Client $client) => $client?->job)
                 ->editColumn('description', fn (Client $client) => str()->limit($client->description, 35))

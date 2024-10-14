@@ -31,6 +31,12 @@ class Language extends Model
 
     }//end of get ImagePath Attribute
 
+    public function createdAt(): Attribute
+    {
+        return Attribute::make(get: fn ($value) => now()->parse($value)->format('Y-m-d'));
+
+    }//end of get createdAt Attribute
+
     protected static function booted(): void
     {
         static::addGlobalScope(new OrderIndexScope);

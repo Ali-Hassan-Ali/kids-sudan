@@ -51,7 +51,6 @@ class RoleController extends Controller
 
         return dataTables()->of($role)
                 ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
-                ->addColumn('created_at', fn (Role $role) => $role?->created_at?->format('Y-m-d'))
                 ->addColumn('admin', fn (Role $role) => $role?->admin_name)
                 ->addColumn('admins', fn (Role $role) => $role->adminsRoleCount?->count())
                 ->addColumn('permissions', fn (Role $role) => $role->permissions?->count())

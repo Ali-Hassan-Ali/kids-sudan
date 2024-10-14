@@ -60,7 +60,6 @@ class LanguageController extends Controller
 
         return dataTables()->of($language)
                 ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
-                ->addColumn('created_at', fn (Language $language) => $language?->created_at?->format('Y-m-d'))
                 ->addColumn('admin', fn (Language $language) => $language?->admin?->name)
                 ->editColumn('flag', 'dashboard.admin.dataTables.image')
                 ->addColumn('actions', fn(Language $language) => datatableAction($language, $permissions)->buttons()->excepteButtons(['delete'=> (bool) in_array($language->code, ['ar', 'en'])])->build())

@@ -57,7 +57,6 @@ class VolunteeringController extends Controller
 
         return dataTables()->of($volunteering)
                 ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
-                ->addColumn('created_at', fn (Volunteering $volunteering) => $volunteering?->created_at?->format('Y-m-d'))
                 ->editColumn('title', fn (Volunteering $volunteering) => $volunteering?->title)
                 ->editColumn('job', fn (Volunteering $volunteering) => $volunteering?->job)
                 ->editColumn('description', fn (Volunteering $volunteering) => str()->limit($volunteering->description, 35))

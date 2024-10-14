@@ -53,7 +53,6 @@ class AdminController extends Controller
 
         return dataTables()->of($admin)
                 ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
-                ->addColumn('created_at', fn (Admin $admin) => $admin?->created_at?->format('Y-m-d'))
                 ->editColumn('image', 'dashboard.admin.dataTables.image')
                 ->addColumn('roles', fn(Admin $admin) => view('dashboard.admin.managements.admins.data_tables.roles', compact('admin')))
                 ->addColumn('actions', fn(Admin $admin) => datatableAction($admin, $permissions)->buttons()->build())

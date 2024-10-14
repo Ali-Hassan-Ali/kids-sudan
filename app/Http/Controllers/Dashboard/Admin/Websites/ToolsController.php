@@ -58,7 +58,6 @@ class ToolsController extends Controller
 
         return dataTables()->of($tools)
                 ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
-                ->addColumn('created_at', fn (Tools $tools) => $tools?->created_at?->format('Y-m-d'))
                 ->editColumn('title', fn (Tools $tools) => $tools?->title)
                 ->editColumn('description', fn (Tools $tools) => str()->limit($tools->description, 35))
                 ->addColumn('image', fn (Tools $tools) => $tools?->icon_type)

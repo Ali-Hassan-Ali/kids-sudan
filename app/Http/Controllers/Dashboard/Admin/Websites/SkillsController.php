@@ -58,7 +58,6 @@ class SkillsController extends Controller
 
         return dataTables()->of($skills)
                 ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
-                ->addColumn('created_at', fn (Skills $skills) => $skills?->created_at?->format('Y-m-d'))
                 ->editColumn('title', fn (Skills $skills) => $skills?->title)
                 ->editColumn('description', fn (Skills $skills) => str()->limit($skills->description, 35))
                 ->addColumn('image', fn (Skills $skills) => $skills?->icon_type)

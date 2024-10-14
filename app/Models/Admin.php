@@ -41,11 +41,17 @@ class Admin extends Authenticatable
 
     }//end of get ImagePath Attribute
 
+    public function createdAt(): Attribute
+    {
+        return Attribute::make(get: fn ($value) => now()->parse($value)->format('Y-m-d'));
+
+    }//end of get createdAt Attribute
+
     protected static function booted(): void
     {
         static::addGlobalScope(new OrderScope);
 
-        // if(!request()->is('*admins*')) static::addGlobalScope(new StatusScope);
+        if(!request()->is('*admins*')) static::addGlobalScope(new StatusScope);
 
     }//end of Global Scope
 

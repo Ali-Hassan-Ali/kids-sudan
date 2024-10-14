@@ -58,7 +58,6 @@ class CreativesController extends Controller
 
         return dataTables()->of($creative)
                 ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
-                ->editColumn('created_at', fn (Creative $creative) => $creative?->created_at?->format('Y-m-d'))
                 ->editColumn('image', 'dashboard.admin.dataTables.image')
                 ->editColumn('name', fn (Creative $creative) => $creative?->name)
                 ->addColumn('admin', fn (Creative $creative) => $creative?->admin?->name)
