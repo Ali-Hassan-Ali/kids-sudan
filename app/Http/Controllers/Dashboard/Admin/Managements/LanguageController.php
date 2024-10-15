@@ -168,9 +168,14 @@ class LanguageController extends Controller
 
     public function bulkDelete(DeleteRequest $request): Application | Response | ResponseFactory
     {
-        $images = Language::whereNot('default', 0)->find(request()->ids ?? [])->whereNotNull('flag')->pluck('flag')->toArray();
-        count($images) > 0 ? Storage::disk('public')->delete($images) : '';
-        Language::whereNotIn('code', ['ar', 'en'])->whereNot('default', 0)->delete(request()->ids ?? []);
+        $ids = array_diff($request->ids, [1,2]) ?? [];
+
+        $languages = Language::whereNot('default', 1)->whereNotIn('code', ['en', 'ar'])->whereIn('id', $ids)->whereNotNull('flag')->get();
+
+        $flags = $languages->pluck('flag')->toArray();
+        count($flags) > 0 ? Storage::disk('public')->delete($flags) : '';
+
+        Language::whereNotIn('code', ['en', 'ar'])->whereNot('default', 1)->whereIn('id', $ids)->delete();
 
         session()->flash('success', __('admin.messages.deleted_successfully'));
         return response(__('admin.messages.deleted_successfully'));

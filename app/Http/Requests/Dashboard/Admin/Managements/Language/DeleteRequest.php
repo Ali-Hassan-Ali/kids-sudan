@@ -30,7 +30,7 @@ class DeleteRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        return request()->merge([
+        return $this->merge([
             'ids'   => json_decode(request()->record_ids),
         ]);
 

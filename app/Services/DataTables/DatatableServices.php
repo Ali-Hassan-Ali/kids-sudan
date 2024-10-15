@@ -15,7 +15,7 @@ class DatatableServices implements DatatableInterfaceServices, ArrayAccess, Json
 
     public function header(array $headers): self
     {
-        $this->header = $headers;
+        $this->header = !empty($headers) ? $headers : ['No headers defined'];
         return $this;
     }
 
@@ -47,7 +47,7 @@ class DatatableServices implements DatatableInterfaceServices, ArrayAccess, Json
         return $this;
     }
 
-    public function run()
+    public function run(): self
     {
         return $this;
     }
