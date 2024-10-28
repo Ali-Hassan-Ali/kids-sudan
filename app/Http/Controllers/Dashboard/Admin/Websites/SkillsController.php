@@ -135,10 +135,7 @@ class SkillsController extends Controller
     {
         $validated = $request->safe()->except(['icon']);
 
-        if ($skill->icon_type == 'image' && $request->icon_type != 'image') {
-            
-            Storage::disk('public')->delete($skill->icon);
-        }
+        if ($skill->icon_type == 'image' && $request->icon_type != 'image') Storage::disk('public')->delete($skill->icon);
 
         if ($request->icon_type == 'image') {
             

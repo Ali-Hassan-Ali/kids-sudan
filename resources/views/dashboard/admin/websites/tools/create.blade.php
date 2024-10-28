@@ -78,7 +78,7 @@
     </form><!-- end of form -->
 
     <x-slot name="scripts">
-        @include('dashboard.admin.websites.tools.script', ['imageTypes' => $imageTypes])
+        @include('dashboard.admin.websites.tools.script', ['imageTypes' => $imageTypes , 'toll' => []])
     </x-slot>
 
 </x-dashboard.admin.layout.app>

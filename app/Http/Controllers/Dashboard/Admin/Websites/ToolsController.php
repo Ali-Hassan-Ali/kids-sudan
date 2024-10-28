@@ -60,10 +60,10 @@ class ToolsController extends Controller
                 ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
                 ->editColumn('title', fn (Tools $tools) => $tools?->title)
                 ->editColumn('description', fn (Tools $tools) => str()->limit($tools->description, 35))
-                ->addColumn('image', fn (Tools $tools) => $tools?->icon_type)
+                ->addColumn('image', 'dashboard.admin.websites.tools.icon_type')
                 ->addColumn('actions', fn(Tools $tools) => datatableAction($tools, $permissions)->buttons()->build())
                 ->addColumn('status', fn (Tools $tools) => view('dashboard.admin.dataTables.checkbox', ['models' => $tools, 'permissions' => $permissions, 'type' => 'status']))
-                ->rawColumns(['record_select', 'actions', 'status', 'title', 'description'])
+                ->rawColumns(['record_select', 'actions', 'status', 'title', 'description', 'image'])
                 ->addIndexColumn()
                 ->toJson();
 
@@ -135,10 +135,7 @@ class ToolsController extends Controller
     {
         $validated = $request->safe()->except(['icon']);
 
-        if ($tool->icon_type == 'image' && $request->icon_type == 'image') {
-            
-            $tool->icon_type == 'image' ? Storage::disk('public')->delete($tool->icon) : '';
-        }
+        if ($tool->icon_type == 'image' && $request->icon_type != 'image') Storage::disk('public')->delete($tool->icon);
 
         if ($request->icon_type == 'image') {
             
@@ -151,8 +148,10 @@ class ToolsController extends Controller
 
         } else {
 
-            $tool->update($validated);
+            $validated['icon'] = request()->icon;
         }
+
+        $tool->update($validated);
 
         session()->flash('success', __('admin.messages.updated_successfully'));
         return to_route('dashboard.admin.websites.tools.index');
