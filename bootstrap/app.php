@@ -13,7 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
         using: function () {
             // Helper function to streamline route grouping
-            $configureRoute = function ($prefix, $name, $path, $middleware = ['web', 'auth:admin']) {
+            $configureRoute = function ($prefix, $name, $path, $middleware = ['web', 'auth:admin', SetLocale::class]) {
                 Route::middleware($middleware)
                     ->prefix($prefix)
                     ->name($name)
@@ -27,7 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
             $configureRoute('dashboard/admin/websites', 'dashboard.admin.websites.', 'routes/dashboard/admin/website.php');
             $configureRoute('dashboard/admin/managements', 'dashboard.admin.managements.', 'routes/dashboard/admin/management.php');
             $configureRoute('dashboard/admin/settings', 'dashboard.admin.settings.', 'routes/dashboard/admin/setting.php');
-            $configureRoute('dashboard/admin', 'dashboard.admin.auth.', 'routes/dashboard/admin/auth.php', ['web']);
+            $configureRoute('dashboard/admin', 'dashboard.admin.auth.', 'routes/dashboard/admin/auth.php', ['web', SetLocale::class]);
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
