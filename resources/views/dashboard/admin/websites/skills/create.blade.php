@@ -4,6 +4,11 @@
         {{ trans('admin.global.create') . ' - ' . trans('admin.models.skills') }}
     </x-slot>
 
+    <x-slot name="styles">
+        <!-- Bootstrap Icons -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    </x-slot>
+
     <h2>@lang('admin.models.skills')</h2>
 
     <x-dashboard.admin.layout.includes.breadcrumb :breadcrumb='$breadcrumb'/>
@@ -57,7 +62,6 @@
                         @php($typeIcon = in_array(old("icon_type"), $imageTypes) ? old("icon_type") : 'image')
 
                         <input name="icon" id="icon-hiddenImage" name="$typeIcon == 'image' ? 'icon' : ''" hidden>
-                        
 
                         <x-input.text required="true" :name='$typeIcon == "image" ? "icon" : ""' label="admin.files.image" :hidden='$typeIcon == "image" ? false : true' id="icon-image" type="file"/>
                         <x-input.text required="true" :name='old("icon_type") == "font" ? "icon" : ""' label="admin.files.font" :hidden='old("icon_type") == "font" ? false : true' id="icon-font"/>
@@ -78,7 +82,7 @@
     </form><!-- end of form -->
 
     <x-slot name="scripts">
-        @include('dashboard.admin.websites.skills.script', ['imageTypes' => $imageTypes])
+        @include('dashboard.admin.websites.skills.script', ['imageTypes' => $imageTypes, 'skill' => []])
     </x-slot>
 
 </x-dashboard.admin.layout.app>

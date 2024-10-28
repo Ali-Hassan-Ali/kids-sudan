@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\SetLocale;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -10,41 +12,32 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
         using: function () {
+            // Helper function to streamline route grouping
+            $configureRoute = function ($prefix, $name, $path, $middleware = ['web', 'auth:admin']) {
+                Route::middleware($middleware)
+                    ->prefix($prefix)
+                    ->name($name)
+                    ->group(base_path($path));
+            };
 
-            Route::middleware('web')
-                ->group(base_path('routes/web.php'));
+            Route::middleware('web')->group(base_path('routes/web.php'));
 
-            Route::middleware('web', 'auth:admin')
-                ->prefix('dashboard/admin')->name('dashboard.admin.')
-                ->group(base_path('routes/dashboard/admin/web.php'));
-
-            Route::middleware('web', 'auth:admin')
-                ->prefix('dashboard/admin/websites')->name('dashboard.admin.websites.')
-                ->group(base_path('routes/dashboard/admin/website.php'));
-
-            Route::middleware('web', 'auth:admin')
-                ->prefix('dashboard/admin/managements')->name('dashboard.admin.managements.')
-                ->group(base_path('routes/dashboard/admin/management.php'));
-
-            Route::middleware('web')
-                ->prefix('dashboard/admin/settings')->name('dashboard.admin.settings.')
-                ->group(base_path('routes/dashboard/admin/setting.php'));
-
-            Route::middleware('web')
-                ->prefix('dashboard/admin')->name('dashboard.admin.auth.')
-                ->group(base_path('routes/dashboard/admin/auth.php'));
-
+            // Admin routes
+            $configureRoute('dashboard/admin', 'dashboard.admin.', 'routes/dashboard/admin/web.php');
+            $configureRoute('dashboard/admin/websites', 'dashboard.admin.websites.', 'routes/dashboard/admin/website.php');
+            $configureRoute('dashboard/admin/managements', 'dashboard.admin.managements.', 'routes/dashboard/admin/management.php');
+            $configureRoute('dashboard/admin/settings', 'dashboard.admin.settings.', 'routes/dashboard/admin/setting.php');
+            $configureRoute('dashboard/admin', 'dashboard.admin.auth.', 'routes/dashboard/admin/auth.php', ['web']);
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
-        
-        $middleware->use([
+        // Applying global middleware and guest redirection
+        $middleware->append([
             \App\Http\Middleware\SetLocale::class
-        ])->redirectGuestsTo(fn ($request) => 
+        ])->redirectGuestsTo(fn ($request) =>
             in_array('auth:admin', $request->route()->middleware()) ? route('dashboard.admin.auth.login.index') : ''
         );
-
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        // Exception handling configuration, if needed
     })->create();

@@ -3,18 +3,23 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\Admin; // Import the Admin model
 
 class UserTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $admin = Admin::factory()->create(['is_super_admin' => false]);
+        // $admin = Admin::find(1); 
+        $this->actingAs($admin, 'admin'); 
+    }
+
+    public function TestAdminIndex(): void
     {
         $response = $this->get(route('dashboard.admin.managements.admins.index'));
 
-        $response->assertStatus(302);
+        $response->assertStatus(200);
     }
 }

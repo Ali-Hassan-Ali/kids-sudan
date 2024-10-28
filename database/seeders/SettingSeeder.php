@@ -44,7 +44,7 @@ class SettingSeeder extends Seeder
     protected function aboutPage()
     {
         $aboutPageTitle       = ['ar' => 'من نحن', 'en' => 'About Us'];
-        $aboutPageDescription = ['ar' => 'هذا نص تجريبي لاختبار شكل و حجم النصوص و طريقة عرضهاi في هذا المكان و حجم و لون الخط حيث يتم التحكم في هذا النص وامكانية تغييرة في اي وقت عن طريق ادارة الموقع . يتم اضافة هذا النص كنص تجريبي للمعاينة . هذا نص تجريبي لاختبار شكل و حجم النصوص و طريقة عرضهاi في هذا المكان و حجم و لون الخط حيث يتم التحكم في هذا النص وامكانية تغييرة في اي وقت عن طريق ادارة الموقع . يتم اضافة هذا النص كنص تجريبي للمعاينة .', 'en' => ''];
+        $aboutPageDescription = ['ar' => 'هذا نص تجريبي لاختبار شكل و حجم النصوص و طريقة عرضهاi في هذا المكان و حجم و لون الخط حيث يتم التحكم في هذا النص وامكانية تغييرة في اي وقت عن طريق ادارة الموقع . يتم اضافة هذا النص كنص تجريبي للمعاينة . هذا نص تجريبي لاختبار شكل و حجم النصوص و طريقة عرضهاi في هذا المكان و حجم و لون الخط حيث يتم التحكم في هذا النص وامكانية تغييرة في اي وقت عن طريق ادارة الموقع . يتم اضافة هذا النص كنص تجريبي للمعاينة .', 'en' => 'specialist and training supervisor for children with experience in programming, artificial intelligence, robotics, and electronics manufacturing. Skilled in strategic planning and management of activities and programs, with a focus on childrens education and talent development. Training and'];
 
         saveTransSetting('about_page_title', json_encode($aboutPageTitle));
         saveTransSetting('about_page_description', json_encode($aboutPageDescription));

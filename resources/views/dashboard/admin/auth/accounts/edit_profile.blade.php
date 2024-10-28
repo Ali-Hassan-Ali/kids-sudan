@@ -16,7 +16,7 @@
 
             <div class="col-12 col-md-4">
 
-                <div class="title shadow">
+                <div class="tile shadow">
 
                     @include('dashboard.admin.dataTables.image_privew', ['name' => 'image', 'imagepath' => $admin->image_path, 'label' => 'admin.global.image'])
 
@@ -41,7 +41,7 @@
 
                     </div>{{-- row --}}
 
-                    <div class="form-group">
+                    <div class="form-group mt-5">
                         <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i>@lang('admin.global.edit')</button>
                     </div>
 

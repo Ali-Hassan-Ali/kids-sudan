@@ -1,10 +1,10 @@
 <x-dashboard.admin.layout.app>
 
     <x-slot name="title">
-        {{ trans('admin.models.websits') . ' - ' . trans('admin.websits.banners.skills') }}
+        {{ trans('admin.models.websites') . ' - ' . trans('admin.websites.banners.skills') }}
     </x-slot>
 
-    <h2>@lang('admin.websits.banners.skills')</h2>
+    <h2>@lang('admin.websites.banners.skills')</h2>
 
     <x-dashboard.admin.layout.includes.breadcrumb :breadcrumb='$breadcrumb'/>
 
@@ -46,7 +46,7 @@
         <script type="text/javascript">
         	$(function() {
         		
-        		let route = "{{ route('dashboard.admin.websits.skills.sortable.store') }}";
+        		let route = "{{ route('dashboard.admin.websites.skills.sortable.store') }}";
 		    	
 		    	$('#sortable').sortable({
 		            items: 'li',

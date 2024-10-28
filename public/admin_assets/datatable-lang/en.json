@@ -4,7 +4,7 @@
   "sProcessing": "جارٍ التحميل...",
   "sLengthMenu": "أظهر _MENU_ مدخلات",
   "sZeroRecords": "لم يعثر على أية سجلات",
-  "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+  "sInfo": "show _START_ to _END_ from _TOTAL_ enter",
   "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
   "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
   "sSearch": "ابحث:",
@@ -36,8 +36,8 @@
       "1": "1 قيمة نسخت"
     },
     "pageLength": {
-      "-1": "اظهار الكل",
-      "_": "إظهار %d أسطر"
-    }
+      "-1": "show all", 
+      "_": "show %d lline" 
+    },
   }
 }

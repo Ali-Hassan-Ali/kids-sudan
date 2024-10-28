@@ -2,16 +2,19 @@
 
 return array('global' => 
             array(
-                'home'        => 'Home', 
+                'dashboard'   => 'لوحة التحكم', 
+                'home'        => 'الرئسية', 
                 'yes'         => '😊Yes',
                 'no'          => '😞No',
-                '1'           => '😊Yes',
                 '0'           => '😞No',
+                '1'           => '😊Yes',
                 'by'          => ':name By :lang',
                 'save'        => 'Save', 
                 'back'        => 'Back', 
                 'admin'       => 'Admin', 
-                'items'       => 'Ttems', 
+                'items'       => 'Ttems',
+                'link'        => 'Link', 
+                'links'       => 'Links',  
                 'name'        => 'name', 
                 'email'       => 'Email', 
                 'phone'       => 'Phone', 

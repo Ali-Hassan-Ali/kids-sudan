@@ -75,7 +75,7 @@
     </form><!-- end of form -->
 
     <x-slot name="scripts">
-        @include('dashboard.admin.websites.skills.script', ['imageTypes' => $imageTypes])
+        @include('dashboard.admin.websites.skills.script', ['imageTypes' => $imageTypes, 'skill' => $skill])
     </x-slot>
 
 </x-dashboard.admin.layout.app>

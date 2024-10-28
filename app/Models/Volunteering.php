@@ -17,9 +17,9 @@ class Volunteering extends Model
     use SoftDeletes;
     use HasTranslations;
 
-    protected $guarded      = [];
+    protected $guarded        = [];
     protected $translatable = ['title', 'job'];
-    protected $appends      = ['image_path'];
+    protected $appends        = ['image_path'];
 
     protected function imagePath(): Attribute
     {

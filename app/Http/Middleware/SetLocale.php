@@ -10,15 +10,18 @@ class SetLocale
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (getLanguages()->count()) {
+        if(getLanguages()->count()) {
 
-            session()->put('dir', session('dir', getLanguages('default')?->dir));
-            session()->put('code', session('code', getLanguages('default')->code));
+            session('dir') ?? session()->put('dir', getLanguages('default')->dir);
+            session('code') ?? session()->put('code', getLanguages('default')->code);
 
             app()->setLocale(session('code'));
-        }
 
-        session()->put('them-mode', session('them-mode', 'dark'));
+        } else {
+
+            app()->setLocale(app()->setLocale());
+
+        }//en dof check
 
         return $next($request);
 

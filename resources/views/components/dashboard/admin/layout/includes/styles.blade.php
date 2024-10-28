@@ -9,29 +9,24 @@
 <!-- Font-icon css-->
 <link rel="stylesheet" type="text/css" href="{{ asset('admin_assets/css/font-awesome.min.css') }}">
 
+{{--google font--}}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cairo:400,600&display=swap">
+
+<style> 
+    body {
+        font-family: 'cairo', 'sans-serif';
+    }
+</style>
+
 @if (app()->getLocale() == 'ar')
 
-    {{--google font--}}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cairo:400,600&display=swap">
-
     <style>
-        body {
-            font-family: 'cairo', 'sans-serif';
-        }
-        .breadcrumb-item + .breadcrumb-item {
+        .breadcrumb-item + .breadcrumb-item::before {
+            float: right;
             padding-left: 0.5rem;
         }
-        .breadcrumb-item+.breadcrumb-item::before {
-            float: right;
-        }
-        .breadcrumb-item + .breadcrumb-item::before {
-            padding-left: .5rem;
-        }
-
-        div.dataTables_wrapper div.dataTables_paginate ul.pagination {
-            margin: 2px 2px;
-        }
     </style>
+
 @endif
 
 {{--jquery--}}

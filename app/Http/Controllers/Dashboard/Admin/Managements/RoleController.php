@@ -134,11 +134,7 @@ class RoleController extends Controller
 
     public function destroy(Role $role): Application | Response | ResponseFactory
     {
-        if(!$role->default) {
-
-            $role->flag ? Storage::disk('public')->delete($role->flag) : '';
-            $role->delete();
-        }
+        if(!$role->id == 1) $role->delete();
 
         session()->flash('success', __('admin.messages.deleted_successfully'));
         return response(__('admin.messages.deleted_successfully'));
@@ -147,9 +143,7 @@ class RoleController extends Controller
 
     public function bulkDelete(DeleteRequest $request): Application | Response | ResponseFactory
     {
-        $images = Role::where('default', 0)->find(request()->ids ?? [])->pluck('flag')->toArray();
-        Storage::disk('public')->delete($images) ?? '';
-        Role::where('default', 0)->destroy(request()->ids ?? []);
+        Role::whereNot('name', 'super_admin')->destroy(request()->ids ?? []);
 
         session()->flash('success', __('admin.messages.deleted_successfully'));
         return response(__('admin.messages.deleted_successfully'));

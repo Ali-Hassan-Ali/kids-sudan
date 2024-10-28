@@ -17,7 +17,7 @@
 
             <div class="col-12 col-md-12">
 
-                <div class="title shadow">
+                <div class="tile shadow">
 
                 	<div class="row">
 
@@ -29,12 +29,11 @@
                         
                 	</div>
 
-
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i>@lang('site.create')</button>
                     </div>
 
-                </div><!-- end of title -->
+                </div><!-- end of tile -->
 
             </div><!-- end of col -->
 

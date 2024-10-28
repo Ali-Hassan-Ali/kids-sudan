@@ -60,10 +60,10 @@ class SkillsController extends Controller
                 ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
                 ->editColumn('title', fn (Skills $skills) => $skills?->title)
                 ->editColumn('description', fn (Skills $skills) => str()->limit($skills->description, 35))
-                ->addColumn('image', fn (Skills $skills) => $skills?->icon_type)
+                ->addColumn('image', 'dashboard.admin.websites.skills.icon_type')
                 ->addColumn('actions', fn(Skills $skills) => datatableAction($skills, $permissions)->buttons()->build())
                 ->addColumn('status', fn (Skills $skills) => view('dashboard.admin.dataTables.checkbox', ['models' => $skills, 'permissions' => $permissions, 'type' => 'status']))
-                ->rawColumns(['record_select', 'actions', 'status', 'title', 'description'])
+                ->rawColumns(['record_select', 'actions', 'status', 'title', 'description', 'image'])
                 ->addIndexColumn()
                 ->toJson();
 
@@ -135,9 +135,9 @@ class SkillsController extends Controller
     {
         $validated = $request->safe()->except(['icon']);
 
-        if ($skill->icon_type == 'image' && $request->icon_type == 'image') {
+        if ($skill->icon_type == 'image' && $request->icon_type != 'image') {
             
-            $skill->icon_type == 'image' ? Storage::disk('public')->delete($skill->icon) : '';
+            Storage::disk('public')->delete($skill->icon);
         }
 
         if ($request->icon_type == 'image') {
@@ -151,8 +151,10 @@ class SkillsController extends Controller
 
         } else {
 
-            $skill->update($validated);
+            $validated['icon'] = request()->icon;
         }
+
+        $skill->update($validated);
 
         session()->flash('success', __('admin.messages.updated_successfully'));
         return redirect()->route('dashboard.admin.websites.skills.index');
