@@ -45,7 +45,7 @@
                         @foreach(getLanguages() as $language)
                             <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="{{ $language->code }}" role="tabpanel" aria-labelledby="{{ $language->code }}-tab">
                                 {{--name--}}
-                                <x-input.text :required='{{ $loop->first ? true : false }}' name="name[{{ $language->code }}]" label="admin.global.name"/>
+                                <x-input.text :required='$loop->first ? true : false' name="name[{{ $language->code }}]" label="admin.global.name"/>
                                 
                                 {{-- jov --}}
                                 <x-input.text required="{{ $loop->first ? true : false }}" name="job[{{ $language->code }}]" label="admin.models.job"/>

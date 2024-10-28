@@ -60,10 +60,10 @@ class ServicesController extends Controller
                 ->addColumn('record_select', 'dashboard.admin.dataTables.record_select')
                 ->editColumn('title', fn (Service $services) => $services?->title)
                 ->editColumn('description', fn (Service $services) => str()->limit($services->description, 35))
-                ->addColumn('image', fn (Service $services) => $services?->icon_type)
+                ->addColumn('image', 'dashboard.admin.websites.services.icon_type')
                 ->addColumn('actions', fn(Service $services) => datatableAction($services, $permissions)->buttons()->build())
                 ->addColumn('status', fn (Service $services) => view('dashboard.admin.dataTables.checkbox', ['models' => $services, 'permissions' => $permissions, 'type' => 'status']))
-                ->rawColumns(['record_select', 'actions', 'status', 'title', 'description'])
+                ->rawColumns(['record_select', 'actions', 'status', 'title', 'description', 'image'])
                 ->addIndexColumn()
                 ->toJson();
 
@@ -135,10 +135,7 @@ class ServicesController extends Controller
     {
         $validated = $request->safe()->except(['icon']);
 
-        if ($service->icon_type == 'image' && $request->icon_type == 'image') {
-            
-            $service->icon_type == 'image' ? Storage::disk('public')->delete($service->icon) : '';
-        }
+        if ($service->icon_type == 'image' && $request->icon_type != 'image') Storage::disk('public')->delete($service->icon);
 
         if ($request->icon_type == 'image') {
             
@@ -151,8 +148,10 @@ class ServicesController extends Controller
 
         } else {
 
-            $service->update($validated);
+            $validated['icon'] = request()->icon;
         }
+
+        $service->update($validated);
 
         session()->flash('success', __('admin.messages.updated_successfully'));
         return redirect()->route('dashboard.admin.websites.services.index');
