@@ -7,9 +7,13 @@ use App\Models\Setting;
     function getSetting(string $key, bool $json = false)
     {
         $setting = Setting::where('key', $key)->first();
+
         if($setting) {
+
             return $json ? (json_decode($setting->value, true) ?? []) : $setting->value;
+
         } else {
+
             $setting = Setting::create(['key' => $key]);
             return;
         }
@@ -23,9 +27,13 @@ use App\Models\Setting;
     function saveSetting(string $key, $value = '')
     {
         $setting = Setting::where('key', $key)->first();
+
         if(!$setting) {
+
             return $setting = Setting::create(['key' => $key]);
+
         }
+        
         return $setting->update(['value' => $value]);
 
     }//en dof fun

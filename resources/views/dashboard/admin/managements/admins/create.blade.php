@@ -56,7 +56,6 @@
 
                 </div><!-- end of tile -->
 
-
             </div><!-- end of col -->
 
         </div><!-- end of row -->

@@ -27,7 +27,7 @@ class AdminController extends Controller
                             'admin.global.name',
                             'admin.global.email',
                             'admin.global.image',
-                            'menu.roles',
+                            'admin.models.roles',
                             'admin.global.status'
                         ])
                         ->checkbox(['status' => 'dashboard.admin.managements.admins.status'])

@@ -20,14 +20,7 @@ class Admin extends Authenticatable
     protected $hidden   = ['password', 'remember_token'];
     protected $appends  = ['image_path'];
 
-    ///// scope
-    public function scopeSort($query , $request)
-    {
-        return $query->orderBy('id', 'desc');
-
-    }//end of fun
-
-    public function scopeRoleNot(Builder $query, $rolesName = ['super_admin']): Builder
+    public function scopeRoleNot(Builder $query, array $rolesName = ['super_admin']): Builder
     {
         return $query->when($rolesName, fn ($query) => $query->whereDoesntHave('roles')->orWhereHas('roles', fn($query) => $query->whereNotIn('name', $rolesName)));
 

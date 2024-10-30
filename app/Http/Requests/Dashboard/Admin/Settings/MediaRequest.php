@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Dashboard\Admin\Settings;
 
+use Illuminate\Validation\Rule;
+use App\Enums\Admin\WebsitsSkillsImageType;
 use Illuminate\Foundation\Http\FormRequest;
 
 class MediaRequest extends FormRequest
@@ -14,31 +16,23 @@ class MediaRequest extends FormRequest
 
     public function rules(): array
     {
-        $rules = [
-        	'media_facebook'        => ['nullable', 'string', 'url'],
-        	'media_twitter'         => ['nullable', 'string', 'url'],
-        	'media_instagram'       => ['nullable', 'string', 'url'],
-        	'media_video_links'     => ['nullable', 'string', 'url'],
-            'media_google_play'     => ['nullable', 'string', 'url'],
-            'media_apple_store'     => ['nullable', 'string', 'url'],
+        return [
+            'social_types.*'  => ['required', 'string', Rule::enum(WebsitsSkillsImageType::class), 'min:2', 'max:5'],
+        	'social_icons.*'  => ['required', 'string'],
+            'social_links.*'  => ['required', 'url'],
+            'social_status.*' => ['boolean'],
         ];
-
-        return $rules;
 
     }//end of rules
 
     public function attributes(): array
     {
-        $rules = [
-            'media_facebook'        => trans('admin.strings.medias.facebook'),
-            'media_twitter'         => trans('admin.strings.medias.twitter'),
-            'media_instagram'       => trans('admin.strings.medias.instagram'),
-            'media_video_links'     => trans('admin.strings.medias.video_links'),
-            'media_google_play'     => trans('admin.strings.medias.google_play'),
-            'media_apple_store'     => trans('admin.strings.medias.apple_store'),
+        return [
+            'social_icons.*'    => trans('admin.global.icon'),
+            'social_typs.*'     => trans('admin.global.type'),
+            'social_links.*'    => trans('admin.global.links'),
+            'social_status.*'   => trans('admin.global.status'),
         ];
-
-        return $rules;
 
     }//end of attributes
 

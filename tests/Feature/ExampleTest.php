@@ -14,7 +14,7 @@ class ExampleTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // إنشاء مستخدم إداري (admin) لتسجيل الدخول
+
         $admin = Admin::find(1);
         $this->actingAs($admin, 'admin');
     }

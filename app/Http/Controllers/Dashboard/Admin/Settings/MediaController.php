@@ -12,20 +12,31 @@ class MediaController extends Controller
     {
         abort_if(!permissionAdmin('read-settings'), 403);
 
-        $breadcrumb = [['trans' => 'admin.settings.media']];
+        $breadcrumb = [['trans' => 'admin.models.settings'], ['trans' => 'admin.settings.media']];
 
-    	return view('dashboard.admin.settings.media', compact('breadcrumb'));
+    	return view('dashboard.admin.settings.social-links.index', compact('breadcrumb'));
 
     }//end of index
 
     public function store(MediaRequest $request)
     {
-        saveTransSetting('media_facebook', $request->media_facebook ?? '');
-        saveTransSetting('media_twitter', $request->media_twitter ?? '');
-        saveTransSetting('media_instagram', $request->media_instagram ?? '');
-        saveTransSetting('media_video_links', $request->media_video_links ?? '');
-        saveTransSetting('media_google_play', $request->media_google_play ?? '');
-        saveTransSetting('media_apple_store', $request->media_apple_store ?? '');
+        if (!empty($request->get('social_types')) && !empty($request->get('social_links'))) {
+            
+            $social = [];
+
+            foreach ($request->get('social_types') as $index=>$type) {
+
+                $social[] = [
+                    'type'  => $type,
+                    'icon'  => $request->get('social_icons')[$index] ?? '',
+                    'link'  => $request->get('social_links')[$index] ?? '',
+                    'status'=> $request->get('social_status')[$index] ? 1 : 0,
+                ];
+
+            }
+
+            saveSetting('social_links', $social ?? []);
+        }
 
         session()->flash('success', __('admin.messages.updated_successfully'));
         return redirect()->back();

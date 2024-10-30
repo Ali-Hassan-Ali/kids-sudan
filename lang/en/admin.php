@@ -23,6 +23,7 @@ return array('global' =>
                 'number'      => 'Number',
                 'image'       => 'Image',
                 'logo'        => 'Logo',
+                'icon'        => 'Icon',
                 'type'        => 'type',
                 'picture'     => 'Picture',
                 'flag'        => 'Flag',
