@@ -35,7 +35,7 @@ class MediaController extends Controller
 
             }
 
-            saveSetting('social_links', $social ?? []);
+            setting('social_links')->save($social);
         }
 
         session()->flash('success', __('admin.messages.updated_successfully'));

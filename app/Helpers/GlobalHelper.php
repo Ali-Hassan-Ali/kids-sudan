@@ -1,7 +1,8 @@
 <?php
 
-use \App\Services\DataTables\DatatableServices;
 use \App\Services\DataTables\Actions\ActionBuilderServices;
+use \App\Services\DataTables\DatatableServices;
+use \App\Services\Settings\SettingsServices;
 use \App\Models\Language;
 
 if (!function_exists('permission_admin')) {
@@ -51,6 +52,16 @@ if (!function_exists('datatableServices')) {
     function datatableAction($model, $permissions): ActionBuilderServices
     {
         return new ActionBuilderServices($model, $permissions);
+
+    }//end of fun
+
+ }//end of exists
+
+ if (!function_exists('setting')) {
+    
+    function setting(string $key = ''): SettingsServices
+    {
+        return new SettingsServices($key);
 
     }//end of fun
 
