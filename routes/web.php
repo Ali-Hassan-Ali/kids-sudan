@@ -2,22 +2,26 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::view('/', 'welcome');
 
-return to_route('dashboard.admin.index');
+Route::get('/test', function () {
 
-// test
+//     // dd(route('dashboard.admin.index'));
 
+// // return to_route('dashboard.admin.index');
+
+// // test
 //     ///////////////////////// single  //////////////////////////////////
 
 //     $items = [
-//         'name'  => 'name value',
+//         'name'  => 'name value new',
 //         'email' => 'email value',
 //     ];
 
-//     setting('item_single')->save($items);
+//     dd(setting('item_single')->save($items));
 
-//     // dd(setting('item_single'), setting('item_single')->name, setting('item_single')->value);//name value
+//     // dd(setting('item_single'), setting('item_single')->email);
+
 
 //     ///////////////////////// singleLanguage  //////////////////////////////////
 
@@ -27,15 +31,15 @@ return to_route('dashboard.admin.index');
 //     ];
 
 //     setting('single_language')->save($items);
-
+// // dd('ffffffff');
 //     // dd(setting('single_language')->name);//default lang 
 
 //     ////////////////////////////  singleMultiple  ///////////////////////////////
 
 //    $items = [
 //         [
-//             'name'  => 'name value 1',
-//             'email' => 'email value 1',
+//             'name'  => 'name value 1aaaaaaaaaaaaa',
+//             'email' => 'email value rwa',
 //         ],
 //         [
 //             'name'  => 'name value 2',
@@ -48,9 +52,9 @@ return to_route('dashboard.admin.index');
 //     ];
 
 //     setting('single_multiple')->save($items);
-//     // dd(setting('item')->get());
+//     // dd(setting('single_multiple')->get());
 //     foreach (setting('single_multiple')->get() as $item) {
-//         // dd($item->name, $item->email); //name value 1
+//         // dd($item->email); //name value 1
 //     }
 
 //     ////////////////////////////  singleMultipleLangugage  ///////////////////////////////
@@ -73,8 +77,8 @@ return to_route('dashboard.admin.index');
 //     setting('single_multiple_langugage')->save($items);
 
 //     foreach (setting('single_multiple_langugage')->get() as $item) {
-// // /        dd($item->name, $item->email); // defult lang
-//         // dd($item->name->en) // name value 1 ar
+//         // dd($item->name, $item->email); 
+//         // dd($item->email); // name value 1 ar
 //     }
 
 //     ////////////////////////////  Multiple  ///////////////////////////////
@@ -122,9 +126,12 @@ return to_route('dashboard.admin.index');
 
 //     foreach (setting('multiple_langugage')->get() as $item) {
 
-//         dd($item->name,$item->email);
+//         dd($item->name, $item->email);
 //     }
+    // https://www.udemy.com/share/101WXE3@wqSF03TKnGWxJ6w6eBDlkeaYV0AxbV_7k5rKLztjRjp3RzoFDdsRA6Z_tOOBmJkhgw==/
+//     🚀I am a passionate and versatile software developer dedicated to crafting elegant and efficient solutions to complex problems. With a strong foundation in computer science and a love for coding, I have made it my mission to create software that not only meets the needs of users but also pushes the boundaries of innovation.🚀
+// Born and raised in 🐣 Syria 🇸🇾, I discovered my passion for programming ⌨️ at an early age. This innate curiosity led me to pursue a Bachelor's degree 🎓 in Computer Science at SPU, where I gained a solid understanding of software development principles, algorithms, and data structures.
 
-
+    return 'done';
     return view('welcome');
 });

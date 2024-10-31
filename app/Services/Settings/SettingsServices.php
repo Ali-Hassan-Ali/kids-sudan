@@ -47,23 +47,21 @@ class SettingsServices
 	{
 	    $locale = app()->getLocale();
 
-	    return array_map(function ($item) use ($locale) {
+        if (!is_array($this->value)) return $this->value;
 
-	        $localizedItem = [];
-
-	        foreach ($item as $key => $value) {
-
-	            $localizedItem[$key] = is_array($value) ? ($value[$locale] ?? $value[$locale] ?? reset($value)) : $value;
-
-	        }
-
-	        return (object) $localizedItem;
-
-	    }, $this->value);
+        return array_map(fn($item) => (object) collect($item)->mapWithKeys(
+            fn($value, $key) => [
+                $key => is_array($value) ? ($value[$locale] ?? reset($value)) : $value
+            ]
+        )->all(), $this->value);
 	}
 
     public function __get($property)
     {
-        return $this->value[$property] ?? $this->value ?? null;
+        $locale = app()->getLocale();
+
+        return $this->value[$property][$locale] ?? $this->value[$property] ?? $this->value ?? null;
     }
 }
+
+

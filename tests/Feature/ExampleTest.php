@@ -75,19 +75,19 @@ class ExampleTest extends TestCase
 
     }
 
-    public function test_destroy_deletes_admin()
+    public function it_destroy_deletes_admin()
     {   
-        // Clear cache()
-        $file = UploadedFile::fake()->image(str()->random(12) . '.jpg');
-
         $admin = Admin::factory()->create(['image' => 'admins/' . $file->hashName()]);
-
-        $response = $this->delete(route('dashboard.admin.managements.admins.destroy', $admin));
-        
-        $response->assertStatus(200);
+    
+        $file = UploadedFile::fake()->image(str()->random(12) . '.jpg');
 
         Storage::disk('public')->delete('admins/' . $file->hashName());
 
-        // $this->assertResponse('success', __('admin.messages.deleted_successfully'));
+        $response = $this->delete(route('dashboard.admin.managements.admins.destroy', $admin));
+
+        $response->assertStatus(204);
+        $this->assertDatabaseMissing('delete', ['id' => $admin->id]);
+
+        $this->assertResponse('success', __('admin.messages.deleted_successfully'));
     }
 }
