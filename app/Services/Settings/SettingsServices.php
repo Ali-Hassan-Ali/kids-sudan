@@ -21,7 +21,6 @@ class SettingsServices
         if (!self::$instance || self::$instance->key !== $key) {
 
             self::$instance = new self($key);
-
         }
 
         return self::$instance;
@@ -40,7 +39,14 @@ class SettingsServices
     {
         $setting = Setting::where('key', $this->key)->first();
 
-        $this->value = $setting ? json_decode($setting->value, true) : null;
+        if (!$setting) {
+
+            Setting::updateOrCreate(['key' => $this->key]);
+
+            $setting = Setting::where('key', $this->key)->first();
+        }
+
+        $this->value = isset($setting?->value) ? (json_validate($setting?->value) ? json_decode($setting->value, true) : $setting?->value) : null;
     }
 
     public function get(): string | array
@@ -50,9 +56,7 @@ class SettingsServices
         if (!is_array($this->value)) return $this->value;
 
         return array_map(fn($item) => (object) collect($item)->mapWithKeys(
-            fn($value, $key) => [
-                $key => is_array($value) ? ($value[$locale] ?? reset($value)) : $value
-            ]
+            fn($value, $key) => [$key => is_array($value) ? ($value[$locale] ?? reset($value)) : $value]
         )->all(), $this->value);
 	}
 
@@ -62,6 +66,6 @@ class SettingsServices
 
         return $this->value[$property][$locale] ?? $this->value[$property] ?? $this->value ?? null;
     }
+
+    public function toArray() { return $this->value }
 }
-
-

@@ -17,6 +17,14 @@ class SettingsServicesTest extends TestCase
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
+    public function it_can_save_and_retrieve_string_setting()
+    {
+        $items = 'logo_name.png';
+        response(setting('logo')->save($items), 200);
+        $this->assertEquals($items, setting('logo')->value);
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_can_save_and_retrieve_single_setting()
     {
         $items = [

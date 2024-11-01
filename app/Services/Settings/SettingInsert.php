@@ -1,6 +1,16 @@
 <?php
 
 //done
+public function string()
+{
+	$items = 'name_logo.png';
+
+	setting('logo')->save($items);
+
+	setting('logo')->value;//name_logo.png
+}
+
+//done
 public function single()
 {
 	$items = [
@@ -123,7 +133,7 @@ public function MultipleLangugage()
 
 	foreach (setting('item')->get() as $item) {
 
-		dd($item->name->en);//name value 1 en
+		dd($item->name);//name value 1 en
 	}
 
 	setting('item')->get();
