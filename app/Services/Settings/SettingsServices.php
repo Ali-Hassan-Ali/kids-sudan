@@ -6,7 +6,6 @@ use App\Models\Setting;
 
 class SettingsServices
 {
-    private static ?SettingsServices $instance = null;
     private string $key;
     private mixed $value;
 
@@ -14,16 +13,6 @@ class SettingsServices
     {
         $this->key = $key;
         $this->loadValue();
-    }
-
-    public static function instance(string | array $key): SettingsServices
-    {
-        if (!self::$instance || self::$instance->key !== $key) {
-
-            self::$instance = new self($key);
-        }
-
-        return self::$instance;
     }
 
     public function save(array | string $data): void
