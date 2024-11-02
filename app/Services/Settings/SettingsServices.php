@@ -67,5 +67,8 @@ class SettingsServices
         return $this->value[$property][$locale] ?? $this->value[$property] ?? $this->value ?? null;
     }
 
-    public function toArray() { return $this->value }
+    public function toArray()
+    { 
+        return $this->value;
+    }
 }
