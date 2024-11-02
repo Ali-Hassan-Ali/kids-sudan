@@ -17,15 +17,19 @@ class SettingsServicesTest extends TestCase
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
-    public function it_can_save_and_retrieve_string_setting()
+    public function test_can_save_and_retrieve_string_setting()
     {
         $items = 'logo_name.png';
+        response(setting('logo')->save($items), 200);
+        $this->assertEquals($items, setting('logo')->value);
+
+        $items = rand(6, 19) . '.png';
         response(setting('logo')->save($items), 200);
         $this->assertEquals($items, setting('logo')->value);
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
-    public function it_can_save_and_retrieve_single_setting()
+    public function test_can_save_and_retrieve_single_setting()
     {
         $items = [
             'name' => 'name value new',
@@ -39,7 +43,7 @@ class SettingsServicesTest extends TestCase
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
-    public function it_can_save_and_retrieve_single_language_setting()
+    public function test_can_save_and_retrieve_single_language_setting()
     {
         $items = [
             'name' => ['ar' => 'name ar', 'en' => 'name en'],
@@ -53,7 +57,7 @@ class SettingsServicesTest extends TestCase
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
-    public function it_can_save_and_retrieve_single_multiple_setting()
+    public function test_can_save_and_retrieve_single_multiple_setting()
     {
         $items = [
             [
@@ -79,7 +83,7 @@ class SettingsServicesTest extends TestCase
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
-    public function it_can_save_and_retrieve_single_multiple_language_setting()
+    public function test_can_save_and_retrieve_single_multiple_language_setting()
     {
         $items = [
             [
@@ -104,7 +108,7 @@ class SettingsServicesTest extends TestCase
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
-    public function it_can_save_and_retrieve_multiple_setting()
+    public function test_can_save_and_retrieve_multiple_setting()
     {
         $items = [
             [
@@ -129,7 +133,7 @@ class SettingsServicesTest extends TestCase
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
-    public function it_can_save_and_retrieve_multiple_language_setting()
+    public function test_can_save_and_retrieve_multiple_language_setting()
     {
         $items = [
             [

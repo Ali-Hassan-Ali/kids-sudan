@@ -26,7 +26,7 @@ class SettingsServices
         return self::$instance;
     }
 
-    public function save(array|string $data): void
+    public function save(array | string $data): void
     {
         $value = is_array($data) ? json_encode($data) : $data;
 
@@ -37,14 +37,7 @@ class SettingsServices
 
     private function loadValue(): void
     {
-        $setting = Setting::where('key', $this->key)->first();
-
-        if (!$setting) {
-
-            Setting::updateOrCreate(['key' => $this->key]);
-
-            $setting = Setting::where('key', $this->key)->first();
-        }
+        $setting = Setting::where('key', $this->key)->first() ?? Setting::updateOrCreate(['key' => $this->key]);
 
         $this->value = isset($setting?->value) ? (json_validate($setting?->value) ? json_decode($setting->value, true) : $setting?->value) : null;
     }
