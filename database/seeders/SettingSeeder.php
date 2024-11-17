@@ -53,21 +53,29 @@ class SettingSeeder extends Seeder
 
     protected function contact()
     {
-        $items = ['phone' => '(+800) 123 456 7890', 'email' => 'manager@shop.com', 'address' => 'Location store test', 'address_link' => 'http://mjastore.test'];
+        $items = [
+            'phone' => '(+800) 123 456 7890',
+            'email' => 'manager@shop.com',
+            'address' => 'Location store test',
+            'address_link' => 'http://mjastore.test'
+        ];
         
-        foreach ($items as $key=>$value) {
-            saveTransSetting('contact_' . $key, $value);
-        }
+        saveMultipleSetting('contact_', $items);
         
     }//end mof contact
 
     protected function media()
     {
-        $items = ['facebook' => 'https://www.facebook.com/', 'twitter' => 'https://twitter.com/', 'instagram'  => 'https://www.instagram.com/', 'video_links' => 'https://www.bibaTransApp/.app/watch?v=_cos-M5TbC8', 'google_play' => 'https://bibaTransApp.app', 'apple_store' => 'https://test.com/'];
+        $items = [
+            'facebook' => 'https://www.facebook.com/',
+            'twitter' => 'https://twitter.com/',
+            'instagram'  => 'https://www.instagram.com/',
+            'video_links' => 'https://www.bibaTransApp/.app/watch?v=_cos-M5TbC8',
+            'google_play' => 'https://bibaTransApp.app',
+            'apple_store' => 'https://test.com/'
+        ];
         
-        foreach ($items as $key=>$value) {
-            saveTransSetting('media_' . $key, $value);
-        }
+        saveMultipleSetting('media_', $items);
         
     }//end mof media
 

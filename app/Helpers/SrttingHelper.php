@@ -26,15 +26,22 @@ use App\Models\Setting;
     
     function saveSetting(string $key, $value = '')
     {
-        $setting = Setting::where('key', $key)->first();
+        // $setting = Setting::where('key', $key)->first();
+        // if(!$setting) {
+                //return $setting = Setting::create(['key' => $key]);
+        // }
+        // return $setting->update(['value' => $value]);
 
-        if(!$setting) {
-
-            return $setting = Setting::create(['key' => $key]);
-
-        }
+        $setting = Setting::updateOrCreate(
+            ['key' => $key],
+            [
+                'key' => $key,
+                'value' => $value
+            ]
+        );
         
-        return $setting->update(['value' => $value]);
+        return $setting;
+
 
     }//en dof fun
 
@@ -74,11 +81,19 @@ use App\Models\Setting;
     
     function saveTransSetting(string $key, $value)
     {
-        $setting = Setting::where('key', $key)->first();
-        if(!$setting) {
-            $setting = Setting::create(['key' => $key]);  
-        } 
-        $setting->update(['value' => $value]);
+        // $setting = Setting::where('key', $key)->first();
+        // if(!$setting) {
+        //     $setting = Setting::create(['key' => $key]);  
+        // } 
+        // $setting->update(['value' => $value]);
+
+        $setting = Setting::updateOrCreate(
+            ['key' => $key],
+            [
+                'key' => $key,
+                'value' => $value
+            ]
+        );
 
     }//en dof fun
 
@@ -153,3 +168,15 @@ use App\Models\Setting;
     }//end of fun
 
  }//end of getItemTagesSetting
+
+if (!function_exists('saveFakeSetting')) {
+    
+    function saveMultipleSetting($type = '', $items)
+    { 
+        foreach ($items as $key=>$value) {
+            saveTransSetting($type . $key, $value);
+        }
+
+    }//end of fun
+
+}//end of exists
