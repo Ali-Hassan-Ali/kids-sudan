@@ -169,7 +169,7 @@ use App\Models\Setting;
 
  }//end of getItemTagesSetting
 
-if (!function_exists('saveFakeSetting')) {
+if (!function_exists('saveMultipleSetting')) {
     
     function saveMultipleSetting($type = '', $items)
     { 
