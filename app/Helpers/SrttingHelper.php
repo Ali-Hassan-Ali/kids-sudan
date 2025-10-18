@@ -171,7 +171,7 @@ use App\Models\Setting;
 
 if (!function_exists('saveMultipleSetting')) {
     
-    function saveMultipleSetting($type = '', $items)
+    function saveMultipleSetting($type = '', $items = [])
     { 
         foreach ($items as $key=>$value) {
             saveTransSetting($type . $key, $value);
